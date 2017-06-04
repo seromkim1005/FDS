@@ -70,7 +70,7 @@ ECMA-262 표준은 또한 IOS-16262로서 [ISO](http://www.iso.ch/)(국제 표�
 ECMAScript 명세는 ECMAScript 구현을 위한 요구사항의 집합입니다.
 여러분이 여러분의 ECMAScript 구현이나 엔진(가령 Firefox의 SpiderMondey, 또는 Chrome의 v8)에서 표준을 따르는 언어의 기능을 구현하길 원할 때 유용합니다.
 
-ECMAScript 문서는 스크립트 프로그래머를 돕기 위함이 아닙니다; 스크립트 작성을 위한 정보는 JavaScript 문서를 사용하세요.
+ECMAScript 문서는 스크립트 프로그래머를 돕기 위함이 아닙니다. 스크립트 작성을 위한 정보는 JavaScript 문서를 사용하세요.
 
 ECMAScript 명세는 JavaScript 프로그래머에게 익숙하지 않을 수 있는 용어와 문법을 사용합니다.
 언어의 기술이 ECMAScript 에서 다를 수 있지만, 언어 그 자체는 같습니다. JavaScript는 ECMAScript 명세에 서술된 모든 기능을 지원합니다.

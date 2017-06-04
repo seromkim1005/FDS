@@ -7,4 +7,3 @@
 // 2. JavaScript 와 JAVA 는 다른가?
 
 // 3. JavaScript 와 ECMAScript 같은 건가?
-
