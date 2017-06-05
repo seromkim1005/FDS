@@ -239,7 +239,45 @@ function factorial(n) {
 
 
 // ---------------------------------------
-// 함수 프로토타입 객체가 가진 능력
+// Number.prototype
+// String.prototype
+// Boolean.prototype
+// Array.prototype
+// Object.prototype
+//
+// 함수 프로토타입 객체(선언, 할당된 모든 함수객체)가 가진 능력
+// .call()
+// .apply()
+// .bind()    <- 2009, ES5 (IE 9+)
+// Function.prototype
+
+// Function.prototype {}
+// console.dir(Function.prototype);
+
+// 일반적인 함수 실행에서의 this
+// (객체.)함수() // this === 객체
+var electric_fan = {
+  name: '선풍기',
+  on: function(power, time) {
+    console.log('this:', this);
+    power = power || 1;
+    time = time || 1;
+    console.log(this.name + '를 파워 '+ power +' 만큼 '+ time +'시간 동안 세게 가동하다');
+  },
+  off: function() {
+    console.log('this:', this);
+    console.log(this.name + '를 가동 중지하다');
+  },
+}
+
+// .call(), .apply() 실행에서의 this
+// this 컨텍스트 객체를 교체(변경)할 수 있다.
+// (객체.)함수.call(컨텍스트 객체, 전달인자(각각 콤마로 구분 전달));
+// (객체.)함수.apply(컨텍스트 객체 전달인자(배열로 묶어서 전달));
+
+
+
+
 
 
 // ---------------------------------------
