@@ -136,7 +136,7 @@ function sum(n1, n2, n3, n4, n5) {
   // 인자를 집합으로 만들면?
   // 사용자가 전달한 인자들을 집합(Array)의 아이템으로 설정해보세요.
 
-  var num_collection = [n1, n2];
+  var num_collection = [n1, n2, n3 ,n4 ,n5];
   num_collection.push(n3);
   num_collection.push(n4);
   num_collection.push(n5);
@@ -146,39 +146,100 @@ function sum(n1, n2, n3, n4, n5) {
   // length를 알고 있는 당신?
   // 구문 반복 처리
   // while, do ~ while, for
-
   var l = num_collection.length; // l === 5
   var result = 0;
   while (l--) {
     var n = num_collection[l]; // 4, 3, 2, 1
     if ( !isNumber(n) ) { throw '오류' }
-    result + n;
+    result += n;
   }
-
   return result;
-
 }
 
 function anotherSum() {
   // 사용자가 함수를 실행할 때, 전달한 인자의 집합 객체를 참조하는 변수 제공
   // 유사 배열(Array like Object): 배열과 비슷
   // 배열처럼 length 속성을 가진다.
+
   // arguments // [1, 2], [1, 2, 3, 4, 5], [1010, 100, 210, 35, -20]
-  for ( var n, k=0, i=0, l=arguments.length; i<l; ++i ) {
-    n = arguments[i];
-    // n = 1, n = 2
-    k += n;
+
+  // for ( var n, k=0, i=0, l=arguments.length; i<l; ++i ) {
+  //   n= arguments[i];
+  //   k += n;
+  // }
+  // return k;
+
+  for ( var n=0, i=0, l=arguments.length; i<l; ++i ) {
+    n += arguments[i];
   }
-  return k;
+  return n;
 }
 
-anotherSum(1, 2); // 2
-anotherSum(1, 2, 3, 4, 5); // 5
-anotherSum(1010, 100, 210, 35, -20); // 5
+var r1 = anotherSum(1, 2); // 2
+var r2 = anotherSum(1, 2, 3, 4, 5); // 5
+var r3 = anotherSum(1010, 100, 210, 35, -20); // 5
+
+console.log('r1:', r1);
+console.log('r2:', r2);
+console.log('r3:', r3);
+
+// ---------------------------------------------------
+// arguments 객체는 배열일까?
+function argumentsObjectIsntArray() {
+  // arguments 객체는 유사 배열로
+  // length 속성을 가지지만,
+  // 배열의 메서드를 사용할 수는 없다.
+  console.log(arguments);
+  console.log(arguments.length);
+  console.log('arguments.push:', !!arguments.push);
+}
+
+argumentsObjectIsntArray();
+argumentsObjectIsntArray([9, 8, 7]);
+
+// ---------------------------------------------------
+// arguments 객체는 배열이 아닌데, 배열처럼 사용할 수 없을까?
+function argumentsConvertArray() {
+  var args = makeArray(arguments);
+  console.log(!!args.push); // true
+}
+
+// [4, null, [1, 3]]
+argumentsConvertArray(4, null, [1, 3])
 
 
 // ---------------------------------------
 // 재귀(再歸) 함수
+// 자신을 다시 호출하는 함수
+// arguments.callee - 주의! 사용하지 마세요.
+
+// 팩토리얼(Factorial)
+// http://www.mathatube.com/images/factorials.JPG
+// 1! = 1 = 1
+// 2! = 2 x 1 = 2
+// 3! = 3 x 2 x 1 = 6
+// 4! = 4 x 3 x 2 x 1 = 24
+// 5! = 5 x 4 x 3 x 2 x 1 = 120
+
+function factorial(n) {
+  if ( n < 2 ) { return 1; }
+
+  // 재귀 함수가 아닌, 반복문을 활용한 예
+  // var nn = n;
+  // do { nn *= --n; }
+  // while(n > 1);
+  // return nn;
+
+  // 재귀 함수를 활용한 예
+  // 2 x 1
+  // 3 x 2 x 1
+  return n * factorial(--n);
+}
+
+
+
+// ---------------------------------------
+// 함수 프로토타입 객체가 가진 능력
 
 
 // ---------------------------------------

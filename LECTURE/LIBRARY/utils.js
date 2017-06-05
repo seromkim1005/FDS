@@ -159,3 +159,21 @@ function isArray(data) {
 function isObject(data) {
   return isType(data, 'object');
 }
+
+/**
+ * 유사 배열 객체를 배열 객체로 변경(복사) 처리하여 반환하는 유틸리티 함수
+ *
+ * @param {any} o   - 유사 배열 객체 ( 배열과 흡사한 객체 e.g) arguments, NodeList )
+ * @returns {array} - (복사된) 배열 객체
+ */
+function makeArray(o) {
+  // var array = [];
+  // if ( !('length' in o) ) { return []; }
+  // for ( var i=0; i<o.length; i++ ) {
+  //   array.push(o[i]);
+  // }
+  // return array;
+  if ( !('length' in o) ) { return []; }
+  // 메서드 빌려쓰기 패턴
+  return Array.prototype.slice.call(o);
+}
