@@ -1,26 +1,181 @@
 /*! 01.functions.js @ 2017, yamoo9.net */
 
-// ——————————————————————————————————————
+// ——————————————————————————————————————————————————————
 // 함수
-// ——————————————————————————————————————
+// 1. MDN 레퍼런스는 끝나기 한시간 전에 읽어보라고 이야기 할 겁니다.
+// 2. 내일 뭐할 건지 이야기 드립니다.
+// ——————————————————————————————————————————————————————
 
 // ---------------------------------------
 // 함수 선언하기
+// 1. 함수 식(익명함수)을 변수에 할당(대입) -> 참조
+var registerUserInfo = function() { console.log('registerUserInfo 함수 실행'); };
+// 2. 함수 이름을 붙여서 선언하기 -> 함수 선언문
+function getUserInfo(){ console.log('getUserInfo 함수 실행'); }
+
 
 // ---------------------------------------
 // 함수 호출하기
+// 함수인지 검증 후 실행
+
+// [문] if문을 사용한 예
+if ( isFunction(registerUserInfo) ) {
+  registerUserInfo();
+}
+
+// [식] 논리 연산자(&&, ||)를 사용한 예
+// m1 && m2: m1이 참일 때 m2도 실행
+// m1 || m2: m1이 거짓일 때 m2가 실행
+isFunction(getUserInfo) && getUserInfo();
 
 // ---------------------------------------
-// 함수 범위
+// 함수 범위(영역, Scope)
+// 전역, 지역
+// ES6 이전의 환경에서는 범위는 함수 영역 밖에 존재하지 않는다.
 
 // ---------------------------------------
-// this 컨텍스트
+// 스코프 체인(Scope Chain)
+
+// Global Scope
+var g_scope = '전역 변수';
+// Local Scope (in function)
+function localScope() {
+  // 함수 안 (지역)
+  // 1. 변수 영역
+  // 2. Parameters(매개변수) 영역
+  // 3. 함수를 포함하는 상위 영역
+  // 4. 전역
+  // 5. ReferenceError 발생!
+  console.log('g_scope:', g_scope);
+
+  // 함수는 실행 가능
+  innerScopeFn();
+  // 스코프 호이스팅 현상 발생
+  function innerScopeFn() {
+    console.log('l_scope:', l_scope); // ???
+    var l_scope = '지역 변수';
+  }
+
+}
+
+// 함수 실행
+// 전역에서 localScope라는 함수가 실행되었다.
+// 전역 변수, 전역 함수 -> 전역 객체의 속성(메서드) 이다.
+// window.localScope()
+localScope();
+
+
+// ---------------------------------------
+// this 컨텍스트(Context)
+// 영역 내, this 변수가 무엇을 참조하나?
+// 함수를 누가 실행시켰나?
+// 컨텍스트 메뉴(Context Menu)
+
+// 전역 함수 정의
+// window 전역 객체의 속성(메서드)
+function whoCallMe() {
+  // this는 자신(this)을 포함하는 함수를 실행시킨 컨텍스트 객체(주체)
+  console.log('this:', this);
+}
+// 명시적 함수 실행
+window.whoCallMe(); // this -> window {}
+
+// 암시적 함수 실행
+whoCallMe(); // this -> window {}
+
+// 객체의 속성(메서드) 정의
+var me = {
+  whatIsThis: function() {
+    console.log('this:', this);
+  },
+  // whoCallMe: whoCallMe
+  callMe: whoCallMe
+};
+
+// 명시적 함수(객체.속성(메서드)) 실행
+me.whatIsThis(); // this -> me {}
+
 
 // ---------------------------------------
 // Arguments(전달인자)와 Parameters(매개변수)
+function displayBlockElement(el) {
+  // 매개변수 el = 전달인자;
+  // el = <element id="app"></element>;
+  // var 를 사용하는 것은 일반 변수
+  // 함수의 선언 구문 () 괄호 안에 선언된 변수 === 매개변수(parameters)
+  // 함수 로직
+  // 전달 받은 요소의 display 스타일 속성 값을 'block'으로 설정한다.
+  el.style.display         = 'block';
+  // CSS 속성(2개 이상의 음절로 구분되는)을 적용한 예시
+  el.style.borderTopColor  = '#4321fe';
+  el.style['margin-right'] = '1rem';
+}
+
+// 함수가 실행될 때,
+// 무엇을 전달할 것인가?
+// 전달인자(arguments)
+// displayBlockElement( document.getElementById('app') ); // <element id="app"></element>
+
+// this 참조 검증
+// 전역 함수를 정의
+// 전역 함수 명시적 실행
+// 전역 함수 암시적 실행을 통해 this 가 참조하는 객체가 무엇인지 확인
+// 전역에서 this는 무엇을 참조(가리키나)?
+
+// 사용자 객체를 정의
+// 사용자 객체의 메서드로 이미 정의된 바 있는 전역 함수를 참조 시켜본다. (함수이름 O, 함수이름() X )
+// 사용자 객체의 메서드를 실행해 봄으로서 this 가 참조하는 객체를 확인한다.
+
 
 // ---------------------------------------
 // Arguments(전달인자) 객체
+
+// 수의 합을 반환하는 함수
+function sum(n1, n2, n3, n4, n5) {
+  // 전달된 인자가 몇 개인지 모를 때?
+  // 인자를 집합으로 만들면?
+  // 사용자가 전달한 인자들을 집합(Array)의 아이템으로 설정해보세요.
+
+  var num_collection = [n1, n2];
+  num_collection.push(n3);
+  num_collection.push(n4);
+  num_collection.push(n5);
+
+  // num_collection.length === 5
+
+  // length를 알고 있는 당신?
+  // 구문 반복 처리
+  // while, do ~ while, for
+
+  var l = num_collection.length; // l === 5
+  var result = 0;
+  while (l--) {
+    var n = num_collection[l]; // 4, 3, 2, 1
+    if ( !isNumber(n) ) { throw '오류' }
+    result + n;
+  }
+
+  return result;
+
+}
+
+function anotherSum() {
+  // 사용자가 함수를 실행할 때, 전달한 인자의 집합 객체를 참조하는 변수 제공
+  // 유사 배열(Array like Object): 배열과 비슷
+  // 배열처럼 length 속성을 가진다.
+  // arguments // [1, 2], [1, 2, 3, 4, 5], [1010, 100, 210, 35, -20]
+  for ( var n, k=0, i=0, l=arguments.length; i<l; ++i ) {
+    n = arguments[i];
+    // n = 1, n = 2
+    k += n;
+  }
+  return k;
+}
+
+anotherSum(1, 2); // 2
+anotherSum(1, 2, 3, 4, 5); // 5
+anotherSum(1010, 100, 210, 35, -20); // 5
+
 
 // ---------------------------------------
 // 재귀(再歸) 함수

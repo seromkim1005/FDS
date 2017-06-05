@@ -98,3 +98,64 @@ function randomRange(n1, n2) {
   max = Math.max(n1, n2);
   return randomMinMax(min, max);
 }
+
+/**
+ * 숫자 유형의 데이터인지 감별하는 유틸리티 함수
+ * @global
+ * @func isNumber
+ * @param {any} data  - JavaScript의 모든 데이터 유형
+ * @returns {boolean} - 숫자 유형인지 아닌지 유무 true | false
+ */
+function isNumber(data) {
+  return isType(data, 'number') && !Number.isNaN(data);
+}
+/**
+ * 문자 유형의 데이터인지 감별하는 유틸리티 함수
+ * @global
+ * @func isString
+ * @param {any} data  - JavaScript의 모든 데이터 유형
+ * @returns {boolean} - 문자 유형인지 아닌지 유무 true | false
+ */
+function isString(data) {
+  return isType(data, 'string');
+}
+/**
+ * 불리언 유형의 데이터인지 감별하는 유틸리티 함수
+ * @global
+ * @func isBoolean
+ * @param {any} data  - JavaScript의 모든 데이터 유형
+ * @returns {boolean} - 불리언 유형인지 아닌지 유무 true | false
+ */
+function isBoolean(data) {
+  return isType(data, 'boolean');
+}
+/**
+ * 함수 유형의 데이터인지 감별하는 유틸리티 함수
+ * @global
+ * @func isFunction
+ * @param {any} data  - JavaScript의 모든 데이터 유형
+ * @returns {boolean} - 함수 유형인지 아닌지 유무 true | false
+ */
+function isFunction(data) {
+  return isType(data, 'function');
+}
+/**
+ * 배열 유형의 데이터인지 감별하는 유틸리티 함수
+ * @global
+ * @func isArray
+ * @param {any} data  - JavaScript의 모든 데이터 유형
+ * @returns {boolean} - 배열 유형인지 아닌지 유무 true | false
+ */
+function isArray(data) {
+  return isType(data, 'array');
+}
+/**
+ * 객체(Object) 유형의 데이터인지 감별하는 유틸리티 함수
+ * @global
+ * @func isObject
+ * @param {any} data  - JavaScript의 모든 데이터 유형
+ * @returns {boolean} - 객체(Object) 유형인지 아닌지 유무 true | false
+ */
+function isObject(data) {
+  return isType(data, 'object');
+}
