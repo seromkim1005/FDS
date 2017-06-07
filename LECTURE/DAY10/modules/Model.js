@@ -8,29 +8,34 @@
 // 변경 가능: 추후에 아이템을 추가/제거/수정 할 수 있다.
 
 // Model 함수를 정의
-function Model(data) {
-  // 관리할 초기 데이터 설정
-  data = isArray(data) ? data : [];
+var Model = function(global, FDS){
+  // FDS 모듈이 존재하지 않을 경우 -> 오류 발생
+  if ( !FDS ) { throw 'Model.js는 FDS 모듈에 의존하는 개발 파일입니다.' }
 
-  var _modelManager = {
-    // 객체의 멤버 정의
-    // 등록(추가)
-    add: function(item, direction) {
-      validateError(item, 'undefined', '인자를 전달해주세요');
-      direction = direction === 'before' ? 'unshift' : 'push';
-      data[direction](item);
-    },
-    // 변경(수정)
-    // 제거
-    // 현재 관리 데이터 가져오기
-    getData: function() {
-      return data;
-    },
-    getDataCount: function() {
-      return data.length;
-    }
-  };
+  return function(data) {
+    // 관리할 초기 데이터 설정
+    data = FDS.isArray(data) ? data : [];
 
-  return _modelManager;
+    var _modelManager = {
+      // 객체의 멤버 정의
+      // 등록(추가)
+      add: function(item, direction) {
+        validateError(item, 'undefined', '인자를 전달해주세요');
+        direction = direction === 'before' ? 'unshift' : 'push';
+        data[direction](item);
+      },
+      // 변경(수정)
+      // 제거
+      // 현재 관리 데이터 가져오기
+      getData: function() {
+        return data;
+      },
+      getDataCount: function() {
+        return data.length;
+      }
+    };
 
-}
+    return _modelManager;
+  }
+
+}(window, window.FDS);
