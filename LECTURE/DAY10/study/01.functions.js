@@ -31,8 +31,10 @@
 // (function(){}());
 // (function(){})();
 
+// 객체 값을 변수에 참조한 예
 var memorial_card = {};
 
+// IIFE 패턴을 사용하여 실행된 결과 값 객체를 반환 받은 변수 예
 var another_memorial_card = (function(){
   return {};
 }());
@@ -44,10 +46,13 @@ var another_memorial_card = (function(){
 // Front-End Env. 확장자가 .js 인 파일이 자체로 독립적이지 않다. (충돌 가능성 높다)
 // Back-End Env. 확장자가 .js 인 파일은 자체로 독립적이다. (충돌 X)
 
-// a.js
-// b.js
-// c.js
-// d.js
+// 웹 브라우저에서 아래 파일들을 읽어들이면 모두 전역에 노출된 상태이기에
+// 같은 이름의 변수, 함수는 충돌이 발생하게 되고, 프로그램은 망가지게 된다.
+// module-A.js
+// module-B.js
+// module-C.js
+// module-D.js
+
 
 // ------------------------------------------------------
 // 클로저(Closures)
