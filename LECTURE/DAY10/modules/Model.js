@@ -6,3 +6,31 @@
 // 배열은 다수의 아이템(객체)을 가진다.
 // 초기 값 설정: 배열은 초기 데이터(아이템)를 소유할 수 있다.
 // 변경 가능: 추후에 아이템을 추가/제거/수정 할 수 있다.
+
+// Model 함수를 정의
+function Model(data) {
+  // 관리할 초기 데이터 설정
+  data = isArray(data) ? data : [];
+
+  var _modelManager = {
+    // 객체의 멤버 정의
+    // 등록(추가)
+    add: function(item, direction) {
+      validateError(item, 'undefined', '인자를 전달해주세요');
+      direction = direction === 'before' ? 'unshift' : 'push';
+      data[direction](item);
+    },
+    // 변경(수정)
+    // 제거
+    // 현재 관리 데이터 가져오기
+    getData: function() {
+      return data;
+    },
+    getDataCount: function() {
+      return data.length;
+    }
+  };
+
+  return _modelManager;
+
+}
