@@ -15,7 +15,6 @@
 function type(data) {
   return Object.prototype.toString.call(data).slice(8,-1).toLowerCase();
 }
-
 /**
  * JavaScript 데이터 유형을 검증하여 참/거짓을 반환하는 유틸리티 함수
  *
@@ -31,7 +30,6 @@ function isType(data, kind) {
   validateError(kind, '!string', '2번째 전달인자는 문자열이어야 합니다');
   return type(data) === kind;
 }
-
 /**
  * 오류 조건을 발생시키는 문장을 만들어 내는 유틸리티 함수
  *
@@ -51,7 +49,6 @@ function validateError(data, kind, error_message) {
   }
   return '오류는 발생하지 않았습니다';
 }
-
 /**
  * 전달된 숫자보다 하나 작은 수까지의 난수를 반환하는 유틸리티 함수
  *
@@ -66,7 +63,6 @@ function randomNumber(n) {
   validateError(n, '!number', '숫자 값을 전달해주세요.');
   return Math.floor( Math.random() * n );
 }
-
 /**
  * 전달된 최솟값, 최댓값 사이의 난수를 반환하는 유틸리티 함수
  *
@@ -82,7 +78,6 @@ function randomMinMax(min, max) {
   max = max - min;
   return Math.round( Math.random() * max ) + min;
 }
-
 /**
  * 전달된 인자에서 최솟값, 최댓값을 구분한 후, 그 사이의 난수를 반환하는 유틸리티 함수
  *
@@ -98,7 +93,6 @@ function randomRange(n1, n2) {
   max = Math.max(n1, n2);
   return randomMinMax(min, max);
 }
-
 /**
  * 숫자 유형의 데이터인지 감별하는 유틸리티 함수
  * @global
@@ -159,7 +153,6 @@ function isArray(data) {
 function isObject(data) {
   return isType(data, 'object');
 }
-
 /**
  * 유사 배열 객체를 배열 객체로 변경(복사) 처리하여 반환하는 유틸리티 함수
  *
@@ -167,13 +160,6 @@ function isObject(data) {
  * @returns {array} - (복사된) 배열 객체
  */
 function makeArray(o) {
-  // var array = [];
-  // if ( !('length' in o) ) { return []; }
-  // for ( var i=0; i<o.length; i++ ) {
-  //   array.push(o[i]);
-  // }
-  // return array;
   if ( !('length' in o) ) { return []; }
-  // 메서드 빌려쓰기 패턴
   return Array.prototype.slice.call(o);
 }
