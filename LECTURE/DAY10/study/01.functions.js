@@ -71,7 +71,41 @@ var another_memorial_card = (function(){
 
 // ------------------------------------------------------
 // 클로저(Closures)
-// 함수를 반환하는 함수
+
+// Mission 1.
+// increaseCount() 함수를 작성해보세요.
+
+// 전역 변수 count 를 선언해야 함수가 접근해서 값을 변경
+// var count = 0;
+
+// function increaseCount() {
+//   // 어떻게 해야 count가 1씩 증가하게 될까?
+//   // var count = 0;
+//   return ++count;
+// }
+
+// increaseCount(); // 1
+// increaseCount(); // 2
+// increaseCount(); // 3
+// increaseCount(); // 4
+
+// 클로저 예제
+// 외부 함수
+var countMaker = function() {
+  var count = 0;
+  // 내부 함수
+  function increaseCount() {
+    // 어떻게 해야 count가 1씩 증가하게 될까?
+    // var count = 0;
+    return ++count;
+  }
+  // 내부 함수를 외부로 내보낸다.
+  return increaseCount;
+};
+
+
+
+
 
 // ------------------------------------------------------
 // 엄격모드(Strict)
