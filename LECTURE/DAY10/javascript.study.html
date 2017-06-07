@@ -21,6 +21,14 @@
 <body>
 
 
-
+<!-- 프론트엔드 환경에서 다수의 JavaScript 파일 호출 시 문제점 -->
+<script src="./modules/module-A.js"></script>
+<script> console.log('module-A: module is ', module); </script>
+<script src="./modules/module-C.js"></script>
+<script> console.log('module-C: module is ', module); </script>
+<script src="./modules/module-B.js"></script>
+<script> console.log('module-B: module is ', module); </script>
+<script src="./modules/module-D.js"></script>
+<script> console.log('module-D: module is ', module); </script>
 </body>
 </html>
