@@ -91,18 +91,76 @@ var another_memorial_card = (function(){
 
 // 클로저 예제
 // 외부 함수
-var countMaker = function() {
-  var count = 0;
+var countDownMaker = function(n) {
+  var count = n || 10;
   // 내부 함수
-  function increaseCount() {
+  // 함수 정의 없이 함수 값을 바로 반환할 수 있다.
+  return function (step) {
     // 어떻게 해야 count가 1씩 증가하게 될까?
     // var count = 0;
-    return ++count;
+    count -= (step || 1);
+    return count;
   }
   // 내부 함수를 외부로 내보낸다.
-  return increaseCount;
+  // return increaseCount;
 };
 
+var countUpMaker = function(n) {
+  n = n || 10;
+  return function(step) {
+    n += (step || 1);
+    return n;
+  };
+};
+
+var countDown10  = countDownMaker(); // return function() {}
+var countDown20  = countDownMaker(20); // countDownMaker(20)(4)
+var countDown45  = countDownMaker(45);
+var countDown100 = countDownMaker(100);
+
+countDown10();  // 9
+countDown10(4); // 5
+
+var countUp10  = countUpMaker();
+var countUp20  = countUpMaker(20);
+var countUp45  = countUpMaker(45);
+var countUp100 = countUpMaker(100);
+
+countUp45();  // 46
+countUp45(2); // 48
+
+
+// JavaScript 클로저는 함수만 반환한다?
+// JavaScript는 함수 뿐만 아니라, 모든 데이터 유형을 반환할 수 있다.
+// 객체를 반환하는 래퍼 함수를 사용하여 클로저를 활용할 수 있다.
+// JavaScript 클로저는 함수이다?
+// 외부로 유출된 데이터가 함수 내부의 영역의 기억을 가지고 있다면...
+
+// 카운트를 관리하는 객체
+function makeCountManager(init_count) {
+  // 관리할 카운트 값을 초기화
+  var memoried_count = init_count = init_count || 0;
+  return {
+    // 카운트 증가 메서드
+    increase: function(step) {
+      init_count += (step || 1);
+      return init_count;
+    },
+    // 카운트 감소 메서드
+    decrease: function(step) {
+      init_count -= (step || 1);
+      return init_count;
+    },
+    // 카운트 초기화 메서드
+    reset: function(value) {
+      init_count = value || memoried_count;
+    },
+    // 현재 카운트 값을 반환하는 메서드
+    getCount: function() {
+      return init_count;
+    }
+  };
+}
 
 
 
