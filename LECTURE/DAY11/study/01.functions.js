@@ -153,14 +153,16 @@ lifeCycle(function(){
   console.log('전달된 함수가 lifeCycle 함수 내에서 실행(callback)되었다.');
 });
 // CASE 3. 함수의 반환 값으로 함수를 내보낼 수 있다.
-var fn = (function(global){
+var fn = function(global){
   'use strict';
-  return function() {};
-})(window);
+  return function() {
+    console.log('fn 내부 함수');
+  };
+}(window);
 // CASE 4. 객체의 속성으로 함수를 설정할 수 있다. (메소드)
 var obj = {
   member: fn
-}
+};
 // CASE 5. 배열의 원소(Item)로 함수를 메모리할 수 있다.
 var fnStack = [obj.member];
 
@@ -168,6 +170,8 @@ var fnStack = [obj.member];
 
 // ------------------------------------------------------
 // JavaScript는 객체 지향 언어
+// 클래스(Class) 기반의 언어와는 다른 객체 지향을 지원합니다.
+// 프로토타입(Prototype) 기반의 언어
 
 // Javascript는 잘 알려진 객체 지향 언어의 Class와는 다른 방법(Prototype)으로 객체 지향을 구현할 수 있다.
 // (ECMAScript 2015(ES6)에서는 Class를 사용할 수 있다) Javascript가 지원하는 프로토타입(Prototype)은
