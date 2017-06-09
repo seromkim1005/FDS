@@ -85,17 +85,16 @@ var fds = function(){
     if ( this.constructor !== Slider ) {
       return new Slider(min, max, value, step);
     }
-
     // console.log('this ------', this);
-
-    this.min = min || 0;
-    this.max = max || 100;
+    this.min   = min   || 0;
+    this.max   = max   || 100;
     this.value = value || 0;
-    this.step = step || 1;
+    this.step  = step  || 1;
   };
-
+  // Slider 사용자 정의 객체(UI 컴포넌트)의 프로토타입
   Slider.prototype = {
     constructor: Slider,
+    // 메서드
     move: function() {},
     stop: function() {}
   };
@@ -114,7 +113,7 @@ var fds = function(){
 function Fan(name) {
   // 'use strict';
   // 엄격 모드를 사용하면 this는 명시적으로 함수를 실행한 대상이 없어
-  // undefined 이다. (검증)
+  // undefined 이다. (검증) TypeError: Cannot set property 'name' of undefined
   console.log(this);
   this.name = name;
 }
@@ -144,10 +143,26 @@ Fan();     // this === undefined (명시적으로 실행하지 않아서)
 // 할당에 사용된 이름과 관계 없이 고유하게 식별할 수 있다.
 
 // CASE 1. 변수에 함수를 할당할 수 있다.
+var showMeTheMoney = function(){};
 // CASE 2. 함수의 인자로 함수가 전달될 수 있다.
-// CASE 3. 함수의 반환 값으로 함수를 내보낼 수 있다. (객체도 가능)
+function lifeCycle(callback) {
+  typeof callback === 'function' && callback();
+}
+// 콜백 패턴
+lifeCycle(function(){
+  console.log('전달된 함수가 lifeCycle 함수 내에서 실행(callback)되었다.');
+});
+// CASE 3. 함수의 반환 값으로 함수를 내보낼 수 있다.
+var fn = (function(global){
+  'use strict';
+  return function() {};
+})(window);
 // CASE 4. 객체의 속성으로 함수를 설정할 수 있다. (메소드)
+var obj = {
+  member: fn
+}
 // CASE 5. 배열의 원소(Item)로 함수를 메모리할 수 있다.
+var fnStack = [obj.member];
 
 
 
