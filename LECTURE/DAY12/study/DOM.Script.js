@@ -253,4 +253,7 @@
   var head_first_next = $.next( $.first(document.head) );
   console.log('head_first_next:', head_first_next);
 
+  var body_last_prev = $.prev( $.last(document.body) );
+  console.log('body_last_prev:', body_last_prev);
+
 })(window, window.document, window.FDS);

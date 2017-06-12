@@ -164,7 +164,24 @@ var FDS = function(global){
     return _nextSibling;
   }(Element.prototype);
 
-  var previousSibling = function() {};
+  var previousSibling = function() {
+    var _previousSibling;
+    if ( 'previousElementSibling' in Element.prototype ) {
+      _previousSibling = function(el_node) {
+        validateElNode(el_node);
+        return el_node.previousElementSibling;
+      };
+    } else {
+      _previousSibling = function(el_node) {
+        validateElNode(el_node);
+        do {
+          el_node = el_node.previousSibling;
+        } while(el_node && !isElNode(el_node));
+        return el_node;
+      };
+    }
+    return _previousSibling;
+  }();
 
   // ---------------------------------------
   // 반환: FDS 네임스페이스 객체
