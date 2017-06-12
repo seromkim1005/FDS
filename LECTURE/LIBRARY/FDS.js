@@ -2,6 +2,10 @@
 
 var FDS = function(global){
 
+  // ——————————————————————————————————————
+  // JavaScript 유틸리티 함수
+  // ——————————————————————————————————————
+
   function type(data) {
     return Object.prototype.toString.call(data).slice(8,-1).toLowerCase();
   }
@@ -60,6 +64,74 @@ var FDS = function(global){
     return Array.prototype.slice.call(o);
   }
 
+  // ——————————————————————————————————————
+  // DOM 검증 유틸리티 함수
+  // ——————————————————————————————————————
+  function isElNode(node) {
+    return node.nodeType === 1;
+  }
+  function validateElNode(el_node) {
+    if ( !el_node || !isElNode(el_node) ) {
+      throw '요소노드를 반드시 전달해야 합니다';
+    }
+  }
+
+  // ——————————————————————————————————————
+  // DOM 선택 API: 유틸리티 함수
+  // ——————————————————————————————————————
+  function id(name) {
+    validateError(name, '!string', '전달인자는 문자여야 합니다.');
+    return document.getElementById(name);
+  }
+  function tagAll(name, context) {
+    validateError(name, '!string', '전달인자는 문자여야 합니다.');
+    if ( context && !isElNode(context) ) {
+      throw '두번째 전달인자는 요소노드여야 합니다.';
+    }
+    return (context||document).getElementsByTagName(name);
+  }
+  function tag(name, context) {
+    return tagAll(name, context)[0];
+  }
+  // ——————————————————————————————————————
+  // DOM 탐색 API: 유틸리티 함수
+  // ——————————————————————————————————————
+
+  // function firstChild(el_node) {
+    //   // 전달인자 검증
+    //   if ( !el_node || el_node.nodeType !== 1 ) {
+    //     throw '요소노드를 반드시 전달해야 합니다';
+    //   }
+    //   // IE 9+
+    //   // return el_node.firstElementChild;
+    //   // IE 8- 지원하는 크로스 브라우징 유틸리티 함수를 만든다면?
+    //   // if ( 'firstElementChild' in Element.prototype ) {
+    //   if ( el_node.firstElementChild ) {
+    //     return el_node.firstElementChild;
+    //   } else {
+    //     return el_node.children[0];
+    //   }
+  // }
+
+  var firstChild = function(){
+    var _firstChild = null;
+    // 조건을 1번만 확인
+    if ( 'firstElementChild' in Element.prototype ) {
+      _firstChild = function(el_node) {
+        validateElNode(el_node);
+        return el_node.firstElementChild;
+      };
+    } else {
+      _firstChild = function(el_node) {
+        validateElNode(el_node);
+        return el_node.children[0];
+      };
+    }
+    return _firstChild;
+  }();
+
+  // ---------------------------------------
+  // 반환: FDS 네임스페이스 객체
   return {
     info: {
       version: '0.0.1',
@@ -68,12 +140,19 @@ var FDS = function(global){
       license: 'MIT'
     },
     // 공개 API
+    // JavaScript 유틸리티
     isNumber:      isNumber,
     isFunction:    isFunction,
     isArray:       isArray,
     isObject:      isObject,
     makeArray:     makeArray,
-    validateError: validateError
+    validateError: validateError,
+    // DOM 선택 API: 유틸리티
+    id: id,
+    tagAll: tagAll,
+    tag: tag,
+    // DOM 탐색 API: 유틸리티
+    first: firstChild
   };
 
 }(window);

@@ -191,4 +191,29 @@
   console.log('target_abbr:', target_abbr);
   console.log('element_all:', element_all);
 
-})(window);
+}) // (window);
+
+;(function(global, $){
+  'use strict';
+
+  var document = global.document;
+
+  // id?, tag?, tagAll?
+
+  var target_parent   = $.id('target-parent'),
+      target_headline = $.tag('h1'),
+      target_abbr     = $.tag('abbr' ,target_headline),
+      all_els         = $.tagAll('*', target_parent);
+
+  // console.log('target_parent:', target_parent);
+  // console.log('target_headline:', target_headline);
+  // console.log('target_abbr:', target_abbr);
+  // console.log('all_els:', all_els);
+
+  // FDS 네임스페이스 객체의 first() 탐색 메서드 활용
+  var target_first = $.first(target_parent);
+  // console.log('target_first:', target_first);
+  var target_first_first = $.first(target_first);
+  // console.log('target_first_first:', target_first_first);
+
+})(window, window.FDS);
