@@ -12,17 +12,25 @@
   <link rel="stylesheet" href="study/style.css">
   <script src="study/data.js"></script>
   <script src="../LIBRARY/FDS.js"></script>
-  <script src="./study/DOM.Script.js"></script>
+  <!--<script async defer src="./study/DOM.Script.js"></script>-->
 </head>
 <body>
   <script>
-    console.log('start <body>');
+    // console.log('start <body>');
   </script>
 
-  <h1>DOM Script</h1>
+  <!--아래와 같은 마크업은 공백이 없어 첫번째 자식노드가 <abbr> 이지만... -->
+  <!--<h1><abbr title="Document Object Model">DOM</abbr> Script</h1>-->
+
+  <!--아래와 같은 마크업은 공백이 있있 첫번째 자식노드가 #text (텍스트 노드)이다. -->
+  <h1>
+    <abbr title="Document Object Model">DOM</abbr> Script
+  </h1>
 
   <script>
-    console.log('end <body>');
+    // console.log('end <body>');
   </script>
+
+  <script src="./study/DOM.Script.js"></script>
 </body>
 </html>
