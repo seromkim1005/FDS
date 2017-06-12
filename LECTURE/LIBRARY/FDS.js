@@ -1,11 +1,7 @@
 /*! FDS.js @ 2017, yamoo9.net */
 
-// 전역과 구분되는 독립된 공간을 형성
-// 모듈을 구현해서 내부에 접근 가능한 객체를 만들자.
 var FDS = function(global){
 
-  // 클로저 영역
-  // 정의한 함수들
   function type(data) {
     return Object.prototype.toString.call(data).slice(8,-1).toLowerCase();
   }
@@ -64,8 +60,6 @@ var FDS = function(global){
     return Array.prototype.slice.call(o);
   }
 
-  // 클로저를 기억하는 객체를 반환
-  // 전역에서 접근 가능한 네임스페이스 객체 FDS
   return {
     info: {
       version: '0.0.1',
@@ -82,4 +76,4 @@ var FDS = function(global){
     validateError: validateError
   };
 
-}(window); // IIFE 패턴 사용
+}(window);
