@@ -109,7 +109,7 @@ var FDS = function(global){
     //   if ( el_node.firstElementChild ) {
     //     return el_node.firstElementChild;
     //   } else {
-    //     return el_node.children[0];
+    //     return children[ --children.length ];
     //   }
   // }
 
@@ -129,6 +129,42 @@ var FDS = function(global){
     }
     return _firstChild;
   }();
+  var lastChild = function(){
+    var _lastChild = null;
+    if ( 'lastElementChild' in Element.prototype ) {
+      _lastChild = function(el_node) {
+        validateElNode(el_node);
+        return el_node.lastElementChild;
+      };
+    } else {
+      _lastChild = function(el_node) {
+        validateElNode(el_node);
+        var children = el_node.children;
+        return children[ --children.length ];
+      };
+    }
+    return _lastChild;
+  }();
+  var nextSibling = function($$) {
+    var _nextSibling;
+    if ( 'nextElementSibling' in $$ ) {
+      _nextSibling = function(el_node) {
+        validateElNode(el_node);
+        return el_node.nextElementSibling;
+      };
+    } else {
+      _nextSibling = function(el_node) {
+        validateElNode(el_node);
+        do {
+          el_node = el_node.nextSibling;
+        } while(el_node && !isElNode(el_node));
+      };
+      return el_node;
+    }
+    return _nextSibling;
+  }(Element.prototype);
+
+  var previousSibling = function() {};
 
   // ---------------------------------------
   // 반환: FDS 네임스페이스 객체
@@ -152,7 +188,10 @@ var FDS = function(global){
     tagAll: tagAll,
     tag: tag,
     // DOM 탐색 API: 유틸리티
-    first: firstChild
+    first: firstChild,
+    last: lastChild,
+    prev: previousSibling,
+    next: nextSibling
   };
 
 }(window);

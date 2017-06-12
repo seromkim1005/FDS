@@ -205,15 +205,52 @@
       target_abbr     = $.tag('abbr' ,target_headline),
       all_els         = $.tagAll('*', target_parent);
 
-  // console.log('target_parent:', target_parent);
-  // console.log('target_headline:', target_headline);
-  // console.log('target_abbr:', target_abbr);
-  // console.log('all_els:', all_els);
+  console.log('target_parent:', target_parent);
+  console.log('target_headline:', target_headline);
+  console.log('target_abbr:', target_abbr);
+  console.log('all_els:', all_els);
 
   // FDS 네임스페이스 객체의 first() 탐색 메서드 활용
   var target_first = $.first(target_parent);
-  // console.log('target_first:', target_first);
+  console.log('target_first:', target_first);
   var target_first_first = $.first(target_first);
-  // console.log('target_first_first:', target_first_first);
+  console.log('target_first_first:', target_first_first);
 
-})(window, window.FDS);
+  var html_lastChild = $.last(document.documentElement);
+  console.log('html_lastChild:', html_lastChild);
+  var head_lastChild = $.last(document.head);
+  console.log('head_lastChild:', head_lastChild);
+  var body_lastChild = $.last(document.body);
+  console.log('body_lastChild:', body_lastChild);
+
+}) // (window, window.FDS);
+
+;(function(global, document, $){
+  'use strict';
+
+  function nextEl(el) {
+    // 반복 구문 수행
+    // el 다음 노드를 찾아서
+    // 요소 노드인지 확인
+    // 아니면... 다시
+    // el 다음 노드를 찾아서
+    // 요소 노드인지 확인
+    do {
+      el = el.nextSibling;
+    } while( el && el.nodeType !== 1 );
+    return el;
+  }
+
+  function prevEl(el) {
+    do {
+      el = el.previousSibling;
+    } while(el && el.nodeType !== 1);
+    return el;
+  }
+
+  // $.prev(), $.next()
+
+  var head_first_next = $.next( $.first(document.head) );
+  console.log('head_first_next:', head_first_next);
+
+})(window, window.document, window.FDS);
