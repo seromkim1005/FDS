@@ -59,6 +59,7 @@
   console.log(abbr_in_headline.previousSibling); // ?
   console.log(abbr_in_headline.nextSibling);     // ?
 
+  // 자식노드들 중에서 요소노드만 골라내기
   function onlyElementNodeCollection(el) {
     if ( !el || el.nodeType !== 1 ) { throw '요소노드를 전달하세요'; }
     var el_childs = el.childNodes;
@@ -75,10 +76,28 @@
     }
     return collection;
   }
-
   // 위의 로직을 가진 유틸리티 함수를 만들어 보자.
   var result = onlyElementNodeCollection(headline);
-
+  // 결과 확인
   console.log(result);
+
+}) // (window);
+
+// DOM API (탐색(Travelsing) 속성)
+;(function(global){
+  'use strict';
+  var document = global.document;
+
+  // NODE.childNodes   VS   NODE.children
+  // childNodes 는 모든 자식 노드를 반환
+  // children 은 자식 중, 요소노드만 반환
+
+  var target = document.getElementById('target-parent');
+  // console.log(target);
+  console.log('target.childNodes:', target.childNodes);
+  console.log('target.children:', target.children);
+
+  console.log('target.firstChild === target.childNodes[0]:', target.firstChild === target.childNodes[0]);
+  console.log('target.lastChild === target.childNodes[target.childNodes.length - 1]:', target.lastChild === target.childNodes[target.childNodes.length - 1]);
 
 })(window);
