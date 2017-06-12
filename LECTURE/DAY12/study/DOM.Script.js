@@ -169,19 +169,26 @@
   id = function(name) {
     return document.getElementById(name);
   };
+  // tag = function(name, context) {
+  //   return (context || document).getElementsByTagName(name);
+  // };
   // 응용: tagAll() 함수를 만들어, tag() 와 용도를 달리 해보자.
   // tagAll()
   tagAll = function(name, context) {
     return (context || document).getElementsByTagName(name);
   };
-
-  tag = function() {
-    return tagAll[0];
+  tag = function(name, context) {
+    return tagAll(name, context)[0];
   };
 
   target_parent   = id('target-parent');
   target_headline = tag('h1');
   target_abbr     = tag('abbr', target_parent);
   var element_all = tagAll('*');
+
+  console.log('target_parent:', target_parent);
+  console.log('target_headline:', target_headline);
+  console.log('target_abbr:', target_abbr);
+  console.log('element_all:', element_all);
 
 })(window);
