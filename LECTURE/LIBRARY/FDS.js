@@ -96,23 +96,6 @@ var FDS = function(global){
   // ——————————————————————————————————————
   // DOM 탐색 API: 유틸리티 함수
   // ——————————————————————————————————————
-
-  // function firstChild(el_node) {
-    //   // 전달인자 검증
-    //   if ( !el_node || el_node.nodeType !== 1 ) {
-    //     throw '요소노드를 반드시 전달해야 합니다';
-    //   }
-    //   // IE 9+
-    //   // return el_node.firstElementChild;
-    //   // IE 8- 지원하는 크로스 브라우징 유틸리티 함수를 만든다면?
-    //   // if ( 'firstElementChild' in Element.prototype ) {
-    //   if ( el_node.firstElementChild ) {
-    //     return el_node.firstElementChild;
-    //   } else {
-    //     return children[ --children.length ];
-    //   }
-  // }
-
   var firstChild = function(){
     var _firstChild = null;
     // 조건을 1번만 확인
@@ -145,9 +128,9 @@ var FDS = function(global){
     }
     return _lastChild;
   }();
-  var nextSibling = function($$) {
+  var nextSibling = function() {
     var _nextSibling;
-    if ( 'nextElementSibling' in $$ ) {
+    if ( 'nextElementSibling' in Element.prototype ) {
       _nextSibling = function(el_node) {
         validateElNode(el_node);
         return el_node.nextElementSibling;
@@ -162,8 +145,7 @@ var FDS = function(global){
       return el_node;
     }
     return _nextSibling;
-  }(Element.prototype);
-
+  }();
   var previousSibling = function() {
     var _previousSibling;
     if ( 'previousElementSibling' in Element.prototype ) {

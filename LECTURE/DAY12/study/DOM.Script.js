@@ -235,25 +235,22 @@
     // 아니면... 다시
     // el 다음 노드를 찾아서
     // 요소 노드인지 확인
-    do {
-      el = el.nextSibling;
-    } while( el && el.nodeType !== 1 );
+    do { el = el.nextSibling; }
+    while( el && el.nodeType !== 1 );
     return el;
   }
 
   function prevEl(el) {
-    do {
-      el = el.previousSibling;
-    } while(el && el.nodeType !== 1);
+    do { el = el.previousSibling; }
+    while(el && el.nodeType !== 1);
     return el;
   }
 
-  // $.prev(), $.next()
-
+  // $.prev(), $.next() 활용 예시
   var head_first_next = $.next( $.first(document.head) );
-  console.log('head_first_next:', head_first_next);
+  var body_last_prev  = $.prev( $.last(document.body) );
 
-  var body_last_prev = $.prev( $.last(document.body) );
+  console.log('head_first_next:', head_first_next);
   console.log('body_last_prev:', body_last_prev);
 
-})(window, window.document, window.FDS);
+}) //(window, window.document, window.FDS);
