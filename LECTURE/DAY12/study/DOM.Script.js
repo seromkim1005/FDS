@@ -55,4 +55,30 @@
   console.log('headline의 첫번째 자식은?', headline.firstChild); // 공백이 없다면 ? <abbr> : #text
   console.log('headline의 마지막 자식은?', headline.lastChild);  // ' Script'
 
+  // 이전/다음 형제노드(previousSibing, nextSibing) 탐색
+  console.log(abbr_in_headline.previousSibling); // ?
+  console.log(abbr_in_headline.nextSibling);     // ?
+
+  function onlyElementNodeCollection(el) {
+    if ( !el || el.nodeType !== 1 ) { throw '요소노드를 전달하세요'; }
+    var el_childs = el.childNodes;
+    var collection = [];
+    // 순환문을 돌려서 요소 노드만 별도로 수집한 객체를 변수에 참조해보자.
+    // 노드.nodeType (요소노드 = 1, 속성노드 = 2, 텍스트노드 = 3, 주석노드 = 8)
+    for ( var i=0, l=el_childs.length; i<l; i++ ) {
+      var child = el_childs[i];
+      // if ( child.nodeType === 1 ) {
+      //   collection.push(child);
+      // }
+      if ( child.nodeType !== 1 ) { continue; }
+      collection.push(child);
+    }
+    return collection;
+  }
+
+  // 위의 로직을 가진 유틸리티 함수를 만들어 보자.
+  var result = onlyElementNodeCollection(headline);
+
+  console.log(result);
+
 })(window);
