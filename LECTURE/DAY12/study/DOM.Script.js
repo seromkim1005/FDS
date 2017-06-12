@@ -100,4 +100,88 @@
   console.log('target.firstChild === target.childNodes[0]:', target.firstChild === target.childNodes[0]);
   console.log('target.lastChild === target.childNodes[target.childNodes.length - 1]:', target.lastChild === target.childNodes[target.childNodes.length - 1]);
 
+}) // (window);
+
+;(function(global){
+  'use strict';
+
+  var document = global.document;
+
+  // ——————————————————————————————————————
+  // Node Info.
+  // ——————————————————————————————————————
+  // nodeName
+  // nodeType
+  // nodeValue
+  var target_parent, target_headline, target_abbr;
+
+  target_parent   = document.getElementById('target-parent');
+  target_headline = target_parent.firstChild;
+  target_headline = target_parent.getElementsByTagName('h1').item(0);
+  target_abbr     = target_headline.firstChild;
+  target_abbr     = target_headline.getElementsByTagName('abbr')[0];
+
+  console.log('target_parent.nodeName:',target_parent.nodeName);    //  nodeName  : DIV, tagName (DOM Lv3까지 표준)
+  console.log('target_parent.localName:',target_parent.localName);  //  nodeName  : div  // IE 검증 필요
+  console.log('target_parent.nodeType:',target_parent.nodeType);    //  nodeType  : 1 === document.ELEMENT_NODE
+  console.log('target_parent.nodeValue:', target_parent.nodeValue); //  nodeValue : null
+
+  console.log('target_headline.nodeName:',target_headline.nodeName);    //  nodeName  : #text | H1
+  console.log('target_headline.nodeType:',target_headline.nodeType);    //  nodeType  : 3     | 1
+  console.log('target_headline.nodeValue:', target_headline.nodeValue); //  nodeValue :       | null
+
+  // TypeError 오류 발생: Cannot read property 'nodeName' of null
+  console.log('target_abbr.nodeName:',target_abbr.nodeName);    //  nodeName  : Error | ABBR
+  console.log('target_abbr.nodeType:',target_abbr.nodeType);    //  nodeType  : Error | 1
+  console.log('target_abbr.nodeValue:', target_abbr.nodeValue); //  nodeValue : Error | null
+
+  // ---------------------------------------
+  // 정리!
+  //
+  // 요소노드는 nodeType 속성 값이 1 이며, nodeName 값은 요소의 이름을 대문자로 반환한다.
+  // 요소노드는 nodeValue 속성 값을 가지지 않지만, textContent, innerText 속성으로 값을 도출할 수 있다.
+  // 텍스트노드는 nodeType 속성 값이 3 이며, nodeName 속성 값은 '#text' 를 반환한다.
+  // 텍스트노드는 nodeValue 속성 값을 문자 값으로 반환한다.
+
+  // 지금까지 배운 노드의 정보
+  // NODE.nodeType
+  // NODE.nodeName
+  // NODE.nodeValue
+  // NODE.parentNode
+  // NODE.firstChild
+  // NODE.lastChild
+  // NODE.previousSibling
+  // NODE.nextSibling
+  // NODE.childNodes
+  // NODE.children
+
+}) // (window);
+
+;(function(global){
+  'use strict';
+
+  var document = global.document;
+
+  var target_parent, target_headline, target_abbr;
+
+  // id(), tag() 유틸리티 함수를 정의해보자.
+  var id, tag, tagAll;
+  id = function(name) {
+    return document.getElementById(name);
+  };
+  // 응용: tagAll() 함수를 만들어, tag() 와 용도를 달리 해보자.
+  // tagAll()
+  tagAll = function(name, context) {
+    return (context || document).getElementsByTagName(name);
+  };
+
+  tag = function() {
+    return tagAll[0];
+  };
+
+  target_parent   = id('target-parent');
+  target_headline = tag('h1');
+  target_abbr     = tag('abbr', target_parent);
+  var element_all = tagAll('*');
+
 })(window);
