@@ -90,7 +90,7 @@ var FDS = function(global){
   }
   function tagAll(name, context) {
     validateError(name, '!string', '전달인자는 문자여야 합니다.');
-    if ( context && !isElementNode(context) ) {
+    if ( context && !isElementNode(context) && context !== document ) {
       throw '두번째 전달인자는 요소노드여야 합니다.';
     }
     return (context||document).getElementsByTagName(name);
@@ -117,12 +117,23 @@ var FDS = function(global){
     // IE 8- 구형 브라우저
     else {
       _classAll = function(name, context) {
+        validateError(name, '!string', '첫번째 인자는 문자열을 전달해야 합니다.');
         // name = 클래스 속성명
         // context = 상위 요소객체 | document (기본값)
         // 컨텍스트 객체 내부 또는 도큐멘트 객체 내부에서 모든 요소를 수집한다.
         context = context || document;
-        var all_els = context.getElementsByTagName('*');
-        console.log('all_els:', all_els);
+        var all_els = tagAll('*', context);
+        var match_collection = [];
+        // all_els 순환 처리
+        // 사용자가 전달한 name과 일치하는 class 속성 값이 있는 요소들을 수집
+        // 수집된 객체를 반환
+        for ( var i=0, l=all_els.length; i<l; i++ ) {
+          var el = all_els.item(i);
+          if( el.className === name && name !== '' ) {
+            match_collection.push(el);
+          }
+        }
+        return match_collection;
       };
     }
     // 함수 내보내기
