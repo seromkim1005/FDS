@@ -55,4 +55,33 @@
     return false;
   };
 
-})(window, window.document, window.FDS);
+}) // (window, window.document, window.FDS);
+
+;(function(global, $){
+  'use strict';
+
+  // <body> 내부의 모든 요소를 수집
+  var body = $.tag('body'); // document.body
+  var body_children = $.tagAll('*', body);
+  // console.log('body_children:', body_children);
+
+  // 수집된 요소를 순환 처리한다.
+  var will_removed = [];
+  for ( var i=body_children.length, child; child=body_children[--i]; ) {
+    // 처리 과정에서 <script> 요소는 배제한다.
+    var node_name = child.nodeName.toLowerCase();
+    if ( node_name === 'script' ) { continue; }
+    // console.log(node_name);
+    // 나머지 요소 중, 자식이 없는 요소를 찾아서
+    // 새로운 배열에 수집한다.
+    // console.log( node_name, child.hasChildNodes() );
+    // if ( !child.hasChildNodes() ) {
+    if ( !$.hasChild(child) ) {
+      will_removed.push(child);
+    }
+  }
+  will_removed.reverse();
+
+  console.log('will_removed:', will_removed);
+
+})(window, window.FDS);
