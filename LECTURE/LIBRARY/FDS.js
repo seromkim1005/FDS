@@ -98,6 +98,42 @@ var FDS = function(global){
   function tag(name, context) {
     return tagAll(name, context)[0];
   }
+  // IE 9+ 에서만 지원되는 신 기술
+  // function classes(name, context) {
+  //   return (context || document).getElementsByClassName(name);
+  // }
+
+  // IE 8- 에서도 호환되는 크로스 브라우징 유틸리티 메서드
+  var classAll = function(){
+    var _classAll;
+    // IE 9+ 모던 브라우저
+    if ( 'getElementsByClassNames' in Element.prototype ) {
+      _classAll = function(name, context) {
+        validateError(name, '!string', '첫번째 인자는 문자열을 전달해야 합니다.');
+        if ( context && !isElementNode(context) ) { throw '두번째 인자는 요소노드여야 합니다.' }
+        return (context || document).getElementsByClassName(name);
+      };
+    }
+    // IE 8- 구형 브라우저
+    else {
+      _classAll = function(name, context) {
+        // name = 클래스 속성명
+        // context = 상위 요소객체 | document (기본값)
+        // 컨텍스트 객체 내부 또는 도큐멘트 객체 내부에서 모든 요소를 수집한다.
+        context = context || document;
+        var all_els = context.getElementsByTagName('*');
+        console.log('all_els:', all_els);
+      };
+    }
+    // 함수 내보내기
+    // 클로저 함수
+    return _classAll;
+  }();
+
+  var classSingle = function(name, context) {
+    return classAll(name, context)[0];
+  };
+
   // ——————————————————————————————————————
   // DOM 탐색 API: 유틸리티 함수
   // ——————————————————————————————————————
@@ -203,6 +239,8 @@ var FDS = function(global){
     id: id,
     tagAll: tagAll,
     tag: tag,
+    classAll: classAll,
+    classSingle: classSingle,
     // DOM 탐색 API: 유틸리티
     first: firstChild,
     last: lastChild,
