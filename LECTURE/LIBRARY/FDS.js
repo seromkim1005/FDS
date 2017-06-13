@@ -105,39 +105,58 @@ var FDS = function(global){
 
   // IE 8- 에서도 호환되는 크로스 브라우징 유틸리티 메서드
   var classAll = function(){
-    var _classAll;
-    // IE 9+ 모던 브라우저
+    var _classAll = null;
+    // 조건 처리
+    // el.getElementsByClassName 지원하는가?
+    // 'getElementsByClassName' in Element.prototype
+    // 상황에 맞는 함수를 선별하여 할당한 후, 내보내자
     if ( 'getElementsByClassNames' in Element.prototype ) {
       _classAll = function(name, context) {
-        validateError(name, '!string', '첫번째 인자는 문자열을 전달해야 합니다.');
-        if ( context && !isElementNode(context) ) { throw '두번째 인자는 요소노드여야 합니다.' }
-        return (context || document).getElementsByClassName(name);
-      };
-    }
-    // IE 8- 구형 브라우저
-    else {
-      _classAll = function(name, context) {
-        validateError(name, '!string', '첫번째 인자는 문자열을 전달해야 합니다.');
-        // name = 클래스 속성명
-        // context = 상위 요소객체 | document (기본값)
-        // 컨텍스트 객체 내부 또는 도큐멘트 객체 내부에서 모든 요소를 수집한다.
+        // name 문자열(class 속성명)
+        validateError(name, '!string', '첫번째 전달인자는 문자열을 전달해야 합니다.');
+        // context = context || document.body;
+        // validateElementNode(context);
         context = context || document;
-        var all_els = tagAll('*', context);
-        var match_collection = [];
-        // all_els 순환 처리
-        // 사용자가 전달한 name과 일치하는 class 속성 값이 있는 요소들을 수집
-        // 수집된 객체를 반환
-        for ( var i=0, l=all_els.length; i<l; i++ ) {
-          var el = all_els.item(i);
-          if( el.className === name && name !== '' ) {
-            match_collection.push(el);
+        if ( context !== document && !isElementNode(context) ) { throw '두번째 인자로 요소노드를 전달해 주세요'; }
+        return context.getElementsByClassName(name);
+        // context 상위 객체(요소노드, document 객체)
+      };
+    } else {
+      _classAll = function(name, context) {
+        // context 객체 내부의 요소 class 속성 값이
+        // name 값과 일치하는 요소들의 집합을 반환한다.
+        // --------------------------------------------
+        // 전달인자 유효성 검사
+        validateError(name, '!string', '첫번째 전달인자는 문자열이어야 합니다.');
+        // context 초기값 설정
+        context = context || document; // document.body
+        // context 객체 유효성 검사
+        if ( context !== document && !isElementNode(context) ) { throw '두번째 인자로 요소노드를 전달해 주세요'; }
+        // context 내부에서 모든 요소를 찾아라!
+        var _alls = tagAll('*', context);
+        var _matched = [];
+        for ( var i=0, l=_alls.length; i<l; ++i ) {
+          var _el = _alls.item(i);
+          // case 1
+          // context(부모) 객체 내부의 자식(el)을 하나 하나 검증
+          // 검증 내용: name 값하고 el의 className 하고 일치하는지
+          // if ( name !== '' && name === _el.className ) {
+            // 일치한다면 수집하여 반환
+            // _matched.push(_el);
+          // }
+
+          // case 2
+          // name 을 변수로 하는 정규 표현식을 작성
+          var match = new RegExp('(^|\\s)' + name + '($|\\s)');
+          // 정규표현식 객체의 test() 메서드를 사용해서 문자가 일치하는지 검증
+          // 검증 값이 참이면, 수집한다.
+          if ( match.test(_el.className) ) {
+            _matched.push(_el);
           }
         }
-        return match_collection;
+        return _matched;
       };
     }
-    // 함수 내보내기
-    // 클로저 함수
     return _classAll;
   }();
 
