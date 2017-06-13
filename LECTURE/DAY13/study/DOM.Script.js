@@ -36,14 +36,22 @@
   // 유사 배열인 노드 집합(NodeList)를 순환(반복 처리)
   // 반복 처리하는 일: 이벤트 연결 <<->> 핸들러(함수)
 
-  for ( var i=0, l=study_content_links.length; i<l; ++i ) {
-    var link = study_content_links.item(i);
+  for ( var link, i=0, l=study_content_links.length; i<l; ++i ) {
+    link = study_content_links.item(i);
     link.onclick = activeParent;
   }
 
   function activeParent(){
-    console.log(this);
-    // 구형 방법: 브라우저 기본 동작 차단 (Prevent Default)
+    // 이벤트 핸들링 구문에서 this는 이벤트의 주인을 가리킨다.
+    // console.log(this);
+    // this 객체의 부모 객체를 찾아서 'active' 클래스 속성을 추가
+    console.log('this.parentNode:', this.parentNode);
+    // HTML DOM 방식에서
+    // 요소노드에 className 속성 값을 설정
+    // this.parentNode.className = 'active';
+    _.parent(this).className = 'active';
+    // 브라우저 기본 동작 차단 (Prevent Default Action)
+    // 구형 방법
     return false;
   };
 

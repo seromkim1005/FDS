@@ -169,6 +169,12 @@ var FDS = function(global){
     }
     return _previousSibling;
   }();
+  var parent = function(node, depth) {
+    depth = depth || 1;
+    do { node = node.parentNode; }
+    while(node && --depth);
+    return node;
+  };
 
   // ---------------------------------------
   // 반환: FDS 네임스페이스 객체
@@ -196,7 +202,8 @@ var FDS = function(global){
     first: firstChild,
     last: lastChild,
     prev: previousSibling,
-    next: nextSibling
+    next: nextSibling,
+    parent: parent
   };
 
 }(window);
