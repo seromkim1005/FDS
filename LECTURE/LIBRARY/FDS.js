@@ -181,6 +181,7 @@ var FDS = function(global){
     },
     // 공개 API
     // JavaScript 유틸리티
+    type:          type,
     isNumber:      isNumber,
     isFunction:    isFunction,
     isArray:       isArray,
