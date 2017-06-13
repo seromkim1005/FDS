@@ -2,6 +2,8 @@
 
 var FDS = function(global){
 
+  var document = global.document;
+
   // ——————————————————————————————————————
   // JavaScript 유틸리티 함수
   // ——————————————————————————————————————
@@ -67,11 +69,14 @@ var FDS = function(global){
   // ——————————————————————————————————————
   // DOM 검증 유틸리티 함수
   // ——————————————————————————————————————
-  function isElNode(node) {
-    return node.nodeType === 1;
+  function isElementNode(node) {
+    return node.nodeType === document.ELEMENT_NODE;
   }
-  function validateElNode(el_node) {
-    if ( !el_node || !isElNode(el_node) ) {
+  function isTextNode(node) {
+    return node.nodeType === document.TEXT_NODE;
+  }
+  function validateElementNode(node) {
+    if ( !node || !isElementNode(node) ) {
       throw '요소노드를 반드시 전달해야 합니다';
     }
   }
@@ -85,7 +90,7 @@ var FDS = function(global){
   }
   function tagAll(name, context) {
     validateError(name, '!string', '전달인자는 문자여야 합니다.');
-    if ( context && !isElNode(context) ) {
+    if ( context && !isElementNode(context) ) {
       throw '두번째 전달인자는 요소노드여야 합니다.';
     }
     return (context||document).getElementsByTagName(name);
@@ -101,12 +106,12 @@ var FDS = function(global){
     // 조건을 1번만 확인
     if ( 'firstElementChild' in Element.prototype ) {
       _firstChild = function(el_node) {
-        validateElNode(el_node);
+        validateElementNode(el_node);
         return el_node.firstElementChild;
       };
     } else {
       _firstChild = function(el_node) {
-        validateElNode(el_node);
+        validateElementNode(el_node);
         return el_node.children[0];
       };
     }
@@ -116,12 +121,12 @@ var FDS = function(global){
     var _lastChild = null;
     if ( 'lastElementChild' in Element.prototype ) {
       _lastChild = function(el_node) {
-        validateElNode(el_node);
+        validateElementNode(el_node);
         return el_node.lastElementChild;
       };
     } else {
       _lastChild = function(el_node) {
-        validateElNode(el_node);
+        validateElementNode(el_node);
         var children = el_node.children;
         return children[ --children.length ];
       };
@@ -132,15 +137,15 @@ var FDS = function(global){
     var _nextSibling;
     if ( 'nextElementSibling' in Element.prototype ) {
       _nextSibling = function(el_node) {
-        validateElNode(el_node);
+        validateElementNode(el_node);
         return el_node.nextElementSibling;
       };
     } else {
       _nextSibling = function(el_node) {
-        validateElNode(el_node);
+        validateElementNode(el_node);
         do {
           el_node = el_node.nextSibling;
-        } while(el_node && !isElNode(el_node));
+        } while(el_node && !isElementNode(el_node));
       };
       return el_node;
     }
@@ -150,15 +155,15 @@ var FDS = function(global){
     var _previousSibling;
     if ( 'previousElementSibling' in Element.prototype ) {
       _previousSibling = function(el_node) {
-        validateElNode(el_node);
+        validateElementNode(el_node);
         return el_node.previousElementSibling;
       };
     } else {
       _previousSibling = function(el_node) {
-        validateElNode(el_node);
+        validateElementNode(el_node);
         do {
           el_node = el_node.previousSibling;
-        } while(el_node && !isElNode(el_node));
+        } while(el_node && !isElementNode(el_node));
         return el_node;
       };
     }
