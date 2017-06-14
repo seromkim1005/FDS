@@ -83,6 +83,8 @@ body {
 
 .photo-showcase-indicator:hover img,
 .photo-showcase-indicator:focus img {
+  position: relative;
+  z-index: 1000;
   filter: grayscale(0);
   transform: scale(1.1);
 }
