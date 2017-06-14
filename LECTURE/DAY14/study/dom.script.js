@@ -152,4 +152,11 @@
   // 미션! 하드코딩하지 않고, 동적으로 코드를 생성/붙여보자.
   // 내비게이션 인디케이터를 동적으로 생성한다.
 
+  // 동적 생성해야 할 템플릿 코드
+  // <li role="presentation">
+  //   <a href class="photo-showcase-indicator" role="tab">
+  //     <img src="https://unsplash.it/100/100?image=" alt="">
+  //   </a>
+  // </li>
+
 })(window, window.document, window.FDS);
