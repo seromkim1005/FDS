@@ -2,18 +2,6 @@
 (function(global, _){
   'use strict';
 
-  // var photolist = [];
-  // var photo_info = {
-  //   total: 10,
-  //   width: 900,
-  //   height: 420
-  // }
-  // for ( var i=0; i<photo_info.total; i++ ) {
-  //   var path = 'https://unsplash.it/'+photo_info.width+'/'+photo_info.height+'?image=' + i;
-  //   photolist.push(path);
-  // }
-  // console.log(photolist.join(' '));
-
   // DOM 제어를 목적으로 하는 문서 객체를 탐색 찾아 변수에 할당.
   var container     = _.selector('.photo-showcase-container');
   var showcase      = _.selector('.photo-showcase', container);

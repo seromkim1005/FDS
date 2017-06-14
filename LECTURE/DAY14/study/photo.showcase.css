@@ -39,21 +39,18 @@ body {
   text-shadow: 0 0 2px rgba(0,0,0,0.6);
 }
 
-.photo-showcase-container .photo-showcase-controller {
-  opacity: 0;
-  transition: all 0.3s ease;
-}
-
-.photo-showcase-container:hover .photo-showcase-controller {
-  opacity: 1;
-}
-
 .photo-showcase-controller {
+  opacity: 0;
   position: absolute;
   width: 98.5%;
   bottom: 1.4rem;
   margin-left: 50%;
+  transition: all 0.3s ease;
   transform: translateX(-50%);
+}
+
+.photo-showcase-container:hover .photo-showcase-controller {
+  opacity: 1;
 }
 
 .photo-showcase {
