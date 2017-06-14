@@ -6,7 +6,7 @@ html {
 body {
   margin: 0;
   font-size: 1.4rem;
-  font-family: "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
+  font-family: "Spoqa Han Sans", "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
   line-height: 1.5;
   background: #fff;
   color: #000;
@@ -26,10 +26,34 @@ body {
   /*background: #000;*/
 }
 
+.photo-showcase-title {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 300;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 2px rgba(0,0,0,0.6);
+}
+
+.photo-showcase-container .photo-showcase-controller {
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.photo-showcase-container:hover .photo-showcase-controller {
+  opacity: 1;
+}
+
 .photo-showcase-controller {
   position: absolute;
-  width: 100%;
-  bottom: 1rem;
+  width: 98.5%;
+  bottom: 1.4rem;
+  margin-left: 50%;
+  transform: translateX(-50%);
 }
 
 .photo-showcase {
@@ -55,12 +79,12 @@ body {
   height: 72px;
   border: 2px solid #fff;
   box-shadow: 0 0 4px #333;
-  transition: all 0.3s ease-out;
-  filter: grayscale(0.7);
+  transition: all 0.45s cubic-bezier(0, 1.02, 0.88, 1.01);
+  filter: grayscale(1);
   transform: scale(1);
 }
 
-.photo-showcase-indicator img:hover,
+.photo-showcase-indicator:hover img,
 .photo-showcase-indicator:focus img {
   filter: grayscale(0);
   transform: scale(1.1);
