@@ -105,7 +105,7 @@
 ;(function(global, document, _){
   'use strict';
 
-  // unsplash.it 이미지 소스 인덱스/대체텍스트 데이터
+  // https://unsplash.it 이미지 소스 인덱스/대체텍스트 데이터
   var data = [
     {
       index: '1068',
@@ -148,6 +148,31 @@
       alt: '강렬한 인상을 주는 붉은 벽과 노란 대문'
     },
   ];
+
+  data.push({
+    index: 1062,
+    alt: '청순 Dog~~'
+  });
+
+  var controller = _.selector('.photo-showcase-controller [role=tablist]');
+
+  for ( var i=0, l=data.length; i<l; ++i ) {
+    var item = data[i];
+    var index = item.index;
+    var alt = item.alt;
+    var li = _.createEl('li');
+    li.setAttribute('role', 'presentation');
+    var a = _.createEl('a');
+    a.setAttribute('role', 'tab');
+    a.setAttribute('href', '');
+    a.setAttribute('class', 'photo-showcase-indicator');
+    var img = _.createEl('img');
+    img.setAttribute('src', 'https://unsplash.it/100/100?image=' + index);
+    img.setAttribute('alt', alt);
+    _.appendChild(li, a);
+    _.appendChild(a, img);
+    _.appendChild(controller, li);
+  }
 
   // 미션! 하드코딩하지 않고, 동적으로 코드를 생성/붙여보자.
   // 내비게이션 인디케이터를 동적으로 생성한다.
