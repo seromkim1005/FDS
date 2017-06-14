@@ -258,4 +258,29 @@
   // .replace(string|regexp, string|function)
 
 
+  // ---------------------------------------
+  // 접근성 개선
+
+  // 문서객체 참조
+  var container        = _.selector('.photo-showcase-container');
+  var container_active = 'active';
+  var indicator_first  = _.selector('li:first-child a', controller);
+  var indicator_last   = _.selector('li:last-child a', controller);
+
+  // focus, blur 이벤트 감지
+  indicator_first.onfocus = function() {
+    // container 요소에 활성화 클래스를 추가한다.
+    var container_class = container.getAttribute('class');
+    container_class += ' ' + container_active;
+    container.setAttribute('class', container_class);
+  };
+
+  indicator_last.onblur = function() {
+    // container 요소에 활성화 클래스를 제거한다.
+    var container_class = container.getAttribute('class');
+    container_class = container_class.replace(container_active, '').trim();
+    container.setAttribute('class', container_class);
+  };
+
+
 })(window, window.document, window.FDS);
