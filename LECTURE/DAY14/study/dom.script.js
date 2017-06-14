@@ -9,13 +9,19 @@
   // ——————————————————————————————————————
 
   // 동적으로 요소노드를 생성
-  var list = document.createElement('ul');
-  var list_item = document.createElement('li');
-  var headline = document.createElement('h2');
-  var list_link = document.createElement('a');
-  var list_img = document.createElement('img');
+  // var list = document.createElement('ul');
+  // var list_item = document.createElement('li');
+  // var headline = document.createElement('h2');
+  // var list_link = document.createElement('a');
+  // var list_img = document.createElement('img');
 
-  console.group('요소노드 검증');
+  var list      = _.createEl('ul');
+  var list_item = _.createEl('li');
+  var headline  = _.createEl('h2', '새로운 것은 존재하지 않는다. 아직 내가 못 본 것일 뿐.');
+  var list_link = _.createEl('a');
+  var list_img  = _.createEl('img');
+
+  console.groupCollapsed('요소노드 검증');
 
   console.log('list:', list);
   console.log('list_item:', list_item);
@@ -41,7 +47,7 @@
   list_img_alt.nodeValue = 'architecture';
 
   // 동적 생성된 속성노드 확인(검토)
-  console.group('속성노드 검증');
+  console.groupCollapsed('속성노드 검증');
 
   console.log('list_link_href:', list_link_href);
   console.log('list_img_src:', list_img_src);
@@ -53,12 +59,13 @@
   console.groupEnd('속성노드 검증');
 
   // 동적으로 텍스트노드 생성
-  var headline_text = document.createTextNode('새로운 것은 존재하지 않는다. 아직 내가 못 본 것일 뿐.');
+  // var headline_text = document.createTextNode('새로운 것은 존재하지 않는다. 아직 내가 못 본 것일 뿐.');
+  // var headline_text = _.createText('새로운 것은 존재하지 않는다. 아직 내가 못 본 것일 뿐.');
 
-  console.group('텍스트노드 검증');
+  console.groupCollapsed('텍스트노드 검증');
 
-  console.log('headline_text:', headline_text);
-  console.log('headline_text.nodeType:', headline_text.nodeType); // 3
+  // console.log('headline_text:', headline_text);
+  // console.log('headline_text.nodeType:', headline_text.nodeType); // 3
 
   console.groupEnd('텍스트노드 검증');
 
@@ -73,10 +80,14 @@
   //    h2
   //    a(href)
   //      img(src, alt)
-  list.appendChild(list_item);
-  list_item.appendChild(headline);
-  list_item.appendChild(list_link);
-  list_link.appendChild(list_img);
+  // list.appendChild(list_item);
+  // list_item.appendChild(headline);
+  // list_item.appendChild(list_link);
+  // list_link.appendChild(list_img);
+  _.appendChild(list, list_item);
+  _.appendChild(list_item, headline);
+  _.appendChild(list_item, list_link);
+  _.appendChild(list_link, list_img);
   console.log('list:', list);
 
   // 속성노드를 요소노드에 붙이려면?
@@ -85,7 +96,60 @@
   list_img.setAttributeNode(list_img_src);
 
   // 텍스트노드를 요소노드에 붙이려면?
-  headline.appendChild(headline_text);
+  // headline.appendChild(headline_text);
+  // _.appendChild(headline, headline_text);
 
 
-})(window, window.FDS);
+}) // (window, window.FDS);
+
+;(function(global, document, _){
+  'use strict';
+
+  // unsplash.it 이미지 소스 인덱스/대체텍스트 데이터
+  var data = [
+    {
+      index: '1068',
+      alt: '푸른 빛 탁자'
+    },
+    {
+      index: '1017',
+      alt: '광활한 산맥'
+    },
+    {
+      index: '1067',
+      alt: '빛이 스며드는 해안 도시 풍경'
+    },
+    {
+      index: '1060',
+      alt: '커피 향기 가득한 매장'
+    },
+    {
+      index: '1042',
+      alt: '수 놓은 별 빛이 흐른다'
+    },
+    {
+      index: '1039',
+      alt: '녹색 산림 위 폭포수'
+    },
+    {
+      index: '1027',
+      alt: '우수에 찬 눈빛의 여인'
+    },
+    {
+      index: '1013',
+      alt: '하얀 차량 내부에서 전화 통화 중인 여인'
+    },
+    {
+      index: '977',
+      alt: '아름다운 버섯과 빛의 향연'
+    },
+    {
+      index: '859',
+      alt: '강렬한 인상을 주는 붉은 벽과 노란 대문'
+    },
+  ];
+
+  // 미션! 하드코딩하지 않고, 동적으로 코드를 생성/붙여보자.
+  // 내비게이션 인디케이터를 동적으로 생성한다.
+
+})(window, window.document, window.FDS);
