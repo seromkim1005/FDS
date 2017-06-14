@@ -167,9 +167,7 @@
 
   var controller = _.selector('.photo-showcase-controller [role=tablist]');
 
-  var i=0, l=data.length;
-
-  for ( ; i<l; ++i ) {
+  for ( var i=0, l=data.length; i<l; ++i ) {
 
     var item = data[i];
     var index = item.index;
@@ -200,26 +198,18 @@
     //   };
     // }(i);
 
-    // 이벤트 바인딩 (속성 <-> 함수)
     // 방법 2.
+    // 이벤트 바인딩 (속성 <-> 함수)
     // a.onclick = changeShowcaseViewWrapper(i);
 
     // JavaScript 객체는 속성을 만들기가 너~~~~~무 쉽다.
-    // 객체의 속성을 추가하여 메모리하라.
     // 방법 3.
+    // 객체의 속성을 추가하여 메모리하라.
     // a???? <a> 요소노드 === JavaScript 객체
     a.index = i;
     a.onclick = changeShowcaseView;
 
   }
-
-  // 방법 3.
-  function changeShowcaseView() {
-    // this === 클릭한 <a>
-    console.log(this, this.index);
-    // 기본 동작 차단 (구형)
-    return false;
-  };
 
   // 이벤트 핸들러(함수) 정의
   // 방법 2.
@@ -232,6 +222,40 @@
     // };
   // }
 
+  // 방법 3.
+  function changeShowcaseView() {
+    // this === 클릭한 <a>
+    // console.log(this, this.index);
+    var source = data[this.index];
+    var showcase = _.selector('.photo-showcase img');
+    showcase.setAttribute('alt', source.alt);
+    var showcase_old_src = showcase.getAttribute('src');
+
+    // 방법 1.
+    // .slice(), .indexOf() 를 활용한 예시
+    var end_index = showcase_old_src.indexOf('=') + 1;
+    var showcase_new_src = showcase_old_src.slice(0, end_index) + source.index;
+
+    // 방법 2.
+    // RegExp, replace() 를 활용한 예시
+    var showcase_new_src = showcase_old_src.replace(/=.+/, function(){
+      return '=' + source.index;
+    });
+
+    showcase.setAttribute('src', showcase_new_src);
+    // 기본 동작 차단 (구형)
+    return false;
+  };
+
+  // ------------------------------------------
+  // 수업 중에 살펴본 String.prototype 객체의 메서드
+  // .charAt(index)
+  // .substring(start[, end])
+  // .substr(start[, length])
+  // .indexOf(string)
+  // .slice(start[, end])
+  // .split(string) => array
+  // .replace(string|regexp, string|function)
 
 
 })(window, window.document, window.FDS);
