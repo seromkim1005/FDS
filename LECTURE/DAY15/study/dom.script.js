@@ -101,15 +101,27 @@
       var list_html     = '<ul class="list">';
       for ( var content, i=0, l=list_contents.length; i<l; ++i ) {
         content = list_contents[i];
-        list_html += '<li class="list-item">' + content + '</li>';
+        list_html += '<li tabindex="0" onclick="choiceContent(this)" class="list-item">' + content + '</li>';
       }
       list_html += '</ul>';
       mount.innerHTML = list_html;
     }
 
+    global.choiceContent = function(target) {
+      // 이전 활성화 상태 제거
+      var old_active = $.selector('.active', $.parent(target));
+      if ( old_active ) {
+        // class 속성을 제어하는 유틸리티 메서드를 만들어 보자.
+        // old_active.removeAttribute('class')
+      }
+      // 현재 활성화 상태 추가
+      target.setAttribute('class', 'active');
+      target.setAttribute('data-active', true);
+    };
+
     // replaceChild() 데모
     function replaceChildDemo() {
-      var data = '아메리카노 카페라떼 차이티라떼 모카카푸치노'.split(' ');
+      var data = '슈렉프라푸치노 아메리카노 카페라떼 차이티라떼 모카카푸치노'.split(' ');
       innerHTMLDemo(data);
     }
     replaceChildDemo();

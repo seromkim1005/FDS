@@ -276,6 +276,35 @@ var FDS = function(global){
     validateElementNode(target);
     return parent(target).replaceChild(replace, target);
   };
+  var hasClass = function(el, name) {
+    validateElementNode(el);
+    validateError(name, '!string');
+    var el_classes = el.getAttribute('class');
+    // for문을 사용한 조건 확인 처리 예시
+    // var classes = el_classes.split(' ');
+    // for ( var i=0, l=classes.length; i<l; ++i ) {
+    //   if ( classes[i] === name ) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // }
+    // 정규표현식 객체를 활용한 예시
+    var reg = new RegExp('(^|\\s)' + name + '($|\\s)');
+    return reg.test(el_classes);
+  };
+  var addClass = function(el, name) {
+
+  };
+  var removeClass = function(el, name) {
+
+  };
+  var toggleClass = function(el, name) {
+
+  };
+  var radioClass = function(el, name) {
+
+  };
 
   // ---------------------------------------
   // 반환: FDS 네임스페이스 객체
@@ -329,6 +358,12 @@ var FDS = function(global){
     before: before,
     after: after,
     replaceChild: replaceChild,
+    // class 속성 조작: 유틸리티
+    hasClass: hasClass,
+    addClass: addClass,
+    removeClass: removeClass,
+    toggleClass: toggleClass,
+    radioClass: radioClass,
   };
 
 }(window);

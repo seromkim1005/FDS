@@ -83,11 +83,25 @@ body {
 .button:hover {
   background: linear-gradient(180deg, hsl(245, 74%, 73%), hsl(205, 36%, 53%));
 }
-.button:focus {
-  outline: none;
-}
 .button.is-replace {
   position: absolute;
   right: -9px;
   top: 6px;
+}
+
+
+.list {
+  list-style: none;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+.list li::before {
+  content: '—';
+  margin-right: 10px;
+  font-size: 10px;
+  color: #aaa;
+}
+.active {
+  outline: none;
+  background: rgba(244, 222, 0, 0.84);
 }
