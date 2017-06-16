@@ -245,6 +245,32 @@ var FDS = function(global){
     }
     return el;
   };
+  // target 노드 앞에 insert 노드 삽입 유틸리티 함수
+  var insertBefore = function(insert, target) {
+    validateElementNode(insert);
+    validateElementNode(target);
+    parent(target).insertBefore(insert, target);
+    return insert;
+  };
+  var before = function(target, insert) {
+    return insertBefore(insert, target);
+  };
+  // parent 노드 첫번째 자식노드로 child 삽입 유틸리티 함수
+  var prependChild = function(parent, child) {
+    validateElementNode(parent);
+    validateElementNode(child);
+    // parent의 첫번째 자식노드를 찾는다.
+    var target = firstChild(parent);
+    // 찾은 노드 앞에 child를 삽입한다.
+    // hasChild(parent) 조건 분기
+    // return hasChild(parent) ? insertBefore(child, target) : appendChild(parent, child);
+    // 조건 target === null 조건 분기
+    return target ? insertBefore(child, target) : appendChild(parent, child);
+  };
+  // target 노드 뒤에 insert 노드 삽입 유틸리티 함수
+  var insertAfter = function(insert, target) {
+
+  };
 
 
   // ---------------------------------------
@@ -292,7 +318,9 @@ var FDS = function(global){
     // DOM 생성/조작 API: 유틸리티
     createEl: createEl,
     appendChild: appendChild,
-
+    prependChild: prependChild,
+    insertBefore: insertBefore,
+    before: before,
   };
 
 }(window);

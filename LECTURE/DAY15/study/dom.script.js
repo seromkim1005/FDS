@@ -5,7 +5,7 @@
   // .wrapper 요소 내부에는 p 요소가 있다.
   // p 요소를 찾아 그 앞에 새로운 요소노드를 삽입해보자.
 
-    // 방법 1. .wrapper를 찾아서...
+    // 방법 1) .wrapper 요소를 찾아서...
     function methodOne() {
       var wrapper = $.selector('.wrapper');
       var new_node = $.createEl('h1', 'insertBefore');
@@ -18,14 +18,16 @@
       // 이벤트가 요구된다면
       wrapper.onmouseover = function() {
         // 문서의 특정 요소노드에 마운트(Mount)된 상태
-        this.insertBefore(new_node, $.selector('p', this));
+        // this.insertBefore(new_node, $.selector('p', this));
+        $.insertBefore(new_node, $.selector('p', this));
+        // $.before($.selector('p', this), new_node);
         // 이벤트의 제거
         this.onmouseover = null;
       };
     }
     // methodOne();
 
-    // 방법 2. .wrapper p 요소를 찾아서...
+    // 방법 2) .wrapper p 요소를 찾아서...
     function methodTwo(){
       // 문서에서 대상 찾기
       var wrapper_p = $.selector('.wrapper p');
@@ -39,10 +41,23 @@
         // console.log('changePosition() 함수 실행');
         // 상대적으로 insertBefore() 메서드 사용하기
         // 목표노드.부모노드.insertBefore(삽입노드,목표노드);
-        $.parent(wrapper_p).insertBefore(target, wrapper_p);
+        // $.parent(wrapper_p).insertBefore(target, wrapper_p);
+        $.insertBefore(target, wrapper_p);
+        // $.before(wrapper_p, target);
       };
     }
-    methodTwo();
+    // methodTwo();
+
+    var button = $.createEl('button', '대상 앞에 삽입');
+    button.setAttribute('type', 'button');
+    button.setAttribute('class', 'button is-prepend');
+    var prependAction = function() {
+      $.prependChild($.selector('.prepend-demo'), button);
+    };
+    // 특정 시간이 지난 후에 ....
+    global.setTimeout(prependAction, 2000);
 
 
 })(window, window.document, window.FDS);
+
+;
