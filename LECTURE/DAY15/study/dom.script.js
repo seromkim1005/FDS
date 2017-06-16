@@ -48,7 +48,7 @@
         // $.before(wrapper_p, target);
       };
     }
-    methodTwo();
+    // methodTwo();
 
     // ------------------------------------------------------------
     // prependChild() 데모
@@ -62,7 +62,7 @@
       // 특정 시간이 지난 후에 ....
       global.setTimeout(prependAction, 2000);
     }
-    prependDemo();
+    // prependDemo();
     // ------------------------------------------------------------
     // insertAfter() 데모
     function insertAfterDemo() {
@@ -73,7 +73,7 @@
       console.log('result:', result);
       console.log('result.textContent:', result.textContent);
     }
-    insertAfterDemo();
+    // insertAfterDemo();
 
     // ------------------------------------------------------------
     // removeChild() 데모
@@ -91,26 +91,26 @@
       }
 
     }
-    removeChildDemo();
+    // removeChildDemo();
 
     // ------------------------------------------------------------
-    // replaceChild() 데모
-    var mount = $.selector('.mount');
-    var list_contents = '아메리카노 카페라떼 차이티라떼 모카카푸치노'.split(' ');
-    function replaceChildDemo() {
-      // list_contents를 순환 처리 해서 동적으로 HTML 코드를 생성
-      // HTML 코드를 조합하기 위한 기본 문자열을 참조하는 변수 정의
-      // .innerHTML 활용
-      var list_html = '<ul class="list">';
-      // list_contents 데이터 반복 처리
+    // innerHTML 데모
+    function innerHTMLDemo(data) {
+      var list_contents = data;
+      var mount         = $.selector('.mount');
+      var list_html     = '<ul class="list">';
       for ( var content, i=0, l=list_contents.length; i<l; ++i ) {
         content = list_contents[i];
         list_html += '<li class="list-item">' + content + '</li>';
       }
-      // 순환 종료 후에 마무리
       list_html += '</ul>';
-      // 동적으로 HTML 코드를 mount 요소의 내부 코드로 대체 변경
       mount.innerHTML = list_html;
+    }
+
+    // replaceChild() 데모
+    function replaceChildDemo() {
+      var data = '아메리카노 카페라떼 차이티라떼 모카카푸치노'.split(' ');
+      innerHTMLDemo(data);
     }
     replaceChildDemo();
 
