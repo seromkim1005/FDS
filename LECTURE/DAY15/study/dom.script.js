@@ -75,6 +75,24 @@
     }
     insertAfterDemo();
 
+    function removeChildDemo() {
+      global.setTimeout(afterTimeRemove, 2200);
+    }
+    removeChildDemo();
+    function afterTimeRemove() {
+      var removed_el = $.selector('.target');
+      removed_el = $.removeChild(removed_el);
+      // global.setTimeout(function(){
+      //   afterTimeAndAttach(removed_child);
+      // }, 3000);
+
+      global.setTimeout(afterTimeAndAttach.bind(removed_el), 3000);
+    }
+    function afterTimeAndAttach() {
+      // console.log(this); // removed_child
+      $.insertAfter(this, $.selector('.prepend-demo :first-child'));
+    }
+
 
 })(window, window.document, window.FDS);
 
