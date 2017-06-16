@@ -246,6 +246,7 @@ var FDS = function(global){
     return el;
   };
 
+
   // ---------------------------------------
   // 반환: FDS 네임스페이스 객체
   return {
@@ -258,7 +259,9 @@ var FDS = function(global){
       license: 'MIT'
     },
 
+    // ----------------
     // 공개 API
+    // ----------------
 
     // JavaScript 유틸리티
     type:          type,
@@ -285,11 +288,11 @@ var FDS = function(global){
     next: nextSibling,
     parent: parent,
     hasChild: hasChild,
+
     // DOM 생성/조작 API: 유틸리티
-    createElement: createElement,
-    createText: createText,
+    createEl: createEl,
     appendChild: appendChild,
-    createEl: createEl
+
   };
 
 }(window);
