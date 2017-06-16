@@ -108,15 +108,7 @@
     }
 
     global.choiceContent = function(target) {
-      // 이전 활성화 상태 제거
-      var old_active = $.selector('.active', $.parent(target));
-      if ( old_active ) {
-        // class 속성을 제어하는 유틸리티 메서드를 만들어 보자.
-        // old_active.removeAttribute('class')
-      }
-      // 현재 활성화 상태 추가
-      target.setAttribute('class', 'active');
-      target.setAttribute('data-active', true);
+      $.radioClass(target, 'active');
     };
 
     // replaceChild() 데모
