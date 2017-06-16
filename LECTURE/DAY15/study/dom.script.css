@@ -21,14 +21,73 @@ caption.a11y-hidden {
   position: static;
 }
 
-.input-field {padding: 1rem; background: rgba(0,0,0,1);}
-
-.input {}
-.input.is-replace {}
-
-.buton {}
-.buton.is-replace {}
-
 body {
   margin: 0;
+  padding-top: 6rem;
+  font: 16px/1.5 "Spoqa Han Sans";
+}
+
+.container {
+  width: 80%;
+  max-width: 1080px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.input-field-wrapper {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 40px;
+  padding: 1rem 0;
+  border-bottom: 1px solid hsl(0, 0%, 90%);
+  background: hsla(0, 0%, 91%, 0.47);
+}
+
+.input-field {position: absolute;}
+
+.input {
+  width: 30em;
+  border: 6px solid currentColor;
+  padding: 0.62em 0 0.62em 0.9em;
+  font-size: 0.7rem;
+  color: #6155dd;
+  border-radius: 5px;
+}
+
+::-moz-placeholder {
+  color: #6155dd;
+}
+::-webkit-placeholder {
+  color: #6155dd;
+}
+::placeholder {
+  color: #6155dd;
+}
+
+.title {
+  font-weight: 100;
+  font-size: 24px;
+}
+
+.button {
+  cursor: pointer;
+  padding: 0.7em 0.6em;
+  border: none;
+  border-radius: 3px;
+  background: linear-gradient(180deg, hsla(245, 74%, 73%, 0.79), hsla(205, 36%, 53%, 0.82));
+  color: #fff;
+  font-weight: 700;
+  box-shadow: -2px 1px 5px rgba(52, 36, 184, 0.32);
+}
+.button:hover {
+  background: linear-gradient(180deg, hsl(245, 74%, 73%), hsl(205, 36%, 53%));
+}
+.button:focus {
+  outline: none;
+}
+.button.is-replace {
+  position: absolute;
+  right: -9px;
+  top: 6px;
 }
