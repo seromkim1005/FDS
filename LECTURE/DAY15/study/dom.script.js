@@ -5,6 +5,7 @@
   // .wrapper 요소 내부에는 p 요소가 있다.
   // p 요소를 찾아 그 앞에 새로운 요소노드를 삽입해보자.
 
+    // ------------------------------------------------------------
     // 방법 1) .wrapper 요소를 찾아서...
     function methodOne() {
       var wrapper = $.selector('.wrapper');
@@ -27,6 +28,7 @@
     }
     // methodOne();
 
+    // ------------------------------------------------------------
     // 방법 2) .wrapper p 요소를 찾아서...
     function methodTwo(){
       // 문서에서 대상 찾기
@@ -46,16 +48,32 @@
         // $.before(wrapper_p, target);
       };
     }
-    // methodTwo();
+    methodTwo();
 
-    var button = $.createEl('button', '대상 앞에 삽입');
-    button.setAttribute('type', 'button');
-    button.setAttribute('class', 'button is-prepend');
-    var prependAction = function() {
-      $.prependChild($.selector('.prepend-demo'), button);
-    };
-    // 특정 시간이 지난 후에 ....
-    global.setTimeout(prependAction, 2000);
+    // ------------------------------------------------------------
+    // prependChild() 데모
+    function prependDemo() {
+      var button = $.createEl('button', '대상 앞에 삽입');
+      button.setAttribute('type', 'button');
+      button.setAttribute('class', 'button is-prepend');
+      var prependAction = function() {
+        $.prependChild($.selector('.prepend-demo'), button);
+      };
+      // 특정 시간이 지난 후에 ....
+      global.setTimeout(prependAction, 2000);
+    }
+    prependDemo();
+    // ------------------------------------------------------------
+    // insertAfter() 데모
+    function insertAfterDemo() {
+      var button = $.createEl('button', '~앞에 삽입');
+      button.setAttribute('type', 'button');
+      button.setAttribute('class', 'insert-after');
+      var result = $.insertAfter(button, $.selector('.wrapper button'));
+      console.log('result:', result);
+      console.log('result.textContent:', result.textContent);
+    }
+    insertAfterDemo();
 
 
 })(window, window.document, window.FDS);
