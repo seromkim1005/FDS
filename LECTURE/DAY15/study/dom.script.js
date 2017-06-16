@@ -75,23 +75,44 @@
     }
     insertAfterDemo();
 
+    // ------------------------------------------------------------
+    // removeChild() 데모
     function removeChildDemo() {
-      global.setTimeout(afterTimeRemove, 2200);
+
+      global.setTimeout(afterTimeRemove, 2000);
+
+      function afterTimeRemove() {
+        var removed_el = $.selector('.target');
+        global.setTimeout(afterTimeAndAttach.bind($.removeChild(removed_el)), 1000);
+      }
+
+      function afterTimeAndAttach() {
+        $.insertAfter(this, $.selector('.prepend-demo :first-child'));
+      }
+
     }
     removeChildDemo();
-    function afterTimeRemove() {
-      var removed_el = $.selector('.target');
-      removed_el = $.removeChild(removed_el);
-      // global.setTimeout(function(){
-      //   afterTimeAndAttach(removed_child);
-      // }, 3000);
 
-      global.setTimeout(afterTimeAndAttach.bind(removed_el), 3000);
+    // ------------------------------------------------------------
+    // replaceChild() 데모
+    var mount = $.selector('.mount');
+    var list_contents = '아메리카노 카페라떼 차이티라떼 모카카푸치노'.split(' ');
+    function replaceChildDemo() {
+      // list_contents를 순환 처리 해서 동적으로 HTML 코드를 생성
+      // HTML 코드를 조합하기 위한 기본 문자열을 참조하는 변수 정의
+      // .innerHTML 활용
+      var list_html = '<ul class="list">';
+      // list_contents 데이터 반복 처리
+      for ( var content, i=0, l=list_contents.length; i<l; ++i ) {
+        content = list_contents[i];
+        list_html += '<li class="list-item">' + content + '</li>';
+      }
+      // 순환 종료 후에 마무리
+      list_html += '</ul>';
+      // 동적으로 HTML 코드를 mount 요소의 내부 코드로 대체 변경
+      mount.innerHTML = list_html;
     }
-    function afterTimeAndAttach() {
-      // console.log(this); // removed_child
-      $.insertAfter(this, $.selector('.prepend-demo :first-child'));
-    }
+    replaceChildDemo();
 
 
 })(window, window.document, window.FDS);

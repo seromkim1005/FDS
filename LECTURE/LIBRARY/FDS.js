@@ -261,23 +261,20 @@ var FDS = function(global){
     return target ? insertBefore(child, target) : appendChild(parent, child);
   };
   var insertAfter = function(insert, target) {
-    // target 뒤에 형제가 있나?
     var next = nextSibling(target);
-    // 형제가 있으면?
-    if ( next ) {
-      insertBefore(insert, next);
-    }
-    // 형제가 없으면?
-    else {
-      appendChild(insert, parent(target));
-    }
-    return insert;
+    return next ?  insertBefore(insert, next) : appendChild(parent(target), insert);
   };
   var after = function(target, insert) {
     return insertAfter(insert, target);
   };
   var removeChild = function(child) {
+    // 부모노드.removeChild(자식노드)
+    validateElementNode(child);
     return parent(child).removeChild(child);
+  };
+  var replaceChild = function(replace, target) {
+    validateElementNode(target);
+    return parent(target).replaceChild(replace, target);
   };
 
   // ---------------------------------------
@@ -331,6 +328,7 @@ var FDS = function(global){
     insertAfter: insertAfter,
     before: before,
     after: after,
+    replaceChild: replaceChild,
   };
 
 }(window);
