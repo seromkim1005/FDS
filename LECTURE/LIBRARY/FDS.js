@@ -311,7 +311,7 @@ var FDS = function(global){
     validateError(name, '!string');
     var old_active = query('.'+name, parent(el));
     old_active && removeClass(old_active, name);
-    addClass(el, name);
+    return addClass(el, name);
   };
 
   // ---------------------------------------

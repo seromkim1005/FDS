@@ -97,6 +97,8 @@ body {
 }
 .list li::before {
   content: '—';
+  position: relative;
+  top: -2px;
   margin-right: 10px;
   font-size: 10px;
   color: #aaa;

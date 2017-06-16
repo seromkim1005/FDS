@@ -111,10 +111,33 @@
       $.radioClass(target, 'active');
     };
 
+    function bindEvents() {
+      var wrapper = $.selector('.input-field-wrapper');
+      var button = $.selector('button', wrapper);
+      button.onclick = replaceListItem.bind(button, wrapper);
+    }
+
+    function replaceListItem(wrapper) {
+      var input        = $.selector('input', wrapper);
+      var user_input   = input.value.trim();
+      var activated    = $.selector('.list .active');
+      var replace_node = $.createEl('li', user_input);
+      replace_node.setAttribute('tabindex', 0);
+      replace_node.setAttribute('onclick', 'choiceContent(this)');
+      replace_node.setAttribute('class', 'list-item');
+      if(user_input === '') {
+        user_input = global.prompt('대체할 콘텐츠를 입력하시겠습니까?');
+      }
+      activated = activated || $.addClass($.first($.selector('.list')), 'active');
+      $.replaceChild(replace_node, activated);
+      input.value = '';
+    }
+
     // replaceChild() 데모
     function replaceChildDemo() {
       var data = '슈렉프라푸치노 아메리카노 카페라떼 차이티라떼 모카카푸치노'.split(' ');
       innerHTMLDemo(data);
+      bindEvents();
     }
     replaceChildDemo();
 
