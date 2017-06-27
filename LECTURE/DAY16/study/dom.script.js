@@ -9,6 +9,49 @@
   // 노드 복제
   // .cloneNode([deep])
 
+  // #gnb 요소노드를 찾아서 변수에 참조
+  var gnb = $.selector('#gnb');
+  var copyzone = $.selector('.copyzone');
+
+  // #gnb 내부의 a 요소에 이벤트 바인딩
+  var gnb_links = $.selectorAll('a', gnb);
+
+  // ES5 (2009)
+  // Array.prototype.forEach() 인스턴스 메서드
+  // [3, 7, 9, 101].forEach(function(item, index, arr){
+  //   console.log(index);
+  // });
+
+  // 배열 생성자 프로토타입 객체의 메서드 forEach()를 빌려쓰자.
+  var forEach = Array.prototype.forEach;
+  forEach.call(gnb_links, function(link){
+    link.onclick = function() {
+      // e.preventDefault();
+      console.log(this);
+      return false;
+    };
+  });
+
+  global.cloneNodeGNB = function () {
+    // 참조된 변수(노드)를 복제한다. (.cloneNode([false|true]))
+    var copyed_gnb = gnb.cloneNode(true);
+    // 복제된 노드를 변수에 참조해서 특정 위치(.copyzone)에 삽입
+    $.appendChild(copyzone, copyed_gnb);
+    // 이벤트 복제까지 수행하려면?
+    copyEvent( $.selectorAll('a', copyed_gnb) , gnb_links );
+  };
+
+  function copyEvent( copyed, copy ) {
+
+  }
+
+
+
+
+
+
+
+
   // 클래스 속성 제어
   // .classList
 
