@@ -108,11 +108,21 @@ body {
   background: rgba(244, 222, 0, 0.84);
 }
 
+.link {
+  text-decoration: none;
+  color: #a3a0ed;
+}
+
 .html-wrapper {
+  box-sizing: border-box;
   width: 100%;
+  margin-bottom: 2rem;
   border: 3px solid currentColor;
   padding: 1rem;
   color: #a3a0ed;
+  font-size: 1rem;
+  line-height: 1.5;
+  resize: none;
 }
 
 .html-wrapper * {

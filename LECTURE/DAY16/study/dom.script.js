@@ -1,6 +1,7 @@
 /*! dom.script.js @ 2017, yamoo9.net */
 
 // Emmet 설정
+// Emmet Game: 1기 안도훈 수료생 결과물 - https://ahndohun.github.io/emmet-game/
 (function(emmet){
   'use strict';
   emmet.require('textarea').setup({
@@ -79,6 +80,34 @@
   // DOM 삽입
   // .innerHTML
   // getter / setter
+
+  // .button.is-change-html-code <button> 요소를 클릭하면
+  var change_btn = $.selector('.button.is-change-html-code');
+  var textarea = $.selector('#user-html-code');
+  // 이벤트 바인딩
+  change_btn.onclick = render;
+
+  // 사람이 읽기 용이한(Readable) 키코드 객체
+  var keyboards = {
+    enter: 13
+  };
+
+  // 키보드 이벤트 감지 및 처리
+  textarea.onkeyup = function(e) {
+    var key = e.charCode || e.keyCode || e.which;
+    console.log(key);
+    if (key === keyboards.enter) { render(); }
+  };
+
+  // render 핸들러(함수)
+  function render() {
+    var html_code = textarea.value;
+    // #user-html-code <textarea> 요소의 값(value) -> HTML 코드를
+    // .html-wrapper 내부에 적용하여 화면을 업데이트 하시오.
+    $.selector('div.html-wrapper').innerHTML = html_code;
+  }
+
+
   // [GETTER] Node.innerHTML
   // [SETTER] Node.innerHTML = 'HTML Code';
 
