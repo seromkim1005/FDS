@@ -35,11 +35,12 @@
 
   global.cloneNodeGNB = function () {
     // 참조된 변수(노드)를 복제한다. (.cloneNode([false|true]))
-    var copyed_gnb = gnb.cloneNode(true);
+    // var copyed_gnb = gnb.cloneNode(true);
+    var copyed_gnb = $.clone(gnb, true);
     // 복제된 노드를 변수에 참조해서 특정 위치(.copyzone)에 삽입
     $.appendChild(copyzone, copyed_gnb);
     // 이벤트 복제까지 수행하려면?
-    copyEvent( $.selectorAll('a', copyed_gnb) , gnb_links );
+    // copyEvent( $.selectorAll('a', copyed_gnb) , gnb_links );
   };
 
   function copyEvent( copyed, copy ) {

@@ -3,12 +3,14 @@
 var FDS = function(global){
 
   var document = global.document;
+  var toString = Object.prototype.toString;
+  var forEach  = Array.prototype.forEach;
 
   // ——————————————————————————————————————
   // JavaScript 유틸리티 함수
   // ——————————————————————————————————————
   function type(data) {
-    return Object.prototype.toString.call(data).slice(8,-1).toLowerCase();
+    return toString.call(data).slice(8,-1).toLowerCase();
   }
   function isType(data, kind) {
     // validateError()를 사용하여 오류 조건을 발생시킴:
@@ -64,7 +66,21 @@ var FDS = function(global){
     if ( !('length' in o) ) { return []; }
     return Array.prototype.slice.call(o);
   }
-  var forEach = Array.prototype.forEach;
+  var forEachFn = function() {
+    if ( forEach ) {
+      // 1.1 IE 9+ : forEach문
+      return function(o, callback) {
+        o.forEach(callback);
+      }
+    } else {
+      // 1.2 IE 8- : for문
+      return function(o, callback) {
+        for ( var i=0, l=o.length; i<l; ++i ) {
+          callback(o[i], i, o);
+        }
+      }
+    }
+  }();
   function each(o, callback) {
     // 배열, 객체를 순환하여 전달된 콜백함수를 처리
     // 전달된 o의 유형 파악
@@ -73,20 +89,20 @@ var FDS = function(global){
     // 유사배열 객체: 객체가 아니면서 .length 속성을 가졌다면 배열로 변경
     if ( !isObject(o) && o.length ) { o = makeArray(o); }
     // 1. 배열
-    if ( isArray(o) ) {
-      // 1.1 IE 8- : for문
-      if ( !forEach ) {
-        for ( var i=0, l=o.length; i<l; ++i ) {
-          callback.call(o, o[i], i, o);
-        }
-      }
-      // 1.2 IE 9+ : forEach문
-      else {
-        o.forEach(callback);
+    isArray(o) && forEachFn(o, callback);
+    // 2. 객체
+    if ( isObject(o) ) {
+      // 객체의 속성을 순환 처리
+      for ( var prop in o ) {
+        o.hasOwnProperty(prop) && callback(prop, o[prop], o);
       }
     }
-    // 2. 객체
-    if ( isObject(o) ) {}
+    // 3. 요소노드
+    if ( o.nodeType === 1 ) {
+      for ( var prop in o ) {
+        callback(prop, o[prop], o);
+      }
+    }
   }
 
   // ——————————————————————————————————————
@@ -300,17 +316,28 @@ var FDS = function(global){
     validateElementNode(target);
     return parent(target).replaceChild(replace, target);
   };
-  // var clone = function(node, deep) {
-  //   validateElementNode(node);
-  //   validateError(deep, '!boolean');
-  //   deep = deep || false; // 초기화
-  //   var copyed_node = node.cloneNode(true);
-  //   // 이벤트 복제를 수행하기 위한 조건: deep 참일 경우
-  //   if (deep) {
-
-  //   }
-  //   return copyed_node;
-  // };
+  var clone = function(node, deep) {
+    validateElementNode(node);
+    var copyed_node = node.cloneNode(true);
+    // 이벤트 복제를 수행하기 위한 조건: deep 참일 경우
+    if (deep) {
+      // node 내부의 포커스 요소들([href], button, input)
+      var focus_els = queryAll('[href], button, input', node);
+      var copyed_focus_els = queryAll('[href], button, input', copyed_node);
+      // console.log(copyed_focus_els);
+      each(focus_els, function(el, index){
+        // console.log(el, index);
+        // 요소의 이벤트 속성을 순환
+        // console.log(el);
+        each(el, function(key, value){
+          if ( /^on/.test(key) && isFunction(value) ) {
+            copyed_focus_els[index][key] = value;
+          }
+        });
+      });
+    }
+    return copyed_node;
+  };
 
   var hasClass = function(el, name) {
     validateElementNode(el);
@@ -403,6 +430,7 @@ var FDS = function(global){
     before: before,
     after: after,
     replaceChild: replaceChild,
+    clone: clone,
     // class 속성 조작: 유틸리티
     hasClass: hasClass,
     addClass: addClass,
