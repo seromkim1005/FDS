@@ -64,6 +64,30 @@ var FDS = function(global){
     if ( !('length' in o) ) { return []; }
     return Array.prototype.slice.call(o);
   }
+  var forEach = Array.prototype.forEach;
+  function each(o, callback) {
+    // 배열, 객체를 순환하여 전달된 콜백함수를 처리
+    // 전달된 o의 유형 파악
+    // callback 이 함수 유형인지 검증
+    validateError(callback, '!function');
+    // 유사배열 객체: 객체가 아니면서 .length 속성을 가졌다면 배열로 변경
+    if ( !isObject(o) && o.length ) { o = makeArray(o); }
+    // 1. 배열
+    if ( isArray(o) ) {
+      // 1.1 IE 8- : for문
+      if ( !forEach ) {
+        for ( var i=0, l=o.length; i<l; ++i ) {
+          callback.call(o, o[i], i, o);
+        }
+      }
+      // 1.2 IE 9+ : forEach문
+      else {
+        o.forEach(callback);
+      }
+    }
+    // 2. 객체
+    if ( isObject(o) ) {}
+  }
 
   // ——————————————————————————————————————
   // DOM 검증 유틸리티 함수
@@ -276,6 +300,18 @@ var FDS = function(global){
     validateElementNode(target);
     return parent(target).replaceChild(replace, target);
   };
+  // var clone = function(node, deep) {
+  //   validateElementNode(node);
+  //   validateError(deep, '!boolean');
+  //   deep = deep || false; // 초기화
+  //   var copyed_node = node.cloneNode(true);
+  //   // 이벤트 복제를 수행하기 위한 조건: deep 참일 경우
+  //   if (deep) {
+
+  //   }
+  //   return copyed_node;
+  // };
+
   var hasClass = function(el, name) {
     validateElementNode(el);
     validateError(name, '!string');
@@ -338,6 +374,7 @@ var FDS = function(global){
     isObject:      isObject,
     makeArray:     makeArray,
     validateError: validateError,
+    each: each,
 
     // DOM 선택 API: 유틸리티
     id: id,
