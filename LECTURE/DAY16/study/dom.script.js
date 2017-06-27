@@ -7,7 +7,7 @@
     pretty_break: true,
     use_tab: true
   });
-})(global.emmet);
+})(window.emmet);
 
 ;(function(global, document, $){
   'use strict';

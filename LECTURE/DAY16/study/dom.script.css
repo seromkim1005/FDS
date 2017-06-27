@@ -109,8 +109,9 @@ body {
 }
 
 .html-wrapper {
+  width: 100%;
   border: 3px solid currentColor;
-  padding: 1em;
+  padding: 1rem;
   color: #a3a0ed;
 }
 
