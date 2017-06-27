@@ -107,3 +107,14 @@ body {
   outline: none;
   background: rgba(244, 222, 0, 0.84);
 }
+
+.html-wrapper {
+  border: 3px solid currentColor;
+  padding: 1em;
+  color: #a3a0ed;
+}
+
+.html-wrapper * {
+  margin: 0;
+  padding: 0;
+}

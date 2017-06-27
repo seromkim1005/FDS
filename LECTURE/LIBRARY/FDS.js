@@ -68,12 +68,10 @@ var FDS = function(global){
   }
   var forEachFn = function() {
     if ( forEach ) {
-      // 1.1 IE 9+ : forEach문
       return function(o, callback) {
         o.forEach(callback);
       }
     } else {
-      // 1.2 IE 8- : for문
       return function(o, callback) {
         for ( var i=0, l=o.length; i<l; ++i ) {
           callback(o[i], i, o);
@@ -82,22 +80,14 @@ var FDS = function(global){
     }
   }();
   function each(o, callback) {
-    // 배열, 객체를 순환하여 전달된 콜백함수를 처리
-    // 전달된 o의 유형 파악
-    // callback 이 함수 유형인지 검증
     validateError(callback, '!function');
-    // 유사배열 객체: 객체가 아니면서 .length 속성을 가졌다면 배열로 변경
     if ( !isObject(o) && o.length ) { o = makeArray(o); }
-    // 1. 배열
     isArray(o) && forEachFn(o, callback);
-    // 2. 객체
     if ( isObject(o) ) {
-      // 객체의 속성을 순환 처리
       for ( var prop in o ) {
         o.hasOwnProperty(prop) && callback(prop, o[prop], o);
       }
     }
-    // 3. 요소노드
     if ( o.nodeType === 1 ) {
       for ( var prop in o ) {
         callback(prop, o[prop], o);
@@ -308,7 +298,6 @@ var FDS = function(global){
     return insertAfter(insert, target);
   };
   var removeChild = function(child) {
-    // 부모노드.removeChild(자식노드)
     validateElementNode(child);
     return parent(child).removeChild(child);
   };
@@ -319,16 +308,10 @@ var FDS = function(global){
   var clone = function(node, deep) {
     validateElementNode(node);
     var copyed_node = node.cloneNode(true);
-    // 이벤트 복제를 수행하기 위한 조건: deep 참일 경우
     if (deep) {
-      // node 내부의 포커스 요소들([href], button, input)
       var focus_els = queryAll('[href], button, input', node);
       var copyed_focus_els = queryAll('[href], button, input', copyed_node);
-      // console.log(copyed_focus_els);
       each(focus_els, function(el, index){
-        // console.log(el, index);
-        // 요소의 이벤트 속성을 순환
-        // console.log(el);
         each(el, function(key, value){
           if ( /^on/.test(key) && isFunction(value) ) {
             copyed_focus_els[index][key] = value;
@@ -339,36 +322,74 @@ var FDS = function(global){
     return copyed_node;
   };
 
-  var hasClass = function(el, name) {
-    validateElementNode(el);
-    validateError(name, '!string');
-    var el_classes = el.getAttribute('class');
-    var reg = new RegExp('(^|\\s)' + name + '($|\\s)');
-    return reg.test(el_classes);
-  };
-  var addClass = function(el, name) {
-    if ( !hasClass(el, name) ) {
-      var new_value = (el.getAttribute('class') || '') + ' ' + name;
-      el.setAttribute('class', new_value.trim());
-    }
-    return el;
-  };
-  var removeClass = function(el, name) {
-    if ( !name ) {
-      validateElementNode(el);
-      el.removeAttribute('class');
+  var hasClass = function(){
+    if ( 'classList' in Element.prototype ) {
+      return function(el, name) {
+        validateElementNode(el);
+        validateError(name, '!string');
+        return el.classList.contains(name);
+      };
     } else {
-      if ( hasClass(el, name) ) {
-        var reg = new RegExp(name);
-        var new_value = el.getAttribute('class').replace(reg, '');
-        el.setAttribute('class', new_value.trim());
-      }
+      return function(el, name) {
+        validateElementNode(el);
+        validateError(name, '!string');
+        var el_classes = el.getAttribute('class');
+        var reg = new RegExp('(^|\\s)' + name + '($|\\s)');
+        return reg.test(el_classes);
+      };
     }
-    return el;
-  };
-  var toggleClass = function(el, name) {
-    return hasClass(el, name) ? removeClass(el, name) : addClass(el, name);
-  };
+  }();
+  var addClass = function(){
+    if ( 'classList' in Element.prototype ) {
+      return function(el, name) {
+        validateElementNode(el);
+        validateError(name, '!string');
+        el.classList.add(name);
+      }
+    } else {
+      return function(el, name) {
+        if ( !hasClass(el, name) ) {
+          var new_value = (el.getAttribute('class') || '') + ' ' + name;
+          el.setAttribute('class', new_value.trim());
+        }
+        return el;
+      };
+    }
+  }();
+  var removeClass = function(){
+    if ( 'classList' in Element.prototype ) {
+      return function(el, name){
+        validateElementNode(el);
+        validateError(name, '!string');
+        el.classList.remove(name);
+      };
+    } else {
+      return function(el, name) {
+        if ( !name ) {
+          validateElementNode(el);
+          el.removeAttribute('class');
+        } else {
+          if ( hasClass(el, name) ) {
+            var reg = new RegExp(name);
+            var new_value = el.getAttribute('class').replace(reg, '');
+            el.setAttribute('class', new_value.trim());
+          }
+        }
+        return el;
+      };
+    }
+  }();
+  var toggleClass = function(){
+    if ( 'classList' in Element.prototype ) {
+      return function(el, name) {
+        el.classList.toggle(name);
+      };
+    } else {
+      return function(el, name) {
+        hasClass(el, name) ? removeClass(el, name) : addClass(el, name);
+      };
+    }
+  }();
   var radioClass = function(el, name) {
     validateElementNode(el);
     validateError(name, '!string');
@@ -404,39 +425,36 @@ var FDS = function(global){
     each: each,
 
     // DOM 선택 API: 유틸리티
-    id: id,
-    tagAll: tagAll,
-    tag: tag,
-    classAll: classAll,
-    classSingle: classSingle,
-    selector: query,
+    selector:    query,
     selectorAll: queryAll,
 
     // DOM 탐색 API: 유틸리티
-    first: firstChild,
-    last: lastChild,
-    prev: previousSibling,
-    next: nextSibling,
-    parent: parent,
+    first:    firstChild,
+    last:     lastChild,
+    prev:     previousSibling,
+    next:     nextSibling,
+    parent:   parent,
     hasChild: hasChild,
 
     // DOM 생성/조작 API: 유틸리티
-    createEl: createEl,
-    appendChild: appendChild,
+    createEl:     createEl,
+    appendChild:  appendChild,
     prependChild: prependChild,
-    removeChild: removeChild,
+    removeChild:  removeChild,
     insertBefore: insertBefore,
-    insertAfter: insertAfter,
-    before: before,
-    after: after,
+    insertAfter:  insertAfter,
+    before:       before,
+    after:        after,
     replaceChild: replaceChild,
-    clone: clone,
+    clone:        clone,
+
     // class 속성 조작: 유틸리티
-    hasClass: hasClass,
-    addClass: addClass,
+    hasClass:    hasClass,
+    addClass:    addClass,
     removeClass: removeClass,
     toggleClass: toggleClass,
-    radioClass: radioClass,
+    radioClass:  radioClass,
+
   };
 
 }(window);
