@@ -42,8 +42,14 @@
   };
 
   function copyEvent( copyed, copy ) {
-
+    // copyed: 능력을 복제할 자
+    // copy: 능력을 가진 자
+    forEach.call(copyed, function(item, index){
+      item.onclick = copy[index].onclick;
+    });
   }
+
+
 
 
 
