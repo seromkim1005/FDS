@@ -111,19 +111,57 @@
   // [GETTER] Node.innerHTML
   // [SETTER] Node.innerHTML = 'HTML Code';
 
-  // .insertAdjacentHTML()
+  // 크로스 브라우징
+  // prepend()
+  // append()
+  // before()
+  // after()
+  // .insertAdjacentHTML(positon, html_code)
+  // positon
+  // before, after
+  // begin, end
+  var target = $.selector('.insert-adjacent-html .target');
+  // target.insertAdjacentHTML('beforebegin', '<h2 class="beforebegin">beforebegin</h2>');
+  // target.insertAdjacentHTML('afterbegin', '<strong class="afterbegin">afterbegin</strong>');
+  // target.insertAdjacentHTML('beforeend', '<strong class="beforeend">beforeend</strong>');
+  // target.insertAdjacentHTML('afterend', '<h2 class="afterend">afterend</h2>');
+
   // .insertAdjacentElement()
+  target.insertAdjacentElement('beforebegin', $.createEl('h2', 'beforebegin'));
+  target.insertAdjacentElement('afterbegin', $.createEl('strong', 'afterbegin'));
+  target.insertAdjacentElement('beforeend', $.createEl('strong', 'beforeend'))
+  target.insertAdjacentElement('afterend', $.createEl('h2', 'afterend'));
+
   // .insertAdjacentText()
-
-
-  // 데이터 접두사 속성 제어
-  // .dataset
+  // target.insertAdjacentText('beforebegin', 'beforebegin');
+  // target.insertAdjacentText('afterbegin', 'afterbegin');
+  // target.insertAdjacentText('beforeend', 'beforeend');
+  // target.insertAdjacentText('afterend', 'afterend');
 
   // 속성 제어
   // .getAttribute()
   // .setAttribute()
   // .removeAttribute()
   // .hasAttribute()
+
+  // 데이터 접두사 속성 제어
+  // .dataset
+  // target.setAttribute('data-tag-name', target.localName);
+  // target.setAttribute('data-node-type', target.nodeType);
+  // target.setAttribute('data-has-class', target.hasAttribute('class'));
+  // console.log('target.dataset', target.dataset);
+
+  var dataMap = {
+    'data-tag-name': target.localName,
+    'data-node-type': target.nodeType,
+    'data-has-class': target.hasAttribute('class')
+  };
+
+  // 유틸리티 사용 예시
+  $.each(dataMap, function(key, value) {
+    target.setAttribute(key, value);
+  });
+
 
 
   // 스타일 제어
