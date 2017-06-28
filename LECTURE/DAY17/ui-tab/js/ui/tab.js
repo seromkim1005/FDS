@@ -11,7 +11,7 @@
 
 })(window);
 
-(function(global){
+;(function(global){
   'use strict';
 
   // 지역 내 참조 변수 선언
@@ -47,13 +47,12 @@
     parent.classList.add('active');
 
     // 탭 패널 중에 활성화된(.active) 패널에 활성화 클래스 제거
-    var current_panel = panels[index];
-    var pre_active_panel = current_panel.parentNode.querySelector('.tabpanel.active');
+    var active_panel = panels[index];
+    var pre_active_panel = active_panel.parentNode.querySelector('.tabpanel.active');
     pre_active_panel.classList.remove('active');
     // 인덱스(순서)에 해당하는 패널 활성화 클래스 추가
-    current_panel.classList.add('active');
+    active_panel.classList.add('active');
   }
-
 
   // 초기화
   init();
