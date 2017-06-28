@@ -16,7 +16,13 @@
 <body>
 
   <div class="container">
-    <ul>
+    <div class="button-set" role="group">
+      <button type="button" class="zoom-in" aria-label="글자 크기 크게">+</button>
+      <button type="button" class="zoom-out" aria-label="글자 크기 작게">-</button>
+    </div>
+    <!-- 인라인 스타일 속성을 설정하면 .style 을 통해 속성을 가져올 수 있다. -->
+    <!-- CSS로 분리 설정된 스타일 속성은 .style 로 가져올 수 없다. -->
+    <ul class="list">
       <li>item-001</li>
       <li>item-002</li>
       <li>item-003</li>

@@ -428,7 +428,7 @@ var FDS = function(global){
     else {
       each(o, function(item, index){
         // class 속성일 경우
-        if (key === 'class') { addClass(item, value); }
+        if (prop === 'class') { addClass(item, value); }
         else { item.setAttribute(prop, value); }
       });
     }
