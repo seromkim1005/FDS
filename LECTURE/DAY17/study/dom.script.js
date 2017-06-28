@@ -10,25 +10,30 @@
   // .setAttribute()
   // .removeAttribute()
 
+  // FDS.attr(prop)        // GET
+  // FDS.attr(prop, value) // SET
+  // FDS.removeAttr(prop)  // DELETE
+
   var container = $.selector('.container');
   var container_lis = $.selectorAll('li', container);
 
-  // SET
-  $.attr(container_lis, 'style', 'color: tan');
-  // GET
-  console.log( $.attr(container_lis, 'style') );
+  global.container = container;
 
-  container_lis[0].onclick = function() {
-    $.removeAttr(this, 'style');
-  };
+  // Loop
+  $.each(container_lis, function(li){
+    // SET
+    $.attr(li, 'style', 'color: tan');
+    // GET
+    console.log( $.attr(li, 'style') );
+    // Event
+    li.onclick = function() {
+      $.removeAttr(this, 'style');
+    };
+  });
 
   // $.each(container_lis, function(li){
   //   li.setAttribute('data-key', 'kfjlj23l424');
   // });
-
-  // FDS.attr(prop)        // GET
-  // FDS.attr(prop, value) // SET
-  // FDS.removeAttr(prop)  // DELETE
 
   // ——————————————————————————————————————
   // 스타일 제어
