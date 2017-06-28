@@ -1,3 +1,5 @@
+@charset "utf-8";
+
 body {
   margin: 30px;
   font-family: "Montserrat", sans-serif;
@@ -12,7 +14,7 @@ body {
   align-items: center;
 }
 
-.guide:hover::before {
+.guide::before {
   position: absolute;
   z-index: 1000;
   content: '';
@@ -25,14 +27,15 @@ body {
 }
 
 /* -----------------------------------------------------------------------------
- * tab-component 디자인
+ * tab-component
  */
 .tab-component, .tab-component * {
   box-sizing: border-box;
 }
 
 .tab-component {
-  width: 380px;
+  min-width: 380px;
+  width: 100%;
   height: 450px;
 }
 
@@ -69,13 +72,13 @@ body {
 .tablist-item.active .tab {
   color: #12407e;
 }
-/* 아래쪽 방향 화살표 그리기 + 회전 사각형 그리기 */
 .tablist-item.active {
   position: relative;
 }
 .tablist-item.active::before {
   content: '';
   position: absolute;
+  z-index: 1000;
   width: 8px;
   height: 8px;
   bottom: -5px;
@@ -98,6 +101,11 @@ body {
 
 .tabpanel {
   display: none;
+  overflow: hidden;
+  position: relative;
+  /* padding: 40px 30px 0 30px; */
+  height: 390px;
+  background: #fff;
 }
 
 .tabpanel.active {
@@ -105,15 +113,21 @@ body {
 }
 
 .tab-component .tabpanel-list {
-  padding: 40px 30px 10px 30px;
+  height: 100%;
+  margin-top: 40px;
   background: #fff;
-  border-bottom: 1px solid #dedfe5;
 }
 
 .tabpanel-list .tabpanel-item {
+  margin-left: 20px;
+  margin-right: 20px;
   margin-bottom: 20px;
   padding-top: 2px;
   padding-bottom: 2px;
+}
+
+.tabpanel-list .tabpanel-item:nth-child(3n) {
+  margin-bottom: 30px;
 }
 
 .tabpanel-list .tabpanel-item::after {
@@ -141,15 +155,18 @@ body {
   font-family: "Libre Baskerville", serif;
   font-size: 14px;
   line-height: 1.5714;
-  /*text-decoration: none;*/
-  /*border-bottom: 1px solid currentColor;*/
   color: #000;
 }
 
 .tabpanel-control {
-  background: #fff;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  border-top: 1px solid #dedfe5;
   padding: 13px 20px 17px 30px;
   border-radius: 0 0 10px 10px;
+  background: #fff;
 }
 
 .tabpanel-control::after {
