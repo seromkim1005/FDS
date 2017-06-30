@@ -137,17 +137,29 @@ var FDS = (function(global){
 
     // 3. HTML 코드(문자열)
     // http://www.regextester.com/27540
-    var match_html_tags = /<\s*a[^>]*>(.*?)<\s*\/\s*a>/;
+    var match_html_tags = /<\s*\w+[^>]*>(.*?)<\s*\/\s*\w+>/, temp;
     if ( isString(arg) && match_html_tags.test(arg) ) {
-      var temp = document.createDocumentFragment();
+      temp = document.createDocumentFragment();
       temp.appendChild( document.createElement('div') );
-      var temp_area = temp.firstChild;
-      temp_area.innerHTML = arg;
-      console.log(temp);
+      temp.firstChild.innerHTML = arg;
+      for ( var i=0, l=temp.firstChild.children.length; i<l; i++ ) {
+        this[i] = temp.firstChild.children[i];
+      }
+      this.length = l;
+      temp = null;
+      return this;
     }
 
     // 4.1 노드리스트, HTML콜렉션, 배열
+    var nodes;
+    if ( isArray(arg) || isNodelist(arg) ) { nodes = arg; }
     // 4.2 CSS 선택자(문자열)
+    else { nodes = document.querySelectorAll(arg); }
+    for ( var i=0, l=nodes.length; i<l; ++i ) {
+      this[i] = nodes[i];
+    }
+    this.length = l;
+    return this;
   }
 
   // --------------------------------------------
