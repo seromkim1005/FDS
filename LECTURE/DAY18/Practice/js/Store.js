@@ -109,14 +109,32 @@ var Store = function(global){
     },
     create: function(o){
       if ( config.types !== 'any' ) {
-        // 'string'
-        // 'string, number'.split(',')
+        var valid = false;
+        var config_arr = config.types.split(','); // 'number, string'
+        for ( var i=0, item; (item=config_arr[i++]); ) {
+          if ( type(item) === type(o) ) {
+            valid = true;
+            break;
+          }
+        }
+        if (!valid) {
+          throw '허용되지 않은 데이터 타입입니다. 허용된 데이터 타입은 ' + config.types + '과 같습니다.';
+        }
       }
       state.push(o);
     },
-    get: function(){},
-    update: function(){},
-    delete: function(){}
+    get: function(index){
+      index = Number(index);
+      return (!index || index < 0) ? state : state[index];
+    },
+    update: function(index, item){
+      if (!index) { throw '변경할 인덱스를 숫자로 전달해야 합니다.'; }
+
+    },
+    delete: function(index){
+      if (!index) { throw '제거할 인덱스를 숫자로 전달해야 합니다.'; }
+      state.splice(index, 1);
+    }
   };
 
   // 생성자 함수 외부에 공개
