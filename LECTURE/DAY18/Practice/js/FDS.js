@@ -13,9 +13,8 @@ var FDS = (function(global){
   // 감춰진 데이터 또는 지역 내 변수, 함수
   var document = global.document;
   var toString = Object.prototype.toString;
-  var from     = Array.prototype.from;
-  var slice    = Array.prototype.slice;
   var forEach  = Array.prototype.forEach;
+  var slice  = Array.prototype.slice;
   // 별칭과 충돌되는 기능을 백업
   var original_$;
 
@@ -112,6 +111,19 @@ var FDS = (function(global){
       }
     }
   }
+  function deleteIndexing(o) {
+    for ( var i=0, l=o.length; i<l; i++ ) {
+      delete o[i];
+    }
+  }
+  function assignIndesing(o, filtered) {
+    if ( filtered.length ) {
+      for ( var i=0, l=filtered.length; i<l; i++ ) {
+        o[i] = filtered[i];
+      }
+      o.length = l;
+    }
+  }
 
   // --------------------------------------------
   // 생성자 함수(클래스) 정의
@@ -193,7 +205,45 @@ var FDS = (function(global){
   // 프로토타입 객체 정의 (생성된 모든 객체가 공유하는 멤버)
   FDS.fn = FDS.prototype = {
     constructor: FDS,
-    init: function(){}
+    filter: function(callback) {
+      var filtered = [];
+      for ( var i=0, l=this.length; i<l; i++ ) {
+        var item = this[i];
+        if ( callback.call(this, item, i) ) {
+          filtered.push(item);
+        }
+      }
+      deleteIndexing(this);
+      assignIndesing(this, filtered);
+      return this;
+    },
+    eq: function(i) {
+      return this.filter(function(item, index){
+        return index === i;
+      });
+    },
+    lt: function(i) {
+      return this.filter(function(item, index){
+        return index < i;
+      });
+    },
+    gt: function(i) {
+      return this.filter(function(item, index){
+        return index > i;
+      });
+    },
+    addClass: function(name) {
+      for ( var i=0, l=this.length; i<l; i++ ) {
+        var item = this[i];
+        item.classList.add(name);
+      }
+    },
+    on: function(type, handler) {
+      for ( var i=0, l=this.length; i<l; i++ ) {
+        var item = this[i];
+        item.addEventListener(type, handler);
+      }
+    }
   };
 
   FDS.fn.extend = function(o){
