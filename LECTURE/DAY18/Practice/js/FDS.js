@@ -16,6 +16,8 @@ var FDS = (function(global){
   var from     = Array.prototype.from;
   var slice    = Array.prototype.slice;
   var forEach  = Array.prototype.forEach;
+  // 별칭과 충돌되는 기능을 백업
+  var original_$;
 
   // 자주 사용되는 유틸리티 함수
   function type(data) {
@@ -33,6 +35,13 @@ var FDS = (function(global){
       if ( data === kind ) { throw error_message || '두 값은 동일하기에 오류입니다.'; }
     }
     return '오류는 발생하지 않았습니다';
+  }
+  function isElementNode(o) {
+    return o && o.nodeType === 1;
+  }
+  function isNodelist(collection) {
+    var condition = collection && (type(collection) === 'htmlcollection') || (type(collection) === 'nodelist');
+    return condition;
   }
   function isNumber(data) {
     return isType(data, 'number') && !Number.isNaN(data);
@@ -106,15 +115,36 @@ var FDS = (function(global){
 
   // --------------------------------------------
   // 생성자 함수(클래스) 정의
-  // new를 강제화하지 않는 패턴 활용
   // 팩토리 패턴 활용
   function FDS(arg) {
+    // new를 강제화하지 않는 패턴 활용
+    if ( !(this instanceof FDS) ) {
+      return new FDS(arg);
+    }
     // 1.1 사용자가 아무런 값도 전달하지 않았을 경우
     // 1.2 빈 문자열을 전달한 경우
+    if ( !arg || (isString(arg) && arg.trim() === '') ) {
+      this.length = 0;
+      return this;
+    }
 
     // 2. 요소노드
+    if ( isElementNode(arg) ) {
+      this[0] = arg;
+      this.length = 1;
+      return this;
+    }
 
     // 3. HTML 코드(문자열)
+    // http://www.regextester.com/27540
+    var match_html_tags = /<\s*a[^>]*>(.*?)<\s*\/\s*a>/;
+    if ( isString(arg) && match_html_tags.test(arg) ) {
+      var temp = document.createDocumentFragment();
+      temp.appendChild( document.createElement('div') );
+      var temp_area = temp.firstChild;
+      temp_area.innerHTML = arg;
+      console.log(temp);
+    }
 
     // 4.1 노드리스트, HTML콜렉션, 배열
     // 4.2 CSS 선택자(문자열)
@@ -126,6 +156,8 @@ var FDS = (function(global){
     mixin(FDS, o);
   };
   FDS.include({
+    version    : '0.0.1',
+    type       : type,
     isNumber   : isNumber,
     isString   : isString,
     isBoolean  : isBoolean,
@@ -133,14 +165,34 @@ var FDS = (function(global){
     isArray    : isArray,
     isObject   : isObject,
     makeArray  : makeArray,
-    each       : each
+    each       : each,
+    noConflict : function(giveup) {
+      if ( original_$ ) {
+        global.$ = original_$;
+      } else {
+        delete global.$;
+      }
+      if ( giveup ) { global.FDS = null; }
+      return FDS;
+    }
   });
 
   // --------------------------------------------
   // 프로토타입 객체 정의 (생성된 모든 객체가 공유하는 멤버)
+  FDS.fn = FDS.prototype = {
+    constructor: FDS,
+    init: function(){}
+  };
+
+  FDS.fn.extend = function(o){
+    validateError(o, '!object', '객체만 전달할 수 있습니다.');
+    mixin(FDS.fn, o);
+  };
 
   // --------------------------------------------
   // 전역에 공개된 별칭(Alias) 설정 여부
+  if ( global.$ ) { original_$ = global.$; }
+  global.$ = FDS;
   // 생성자 함수 반환(외부 공개)
   return FDS;
 

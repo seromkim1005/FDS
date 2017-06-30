@@ -42,7 +42,7 @@ DOM(Document Object Model) 컨트롤 객체
 
 - 생성자 함수(Function, Class)
   - CSS 선택자 문자열
-  - HTML 문자열<br>검증 정규식 `/^\s*<(\w+|!)[^>]*>/`
+  - HTML 문자열<br>검증 정규식 `/<\s*a[^>]*>(.*?)<\s*\/\s*a>/`
   - Element Node
   - Nodelist Array
   - Nodelist

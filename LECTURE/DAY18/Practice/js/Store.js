@@ -47,6 +47,21 @@ var Store = function(global){
     return mixin_obj;
   };
 
+  var checkTypes = function(o, types) {
+    var valid = false;
+    var config_arr = String(types).split(',');
+    if ( !o ) { throw '검증할 데이터(첫번째 전달인자)를 전달해주세요'; }
+    console.log(config_arr);
+    for ( var i=0, item; (item=config_arr[i++]); ) {
+      if ( item === type(o) ) {
+        return true;
+      }
+    }
+    if (!valid) {
+      throw '허용되지 않은 데이터 타입입니다. 허용된 데이터 타입은 ' + config.types + '과 같습니다.';
+    }
+  };
+
   // ——————————————————————————————————————
   // 생성자 함수(Class)
   // ——————————————————————————————————————
@@ -97,42 +112,40 @@ var Store = function(global){
       // 옵션이 없거나, 배열이라면?
       if ( Array.isArray(options) ) {
         state = options;
+      } else {
+        mixin(config, default_settings, options || {});
       }
       // 옵션이 객체라면?
-      if ( options && !Array.isArray(options) && typeof options === 'object' ) {
+      if ( type(options) === 'object' ) {
         // 옵션 객체 (사용자 전달한 옵션)
         // 개발자가 기본 설정한 객체와 사용자가 전달한 옵션 객체를 합친다.
         // 믹스인 패턴을 사용한 유틸리티 함수가 필요하다.
-        mixin(config, default_settings, options);
         state = config.default;
       }
     },
     create: function(o){
-      if ( config.types !== 'any' ) {
-        var valid = false;
-        var config_arr = config.types.split(','); // 'number, string'
-        for ( var i=0, item; (item=config_arr[i++]); ) {
-          if ( type(item) === type(o) ) {
-            valid = true;
-            break;
-          }
-        }
-        if (!valid) {
-          throw '허용되지 않은 데이터 타입입니다. 허용된 데이터 타입은 ' + config.types + '과 같습니다.';
-        }
-      }
+      if (!o) { throw '생성할 데이터를 전달해야 합니다.' }
+      if ( config.types !== 'any' ) { checkTypes(o, config.types); }
       state.push(o);
     },
+    has: function(index) {
+      if (type(index) !== 'number') { throw '인덱스는 숫자여야 합니다.'; }
+      return !!state[index];
+    },
     get: function(index){
-      index = Number(index);
-      return (!index || index < 0) ? state : state[index];
+      if ( (type(index) === 'undefined') && index !== 0) { return state; }
+      var has_index = this.has(index);
+      if ( !has_index ) { throw '존재하지 않는 데이터입니다.' }
+      if (has_index && index > -1) { return state[index]; }
     },
     update: function(index, item){
-      if (!index) { throw '변경할 인덱스를 숫자로 전달해야 합니다.'; }
-
+      if ( (!index && index !== 0) || !this.has(index)) { throw '해당 인덱스(첫번째 인자) 데이터가 없습니다.' }
+      console.log(item);
+      if ( config.types !== 'any' ) { checkTypes(item, config.types); }
+      state.splice(index, 1, item);
     },
     delete: function(index){
-      if (!index) { throw '제거할 인덱스를 숫자로 전달해야 합니다.'; }
+      if (!index || !this.has(index)) { throw '제거할 인덱스(첫번째 인자) 데이터가 없습니다.' }
       state.splice(index, 1);
     }
   };
