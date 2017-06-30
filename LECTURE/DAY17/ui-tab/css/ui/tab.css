@@ -115,7 +115,7 @@ body {
 .tab-component .tabpanel-list {
   height: 100%;
   margin-top: 40px;
-  background: #fff;
+  /* background: #fff; */
 }
 
 .tabpanel-list .tabpanel-item {
