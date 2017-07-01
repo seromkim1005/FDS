@@ -14,7 +14,7 @@ var FDS = (function(global){
   var document = global.document;
   var toString = Object.prototype.toString;
   var forEach  = Array.prototype.forEach;
-  var slice  = Array.prototype.slice;
+  var slice    = Array.prototype.slice;
   // 별칭과 충돌되는 기능을 백업
   var original_$;
 
@@ -124,6 +124,15 @@ var FDS = (function(global){
       o.length = l;
     }
   }
+  function noConflict(giveup) {
+    if ( original_$ ) {
+      global.$ = original_$;
+    } else {
+      delete global.$;
+    }
+    if ( giveup ) { global.FDS = null; }
+    return FDS;
+  }
 
   // --------------------------------------------
   // 생성자 함수(클래스) 정의
@@ -190,15 +199,7 @@ var FDS = (function(global){
     isObject   : isObject,
     makeArray  : makeArray,
     each       : each,
-    noConflict : function(giveup) {
-      if ( original_$ ) {
-        global.$ = original_$;
-      } else {
-        delete global.$;
-      }
-      if ( giveup ) { global.FDS = null; }
-      return FDS;
-    }
+    noConflict : noConflict
   });
 
   // --------------------------------------------
