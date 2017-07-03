@@ -365,3 +365,4 @@ document.body.appendChild(script);
 - [Faker.js](https://github.com/marak/Faker.js/)
 - [The Open Movie Database](http://omdbapi.com/) | [Demo](http://codepen.io/nax3t/pen/vxNYbz)
 - [Public APIs](https://github.com/toddmotto/public-apis)
+- [Splashbase](http://www.splashbase.co/api)
