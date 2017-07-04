@@ -71,11 +71,11 @@
   let xhr = null;
   let print_btn = document.querySelector('.print-ajax-btn');
   let data_zone = document.querySelector('.data-zone');
-  let data_url = '/DB/people.json';
+  let data_url = '/ajax-native/DB/people.json';
   let renderAjaxData = ()=> {
     xhr = new XMLHttpRequest();
     xhr.onreadystatechange = printAjaxData;
-    xhr.setRequestHeader('Content-Type', 'x-www-form-urlencoded');
+    // xhr.setRequestHeader('Content-Type', 'x-www-form-urlencoded');
     xhr.open('GET', data_url, true);
     xhr.send(null);
     // 클릭 후, 비활성화
