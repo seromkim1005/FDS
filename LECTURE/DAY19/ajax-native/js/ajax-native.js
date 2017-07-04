@@ -70,7 +70,7 @@
   let xhr = null;
   let print_btn = document.querySelector('.print-ajax-btn');
   let data_zone = document.querySelector('.data-zone');
-  let data_url = '/DB/book.txt';
+  let data_url = '/DB/response-result.html';
   let renderAjaxData = ()=> {
     xhr = new XMLHttpRequest();
     xhr.onreadystatechange = printAjaxData;
@@ -82,10 +82,32 @@
   };
   let printAjaxData = ()=> {
     if ( xhr.status === 200 && xhr.readyState === 4 ) {
-      data_zone.innerHTML = xhr.responseText;
+
+      // 경우 1. text 데이터 포멧일 경우:
+      // 일반 텍스트이기 때문에 붙여주기만 하면 된다.
+      // data_zone.innerText = xhr.responseText;
+
+      // 경우 2. HTML 데이터 포멧일 경우:
+      // HTML 코드(Template) + 실제 데이터(Data) 바인딩(Binding)
+      data_zone.innerHTML = renderDataBinding(xhr);
     } else {
       data_zone.innerHTML = '통신에 실패했습니다. :(';
     }
+  };
+  let renderDataBinding = xhr => {
+    var status   = xhr.status;
+    var url      = xhr.responseURL;
+    var type     = xhr.responseType;
+    var response = xhr.responseText;
+    var frag     = document.createDocumentFragment();
+    var frag_root= document.createElement('div');
+    frag.appendChild(frag_root);
+    frag_root.innerHTML = response;
+    frag_root.querySelector('.status').textContent   = status;
+    frag_root.querySelector('.url').textContent      = url;
+    frag_root.querySelector('.type').textContent     = type === '' ? 'HTML' : '';
+    frag_root.querySelector('.response').textContent = response;
+    return frag_root.innerHTML;
   };
   print_btn.addEventListener('click', renderAjaxData, true);
 }

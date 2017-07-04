@@ -12,6 +12,16 @@
       margin-top: 20px;
       margin-bottom: 20px;
     }
+    .menu-list li {
+      padding: 10px;
+    }
+    .menu pre {
+      margin-top: 20px;
+      padding: 1em;
+      overflow: auto;
+      font-size: 16px;
+      line-height: 1.5;
+    }
   </style>
   <!--<script src="./FDS/core.js"></script>-->
   <script defer src="./js/ajax-native.js"></script>
@@ -23,7 +33,7 @@
       <div class="column is-8 is-offset-2">
         <button type="button" class="button is-primary print-ajax-btn">call Ajax Data</button>
         <div class="box data-zone">
-          비동기 통신으로 요청된 데이터는 이 곳에 출력됩니다.
+          통신 대기 중.... 통신 결과를 기다리고 있습니다.
         </div>
       </div>
     </div>
