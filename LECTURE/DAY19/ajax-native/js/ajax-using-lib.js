@@ -2,12 +2,15 @@
 (function(global, $){
   'use strict';
 
-  var json = global.JSON;
-
   // Ajax 통신 사용
-  $.get('/DB/people.json', function(data){
-    data = json.parse(data);
-    console.log(data);
+  $.get('/DB/user.json', function(data){
+    $.each($.parse(data), function(key, value){
+      if(key === 'results') {
+        $.each(value, function(o) {
+          console.log(o);
+        });
+      }
+    });
   });
 
 })(window, window.FDS);

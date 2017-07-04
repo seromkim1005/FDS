@@ -75,6 +75,7 @@
   let renderAjaxData = ()=> {
     xhr = new XMLHttpRequest();
     xhr.onreadystatechange = printAjaxData;
+    xhr.setRequestHeader('Content-Type', 'x-www-form-urlencoded');
     xhr.open('GET', data_url, true);
     xhr.send(null);
     // 클릭 후, 비활성화
