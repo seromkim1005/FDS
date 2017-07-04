@@ -70,7 +70,7 @@
   let xhr = null;
   let print_btn = document.querySelector('.print-ajax-btn');
   let data_zone = document.querySelector('.data-zone');
-  let data_url = '/DB/response-result.html';
+  let data_url = '/DB/user.xml';
   let renderAjaxData = ()=> {
     xhr = new XMLHttpRequest();
     xhr.onreadystatechange = printAjaxData;
@@ -94,10 +94,32 @@
       // 경우 2. HTML 데이터 포멧일 경우:
       // HTML 코드(Template) + 실제 데이터(Data) 바인딩(Binding)
       data_zone.classList.remove('has-text-centered');
-      data_zone.innerHTML = renderDataBinding(xhr);
-      // if ( xhr.readyState === 4 ) {
-      //   data_zone.innerHTML = renderDataBinding(xhr);
-      // }
+      // data_zone.innerHTML = renderDataBinding(xhr);
+
+      // 경우 3. XML 데이터 포멧일 경우:
+      // data_url 값을 DB/user.xml 로 변경
+      // console.log('xhr.response:', xhr.response);
+      // console.log('xhr.responseText:', xhr.responseText);
+      // console.log('xhr.responseType:', xhr.responseType);
+      // console.log('xhr.responseXML:', xhr.responseXML);
+      let doc = xhr.responseXML;
+      let results = doc.querySelectorAll('user > results');
+      let user_collection = [];
+      [].forEach.call(results, function(result){
+        let name = {
+          first: result.querySelector('name > first').textContent,
+          last: result.querySelector('name > last').textContent
+        };
+        let email  = result.querySelector('email').textContent;
+        let gender = result.querySelector('gender').textContent;
+        let user   = {
+          name: `${name.first} ${name.last}`,
+          email,
+          gender
+        };
+        user_collection.push(user);
+      });
+      data_zone.innerHTML = renderTableUserCollection(user_collection);
     }
     // 오류 발생 시
     else if ( xhr.status > 400 ) {
@@ -123,6 +145,26 @@
     frag_root.querySelector('.type').textContent     = xhr.responseType === '' ? 'TEXT 또는 HTML' : '';
     frag_root.querySelector('.response').textContent = xhr.response;
     return frag_root.innerHTML;
+  };
+  let renderTableUserCollection = collection => {
+    let table_template = document.querySelector('#user-table-template').innerHTML;
+    table_template = table_template.split('<tbody></tbody>');
+    let content_template = `${table_template[0]}<tbody class="tbody">`;
+    collection.forEach(function(user, index){
+      let n = index + 1;
+      n = n < 10 ? '0'+n : n;
+      content_template += `
+         <tr class="tr">
+          <td class="td num">${n}</td>
+          <td class="td name">${user.name}</td>
+          <td class="td gender">${user.gender}</td>
+          <td class="td email">${user.email}</td>
+          <td class="td etc"></td>
+        </tr>
+      `;
+    });
+    content_template += '</tbody>' + table_template[1];
+    return content_template;
   };
   print_btn.addEventListener('click', renderAjaxData, true);
 }
