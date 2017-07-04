@@ -70,7 +70,7 @@
   let xhr = null;
   let print_btn = document.querySelector('.print-ajax-btn');
   let data_zone = document.querySelector('.data-zone');
-  let data_url = '/DB/responsse-result.html';
+  let data_url = '/DB/response-result.html';
   let renderAjaxData = ()=> {
     xhr = new XMLHttpRequest();
     xhr.onreadystatechange = printAjaxData;
@@ -93,6 +93,7 @@
 
       // 경우 2. HTML 데이터 포멧일 경우:
       // HTML 코드(Template) + 실제 데이터(Data) 바인딩(Binding)
+      data_zone.classList.remove('has-text-centered');
       data_zone.innerHTML = renderDataBinding(xhr);
       // if ( xhr.readyState === 4 ) {
       //   data_zone.innerHTML = renderDataBinding(xhr);
