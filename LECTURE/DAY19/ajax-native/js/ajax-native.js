@@ -70,7 +70,7 @@
   let xhr = null;
   let print_btn = document.querySelector('.print-ajax-btn');
   let data_zone = document.querySelector('.data-zone');
-  let data_url = '/DB/user.xml';
+  let data_url = '/DB/people.json';
   let renderAjaxData = ()=> {
     xhr = new XMLHttpRequest();
     xhr.onreadystatechange = printAjaxData;
@@ -102,22 +102,36 @@
       // console.log('xhr.responseText:', xhr.responseText);
       // console.log('xhr.responseType:', xhr.responseType);
       // console.log('xhr.responseXML:', xhr.responseXML);
-      let doc = xhr.responseXML;
-      let results = doc.querySelectorAll('user > results');
+      // let doc = xhr.responseXML;
+      // let results = doc.querySelectorAll('user > results');
+      // let user_collection = [];
+      // [].forEach.call(results, function(result){
+      //   let name = {
+      //     first: result.querySelector('name > first').textContent,
+      //     last: result.querySelector('name > last').textContent
+      //   };
+      //   let email  = result.querySelector('email').textContent;
+      //   let gender = result.querySelector('gender').textContent;
+      //   let user   = {
+      //     name: `${name.first} ${name.last}`,
+      //     email,
+      //     gender
+      //   };
+      //   user_collection.push(user);
+      // });
+      // data_zone.innerHTML = renderTableUserCollection(user_collection);
+
+      // 경우 4. JSON 데이터 포멧일 경우:
+      // data_url 값이 DB/people.json 인 경우
+      // console.log(xhr.responseText);
+      // JSON 문자 데이터를 객체화
       let user_collection = [];
-      [].forEach.call(results, function(result){
-        let name = {
-          first: result.querySelector('name > first').textContent,
-          last: result.querySelector('name > last').textContent
-        };
-        let email  = result.querySelector('email').textContent;
-        let gender = result.querySelector('gender').textContent;
-        let user   = {
-          name: `${name.first} ${name.last}`,
-          email,
-          gender
-        };
-        user_collection.push(user);
+      JSON.parse(xhr.responseText).forEach(function(user,index){
+        user_collection.push({
+          name: user.name,
+          gender: user.gender === 'female' ? '여성' : '남성',
+          email: user.email
+        });
       });
       data_zone.innerHTML = renderTableUserCollection(user_collection);
     }
