@@ -22,6 +22,11 @@
       font-size: 16px;
       line-height: 1.5;
     }
+    @media screen and (max-width: 50em) {
+      .container {
+        padding: 0.6rem 2rem;
+      }
+    }
   </style>
   <!--<script src="./FDS/core.js"></script>-->
   <script defer src="./js/ajax-native.js"></script>
@@ -32,7 +37,7 @@
     <div class="columns">
       <div class="column is-8 is-offset-2">
         <button type="button" class="button is-primary print-ajax-btn">call Ajax Data</button>
-        <div class="box data-zone">
+        <div class="box data-zone has-text-centered">
           통신 대기 중.... 통신 결과를 기다리고 있습니다.
         </div>
       </div>

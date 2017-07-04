@@ -70,7 +70,7 @@
   let xhr = null;
   let print_btn = document.querySelector('.print-ajax-btn');
   let data_zone = document.querySelector('.data-zone');
-  let data_url = '/DB/response-result.html';
+  let data_url = '/DB/responsse-result.html';
   let renderAjaxData = ()=> {
     xhr = new XMLHttpRequest();
     xhr.onreadystatechange = printAjaxData;
@@ -83,6 +83,10 @@
   let printAjaxData = ()=> {
     if ( xhr.status === 200 && xhr.readyState === 4 ) {
 
+      // console.log('status is 200 ....');
+      // 사용자에게 현재 데이터 로딩 중임을 표시
+      // data_zone.innerHTML = '로딩 중입니다......';
+
       // 경우 1. text 데이터 포멧일 경우:
       // 일반 텍스트이기 때문에 붙여주기만 하면 된다.
       // data_zone.innerText = xhr.responseText;
@@ -90,23 +94,33 @@
       // 경우 2. HTML 데이터 포멧일 경우:
       // HTML 코드(Template) + 실제 데이터(Data) 바인딩(Binding)
       data_zone.innerHTML = renderDataBinding(xhr);
-    } else {
+      // if ( xhr.readyState === 4 ) {
+      //   data_zone.innerHTML = renderDataBinding(xhr);
+      // }
+    }
+    // 오류 발생 시
+    else if ( xhr.status > 400 ) {
       data_zone.innerHTML = '통신에 실패했습니다. :(';
+      data_zone.style.cssText = 'color: #ef1a62;';
+      window.setTimeout(function(){
+        data_zone.removeAttribute('style');
+      }, 1400);
+    }
+    // 로딩 중...
+    else {
+      // data_zone.innerHTML = '로딩 중입니다......';
+      data_zone.innerHTML = '<span class="fa fa-spinner fa-pulse" aria-label="로딩 중..."></span>';
     }
   };
   let renderDataBinding = xhr => {
-    var status   = xhr.status;
-    var url      = xhr.responseURL;
-    var type     = xhr.responseType;
-    var response = xhr.responseText;
     var frag     = document.createDocumentFragment();
     var frag_root= document.createElement('div');
     frag.appendChild(frag_root);
-    frag_root.innerHTML = response;
-    frag_root.querySelector('.status').textContent   = status;
-    frag_root.querySelector('.url').textContent      = url;
-    frag_root.querySelector('.type').textContent     = type === '' ? 'HTML' : '';
-    frag_root.querySelector('.response').textContent = response;
+    frag_root.innerHTML = xhr.response;
+    frag_root.querySelector('.status').textContent   = xhr.status;
+    frag_root.querySelector('.url').textContent      = xhr.responseURL;
+    frag_root.querySelector('.type').textContent     = xhr.responseType === '' ? 'TEXT 또는 HTML' : '';
+    frag_root.querySelector('.response').textContent = xhr.response;
     return frag_root.innerHTML;
   };
   print_btn.addEventListener('click', renderAjaxData, true);
