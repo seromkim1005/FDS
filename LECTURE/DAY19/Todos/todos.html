@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>TodoList App</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.0/css/bulma.css">
+  <style>
+  </style>
+</head>
+<body>
+
+  <div class="app"></div>
+
+<!-- vue.js 유사 라이브러리 -->
+<script src="js/Todos.js"></script>
+
+<!-- 템플릿 -->
+<script type="text/x-template" id="todos-template">
+  <ul class="todo-list">
+    <li
+      class="todo-item"
+      data-for="todo in todos"
+      data-click="confirmThis"></li>
+  </ul>
+</script>
+
+<!-- 스크립팅 -->
+<script>
+  // Todos 객체 생성
+  let todo = new Todos({
+    // 마운트 요소
+    el: '.app',
+    // 템플릿
+    template: '#todos-template',
+    // 데이터
+    data: {
+      todos: '아침 밥, 점심 밥, 저녁 밥, 밤 야식, 새벽 새벽식(?)'.split(',')
+    },
+    // 메서드
+    methods: {
+      confirmThis() {
+        console.log(this.textContent);
+      }
+    }
+  });
+</script>
+</body>
+</html>

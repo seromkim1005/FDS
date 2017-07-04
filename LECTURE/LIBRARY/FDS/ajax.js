@@ -48,8 +48,10 @@
       xhr.onreadystatechange = function() {
         if ( this.status === 200 && this.readyState === 4 ) {
           config.success.call(o, xhr.response, xhr);
-        } else {
+        } else if ( this.status > 400 ) {
           config.fail.call(o, xhr.status, xhr);
+        } else {
+          // spinner 부분
         }
       };
       xhr.open(config.method, config.url, config.async);
