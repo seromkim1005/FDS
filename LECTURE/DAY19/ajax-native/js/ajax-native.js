@@ -66,6 +66,7 @@
 }) // (window);
 
 // 비동기 통신 이벤트 제어 프로그래밍
+// ECMAScript 2015 (ES6) 버전 코드 사용
 {
   let xhr = null;
   let print_btn = document.querySelector('.print-ajax-btn');
