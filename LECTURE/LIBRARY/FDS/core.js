@@ -199,7 +199,8 @@ var FDS = (function(global){
     isObject   : isObject,
     makeArray  : makeArray,
     each       : each,
-    noConflict : noConflict
+    noConflict : noConflict,
+    mixin      : mixin
   });
 
   // --------------------------------------------
