@@ -69,9 +69,9 @@
       title: memo_title.value,
       content: memo_content.value
     };
+    // 사용자 입력 정보 객체를 메모스토리지 배열에 추가
     memo_storage.push(memo_item);
-    console.log(memo_storage);
-    // 사용자 입력 정보 객체를 문자화
+    // 메모스토리지 배열 객체를 문자화
     var memo_data = JSON.stringify(memo_storage);
     // 문자화된 데이터를 로컬 스토리지에 저장
     localStorage.setItem(memo_data_id, memo_data);

@@ -11,9 +11,6 @@
   .app.container {
     margin: 1rem 2rem;
   }
-  .memo {
-    padding: 10px;
-  }
   .memo > * {
     margin-bottom: 10px;
   }
@@ -55,7 +52,19 @@
         </div>
       </div>
       <div class="column is-9">
-        <div class="box"></div>
+        <div class="columns is-multiline">
+
+          <article class="memo-item column is-3 message is-primary">
+            <div class="message-header">
+              <h5 class="memo-item-title">메모 타이틀</h5>
+              <button type="button" class="delete" aria-label="메모 아이템 제거"></button>
+            </div>
+            <div class="message-body">
+              <p class="memo-item-content">메모 내용</p>
+            </div>
+          </article>
+
+        </div>
       </div>
     </div>
   </div>
