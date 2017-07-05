@@ -8,11 +8,20 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.0/css/bulma.css">
   <style>
+    .app {
+      margin-top: 30px;
+    }
   </style>
 </head>
 <body>
 
-  <div class="app"></div>
+  <div class="container">
+    <div class="columns">
+      <div class="column is-three-quarters is-offset-one-quarter app">
+
+      </div>
+    </div>
+  </div>
 
 <!-- vue.js 유사 라이브러리 -->
 <script src="js/Todos.js"></script>
@@ -20,10 +29,10 @@
 <!-- 템플릿 -->
 <script type="text/x-template" id="todos-template">
   <ul class="todo-list">
-    <li
-      class="todo-item"
-      data-for="todo in todos"
-      data-click="confirmThis"></li>
+    <li class="todo-item" data-for="todo in todos">
+      <strong data-content="todo"></strong>
+      <button type="button" data-click="removeItem">제거</button>
+    </li>
   </ul>
 </script>
 
@@ -37,12 +46,19 @@
     template: '#todos-template',
     // 데이터
     data: {
-      todos: '아침 밥, 점심 밥, 저녁 밥, 밤 야식, 새벽 새벽식(?)'.split(',')
+      todos: [
+        '아침 밥',
+        '점심 밥',
+        '저녁 밥',
+        '밤 야식',
+        '새벽 새벽식(?)'
+      ]
     },
     // 메서드
     methods: {
-      confirmThis() {
-        console.log(this.textContent);
+      removeItem(e) {
+        let parent = e.target.parentNode;
+        parent.parentNode.removeChild(parent);
       }
     }
   });

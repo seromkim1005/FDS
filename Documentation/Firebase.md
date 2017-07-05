@@ -348,45 +348,6 @@ function onChildAdded(data) {
 }
 ```
 
----------------------------------------------------
-
-## firebase + vuefire 사용법
-
-```js
-// Firebase, VueFire 개발 모듈 설치
-// npm i -D firebase vuefire
-
-// --------------------------------------------
-
-// main.js
-import VueFire from 'vuefire';
-Vue.use(VueFire);
-
-// --------------------------------------------
-
-// App.vue
-import Firebase from 'firebase';
-// firebase.google.com 에서 제공하는 web app 코드
-let config = {
-  apiKey            : '',
-  authDomain        : '',
-  databaseURL       : '',
-  storageBucket     : '',
-  messagingSenderId : ''
-};
-// Firebase 애플리케이션 초기화
-let app    = Firebase.initializeApp(config);
-// 데이터베이스, 데이터베이스 참조 생성
-let db     = app.database();
-let db_ref = db.ref('데이터베이스_이름');
-
-export default {
-  firebase: {
-    '데이터베이스_이름': db_ref
-  }
-}
-```
-
 ---
 
 ## 참고자료

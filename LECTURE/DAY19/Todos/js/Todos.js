@@ -32,6 +32,7 @@ const Todos = (function(global){
   };
   let loopTemplate = template => {
     let loop = template.querySelector('[data-for]');
+    let content = loop.dataset.for.split('in')[0].trim();
     let match = loop.dataset.for.split('in')[1].trim();
     for (var item in config.data) {
       if (config.data.hasOwnProperty(item) && item === match) {
@@ -39,14 +40,17 @@ const Todos = (function(global){
       }
     }
     // 렌더링 템플릿
-    renderTemplate(template, loop, match);
+    renderTemplate(template, loop, match, content);
   };
-  let renderTemplate = (template, loop, data) => {
+  let renderTemplate = (template, loop, data, content) => {
     let backup_loop = loop;
     template.removeChild(loop);
     data.forEach(function(item, index){
       backup_loop.removeAttribute('data-for');
-      backup_loop.textContent = item;
+      let binding_el = backup_loop.querySelector('[data-content]');
+      if ( binding_el && binding_el.dataset.content === content ) {
+        binding_el.innerHTML = item.trim();
+      }
       template.appendChild( backup_loop.cloneNode(true) );
     });
     // 이벤트 바인딩
