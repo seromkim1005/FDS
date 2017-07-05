@@ -1,3 +1,9 @@
 {
-  "memo-app": []
+  "memo-app": [
+    {
+      "title": "다음 주에는 jQuery",
+      "content": "UI 컴포넌트 많이 만들어 봐요 ~~ 지겹도록",
+      "id": 3
+    }
+  ]
 }
