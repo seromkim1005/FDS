@@ -8,8 +8,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.0/css/bulma.css">
   <style>
-  .container {
-    max-width: 1080px;
+  .app.container {
+    margin: 1rem 2rem;
   }
   .memo {
     padding: 10px;
@@ -25,11 +25,8 @@
 </head>
 <body>
 
-  <div class="container is-fluid">
+  <div class="app container is-fluid">
     <div class="columns">
-      <div class="column is-9">
-
-      </div>
       <div class="column is-3">
         <div class="memo box">
           <label class="sr-only" for="memo-title">메모 제목</label>
@@ -56,6 +53,9 @@
             </button>
           </div>
         </div>
+      </div>
+      <div class="column is-9">
+        <div class="box"></div>
       </div>
     </div>
   </div>

@@ -4,21 +4,36 @@
  * -----------------------
  * 1. localStorage
  * 2. sessionStorage
- * 3. JSON.parse()
- * 4. JSON.stringify()
+ * 3. JSON.parse() <-> JSON.stringify()
  */
 
 (function(global){
   'use strict';
 
-  var document = global.document;
-  var forEach = Array.prototype.forEach;
-  var memo, memo_buttons, memo_title, memo_content;
+  var document     = global.document;
+  var localStorage = global.localStorage;
+  var forEach      = Array.prototype.forEach;
+  var JSON         = global.JSON;
+  var memo_data_id = 'memo-data';
+  var memo_storage, memo, memo_buttons, memo_title, memo_content;
 
+  // 애플리케이션 초기화 과정에서 수행되는 일들....
   function init() {
+    // 애플리케이션 컴포넌트 참조
     memo = document.querySelector('.memo');
     memo_buttons = memo.querySelectorAll('button');
+    // 로컬 스토리지(서버)에서 저장된 데이터를 로드
+    loadMemoData(memo_data_id);
+    // 이벤트 바인딩
     bind();
+  }
+  function loadMemoData(id) {
+    var loaded_data = localStorage.getItem(id);
+    if (!loaded_data) {
+      localStorage.setItem(id, JSON.stringify([]));
+    } else {
+      memo_storage = JSON.parse(loaded_data);
+    }
   }
   function bind() {
     forEach.call(memo_buttons, function(button){
@@ -51,12 +66,15 @@
     if ( validateMemo(memo_title, memo_content) ) { return; }
     // 사용자 입력 정보를 객체로 구성
     var memo_item = {
-      title: title,
-      content: content
+      title: memo_title.value,
+      content: memo_content.value
     };
-    console.log(memo_item);
+    memo_storage.push(memo_item);
+    console.log(memo_storage);
     // 사용자 입력 정보 객체를 문자화
+    var memo_data = JSON.stringify(memo_storage);
     // 문자화된 데이터를 로컬 스토리지에 저장
+    localStorage.setItem(memo_data_id, memo_data);
   }
   function cancelMemo() {
     // 사용자가 입력한 메모 타이틀, 내용을 지웁니다.
