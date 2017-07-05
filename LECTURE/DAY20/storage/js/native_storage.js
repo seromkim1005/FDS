@@ -2,9 +2,10 @@
  * -----------------------
  * DOM 스토리지(DOMStorage
  * -----------------------
- * 1. localStorage
- * 2. sessionStorage
+ * 1. localStorage [반영구적. 도메인 서비스 제작자가 지우거나, 사용자가 지우거나]
+ * 2. sessionStorage [세션이 유지되는 동안 접근 가능, 세션이 만료되면 제거]
  * 3. JSON.parse() <-> JSON.stringify()
+ * 4. localStorage 활용 -> 데이터 생성/로드/업데이트/제거
  */
 
 (function(global){
@@ -46,11 +47,11 @@
     // 메모 영역의 아이템을 모두 제거
     memo_items.innerHTML = '';
     // 메모 영역의 아이템을 저장된 스토리지 데이터를 순환하여 템플릿으로 구성하여 화면에 렌더링
-    memo_storage.forEach(function(memo){
+    memo_storage.forEach(function(memo, index){
       template += '<article class="memo-item column is-3 message is-primary">'+
         '<div class="message-header">'+
           '<h5 class="memo-item-title">'+memo.title+'</h5>'+
-          '<button type="button" class="delete" aria-label="메모 아이템 제거"></button>'+
+          '<button data-remove-index="'+index+'" type="button" class="delete" aria-label="메모 아이템 제거"></button>'+
         '</div>'+
         '<div class="message-body">'+
           '<p class="memo-item-content">'+memo.content+'</p>'+
@@ -63,9 +64,24 @@
     forEach.call(memo_buttons, function(button){
       button.addEventListener('click', detectButton);
     });
+    memo_items.addEventListener('click', removeMemo);
   }
   function detectButton() {
     this.classList.contains('is-save') ? saveMemo() : cancelMemo();
+  }
+  function removeMemo(ev) {
+    var target = ev.target;
+    // button.delete 요소에서만 동작
+    if ( target.localName === 'button' && target.classList.contains('delete') ) {
+      var remove_id = target.dataset.removeIndex;
+      // 로컬스토리지 데이터(Model) 업데이트
+      memo_storage.splice(remove_id, 1);
+      localStorage.setItem(memo_data_id, JSON.stringify(memo_storage));
+      // 화면 렌더링 - 뷰 변경
+      render();
+      // 이벤트 전파 중지
+      ev.stopPropagation();
+    }
   }
   function validateMemo(title, content) {
     if ( title.value.trim() === '' ) {
