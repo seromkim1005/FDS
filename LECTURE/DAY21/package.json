@@ -1,0 +1,20 @@
+{
+  "name": "jquery-reference",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "node_modules/.bin/npm-run-all --parallel --continue-on-error pug sass serve",
+    "serve": "node_modules/.bin/live-server",
+    "pug": "node_modules/.bin/pug jQuery__Reference/pug -w --out jQuery__Reference",
+    "sass": "node_modules/.bin/node-sass --watch --recursive --output-style compressed --output jQuery__Reference/css --source-map true --source-map-contents jQuery__Reference/sass"
+  },
+  "dependencies": {
+    "bulma": "^0.4.3",
+    "jquery": "^3.2.1"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.0",
+    "node-sass": "^4.5.3",
+    "npm-run-all": "^4.0.2",
+    "pug-cli": "^1.0.0-alpha6"
+  }
+}
