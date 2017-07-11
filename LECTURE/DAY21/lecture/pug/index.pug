@@ -9,6 +9,17 @@ html(lang="en")
     link(rel="stylesheet", href="/node_modules/bulma/css/bulma.css")
     link(rel="stylesheet", href="./css/main.css")
 
+    //- Load Local jQuery
+    script(src="/node_modules/jquery/dist/jquery.min.js")
+    //- Load CDN jQuery
+    //- script(src="//unpkg.com/jquery")
+    script.
+      jQuery(function($){
+
+        $('body').children().addClass('body-children');
+
+      });
+
   body
 
     .app.container
@@ -24,7 +35,4 @@ html(lang="en")
           p.box Unde hic, dolorem maxime cum quas. Recusandae perferendis eveniet error blanditiis tempora. Ea cupiditate numquam nobis sunt tempore in voluptatum delectus laborum harum quaerat, eveniet quia odio facilis at provident, maxime vitae. Amet maiores, ipsum nisi, tempora sit optio cumque.
           p.box Dolorum itaque, corporis architecto impedit fuga eum, sunt. Nisi aperiam omnis quisquam odio voluptas veniam officiis ullam velit doloribus, voluptatum vitae reprehenderit dolorum pariatur eveniet enim, fugit possimus minus maxime deserunt molestias saepe officia iusto! Quasi eligendi, laborum sed hic.
 
-
-    script(src="/node_modules/jquery/dist/jquery.min.js")
-    //- script(src="//unpkg.com/jquery")
     script(src="./js/main.js")

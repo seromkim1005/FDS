@@ -17,9 +17,9 @@
     console.groupEnd('jQuery Ajax 데이터 로드');
   });
 
-})(window, window.jQuery);
+}) // (window, window.jQuery);
 
-(function(global, $){
+;(function(global, $){
   'use strict';
 
   console.groupCollapsed('jQuery 버전 출력');
@@ -32,9 +32,9 @@
   console.groupEnd('jQuery 버전 출력');
 
 
-})(window, window.jQuery);
+}) // (window, window.jQuery);
 
-(function(global, $){
+;(function(global, $){
   'use strict';
 
   // 메서드 체이닝이 가능한 이유는
@@ -82,10 +82,62 @@
 
   $window.on('scroll', function(){
     $window.scrollTop() > 123 ?
-    // this.scrollTop() > 123 ?
       $main.addClass('is-fixed') :
       $main.removeClass('is-fixed');
   });
-  // }.bind($window));
 
-})(window, window.jQuery);
+}) // (window, window.jQuery);
+
+;(function(global, $){
+  'use strict';
+
+  // ——————————————————————————————————————
+  // jQuery() 팩토리 함수
+  // ——————————————————————————————————————
+
+  // 요소노드
+  let body = global.document.body;
+  let $body = $(body);
+  let style_map = {
+    fontSize: '32px',
+    'margin-bottom': '+=40px',
+    'background': 'url("//placehold.it/1920x900/000/fff") 0 0 / cover no-repeat'
+  };
+
+  $body.css(style_map);
+
+  // 노드리스트
+  let $body_children = $(body.children);
+  $body_children.attr('data-children-of-body', 'yes');
+
+  // 배열
+  // $().each()는 네이티브 forEach() 와 달리 index, item 순.
+  // .attr() 메서드   VS   .data() 메서드
+  $([document.documentElement, document.body]).each((index, el)=>{
+    let $el = $(el);
+    if ( el.localName === 'html' ) {
+      $el.data('is-root', 'yes');
+    } else {
+      $el.data('is-root', 'no');
+    }
+    console.log($el.data('is-root'));
+  });
+
+  // jQuery 객체
+  // jQuery 팩토리 함수에 jQuery 객체를 전달할 수도 있다.
+  // $( $body )
+
+  // HTML 문자열
+  let $dim = $('<div/>', {
+    'class': 'dim',
+    'on': {
+      'click': e => $(e.target).remove(),
+      'mouseenter': e => $(e.target).css('background-color', 'hsla(249.7, 100%, 65.9%, 0.7)'),
+      'mouseleave': e => $(e.target).css('background-color', $dim.data('original-dim-bg'))
+    }
+  })
+  .prependTo($body);
+
+  $dim.data('original-dim-bg', $dim.css('background-color'));
+
+}) // (window, window.jQuery);

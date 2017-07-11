@@ -18,9 +18,7 @@
 
     console.groupEnd('jQuery Ajax 데이터 로드');
   });
-})(window, window.jQuery);
-
-(function (global, $) {
+});(function (global, $) {
   'use strict';
 
   console.groupCollapsed('jQuery 버전 출력');
@@ -31,9 +29,7 @@
   console.log('jQuery 버전? jQuery.prototype.jquery = ', jQuery.prototype.jquery);
 
   console.groupEnd('jQuery 버전 출력');
-})(window, window.jQuery);
-
-(function (global, $) {
+});(function (global, $) {
   'use strict';
 
   // 메서드 체이닝이 가능한 이유는
@@ -81,9 +77,63 @@
   var $main = $('.main');
 
   $window.on('scroll', function () {
-    $window.scrollTop() > 123 ?
-    // this.scrollTop() > 123 ?
-    $main.addClass('is-fixed') : $main.removeClass('is-fixed');
+    $window.scrollTop() > 123 ? $main.addClass('is-fixed') : $main.removeClass('is-fixed');
   });
-  // }.bind($window));
-})(window, window.jQuery);
+});(function (global, $) {
+  'use strict';
+
+  // ——————————————————————————————————————
+  // jQuery() 팩토리 함수
+  // ——————————————————————————————————————
+
+  // 요소노드
+
+  var body = global.document.body;
+  var $body = $(body);
+  var style_map = {
+    fontSize: '32px',
+    'margin-bottom': '+=40px',
+    'background': 'url("//placehold.it/1920x900/000/fff") 0 0 / cover no-repeat'
+  };
+
+  $body.css(style_map);
+
+  // 노드리스트
+  var $body_children = $(body.children);
+  $body_children.attr('data-children-of-body', 'yes');
+
+  // 배열
+  // $().each()는 네이티브 forEach() 와 달리 index, item 순.
+  // .attr() 메서드   VS   .data() 메서드
+  $([document.documentElement, document.body]).each(function (index, el) {
+    var $el = $(el);
+    if (el.localName === 'html') {
+      $el.data('is-root', 'yes');
+    } else {
+      $el.data('is-root', 'no');
+    }
+    console.log($el.data('is-root'));
+  });
+
+  // jQuery 객체
+  // jQuery 팩토리 함수에 jQuery 객체를 전달할 수도 있다.
+  // $( $body )
+
+  // HTML 문자열
+  var $dim = $('<div/>', {
+    'class': 'dim',
+    'on': {
+      'click': function click(e) {
+        return $(e.target).remove();
+      },
+      'mouseenter': function mouseenter(e) {
+        return $(e.target).css('background-color', 'hsla(249.7, 100%, 65.9%, 0.7)');
+      },
+      'mouseleave': function mouseleave(e) {
+        return $(e.target).css('background-color', $dim.data('original-dim-bg'));
+      }
+    }
+  }).prependTo($body);
+
+  $dim.data('original-dim-bg', $dim.css('background-color'));
+}); // (window, window.jQuery);
