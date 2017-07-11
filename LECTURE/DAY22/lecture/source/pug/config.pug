@@ -1,0 +1,28 @@
+//- 데이터 정의
+//- http://bulma.io/documentation/components/menu/
+-
+  var accordion_data = {
+    'general': [
+      {'content': 'dashboard', 'href': '#dashboard'},
+      {'content': 'customers', 'href': '#customers'}
+    ],
+    'administration': [
+      {'content': 'team settings', 'href': '#team-settings'},
+      {'content': 'manage your team', 'href': '#manage-your-team'},
+      {'content': 'authentication', 'href': '#authentication'}
+    ],
+    'invitations': [
+      {'content': 'cloud storage environment settings', 'href': '#cloud-storage-environment-settings'},
+    ]
+  }
+
+//- 믹스인 정의
+mixin accordion(data)
+  article.ui-accordion.menu.box
+    each links, label in data
+      h4.menu-label
+        a.box(href)= label
+      ul.menu-list
+        each link in links
+          li
+            a(href=link.href)= link.content
