@@ -154,18 +154,18 @@
   // addClass() + function
   // (index, currentClassName) => String
 
-    $('.app').addClass((index, name)=>{
-    let names = name.split(' ');
-    console.log(names); // ['app', 'container']
-    let convert_names = names.map(name=>{
-      return `*-${name}-*`;
-    });
-    console.log(convert_names); // ['*-app-*', '*-container-*']
-    convert_names = convert_names.join(' ');
-    console.log(convert_names); // '*-app-* *-container-*'
-    return convert_names;
-  })
-  .find('*').addClass(index=>'child-'+index);
+  //   $('.app').addClass((index, name)=>{
+  //   let names = name.split(' ');
+  //   console.log(names); // ['app', 'container']
+  //   let convert_names = names.map(name=>{
+  //     return `*-${name}-*`;
+  //   });
+  //   console.log(convert_names); // ['*-app-*', '*-container-*']
+  //   convert_names = convert_names.join(' ');
+  //   console.log(convert_names); // '*-app-* *-container-*'
+  //   return convert_names;
+  // })
+  // .find('*').addClass(index=>'child-'+index);
 
 
   let $box = $('.box');
@@ -179,12 +179,12 @@
     }
   };
   // 초기화
-  $box.addClass('hide');
+  // $box.addClass('hide');
 
   $('.toggle-box').on('click', toggleBox);
 
 
-}) //(window, window.jQuery);
+})(window, window.jQuery);
 
 ;(function(global, $){
   'use strict';
