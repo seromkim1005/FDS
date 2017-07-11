@@ -5,13 +5,14 @@
   "scripts": {
     "dev": "node_modules/.bin/npm-run-all --parallel --continue-on-error pug sass babel serve",
     "serve": "node_modules/.bin/live-server --port=3001 --cors",
-    "pug": "node_modules/.bin/pug jQuery__Reference/pug -w --out lecture",
+    "pug": "node_modules/.bin/pug lecture/pug -w --out lecture",
     "sass": "node_modules/.bin/node-sass -wr --output-style compressed -o lecture/css --source-map true --source-map-contents lecture/sass",
     "babel": "node_modules/.bin/babel -w lecture/es6 -d lecture/js"
   },
   "dependencies": {
     "bulma": "^0.4.3",
-    "jquery": "^3.2.1"
+    "jquery": "^3.2.1",
+    "lodash": "^4.17.4"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -22,6 +23,8 @@
     "pug-cli": "^1.0.0-alpha6"
   },
   "babel": {
-    "presets": ["env"]
+    "presets": [
+      "env"
+    ]
   }
 }
