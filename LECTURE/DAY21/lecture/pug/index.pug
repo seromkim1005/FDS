@@ -8,26 +8,68 @@ html(lang="en")
     title jQuery 학습
     link(rel="stylesheet", href="/node_modules/bulma/css/bulma.css")
     link(rel="stylesheet", href="./css/main.css")
-
-    //- Load Local jQuery
     script(src="/node_modules/jquery/dist/jquery.min.js")
-    //- Load CDN jQuery
     //- script(src="//unpkg.com/jquery")
     script.
-      jQuery(function($){
-
-        $('body').children().addClass('body-children');
-
-      });
+      // 팩토리 함수에 함수를 전달하는 경우
+      // 문서가 준비되면 (document ready) 콜백함수 코드 실행
+      //- jQuery(document).ready(function($){
+      //- jQuery.noConflict()(function($){
+      //-   console.log('DOM is Ready!!!');
+      //-   $('body').children().addClass('body-children');
+      //- });
 
   body
 
-    .app.container
+    .app.container.wrapper.yamoo9-code
       .columns
-        .column.is-6.is-offset-3.main
+        .column.is-6.main
           h1.title.is-1 Hi jQuery :-)
           p.subtitle.is-4 write less do more.
-        .column.is-3
+
+          // 데이터 정의
+          -
+            var accordion_data = {
+              'general': {
+                'links': ['dashboard', 'customers']
+              },
+              'administration': {
+                'links': ['team settings', 'manage your team']
+              }
+            }
+
+          // 믹스인 정의
+          mixin accordion(data)
+            article.ui-accordion.menu.box
+              each links, label in data
+                h4.menu-label
+                  a.box(href)= label
+                ul.menu-list
+                  each link in links
+                    li
+                      each content in link
+                        a(href)= content
+
+          // 믹스인 사용
+          +accordion(accordion_data)
+          //- +accordion(accordion_data)
+          //- +accordion(accordion_data)
+          //- +accordion(accordion_data)
+          //- +accordion(accordion_data)
+          //- +accordion(accordion_data)
+          //- +accordion(accordion_data)
+          //- +accordion(accordion_data)
+          //- +accordion(accordion_data)
+          //- +accordion(accordion_data)
+          //- +accordion(accordion_data)
+
+        .column.is-4
+
+          button.button.is-primary.toggle-box(type="button")
+            | toggle
+            strong .box
+            | Elements
+
           p.box Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam atque facere, asperiores magnam reprehenderit incidunt doloremque labore autem eos ea odio accusamus similique distinctio ullam? Facere aperiam ad quaerat dolores voluptas dolorem error ratione, officia, porro autem, saepe modi cumque.
           p.box Voluptate harum, maiores doloremque, incidunt quisquam, itaque, quos atque error porro inventore eius. Saepe a, sunt cum in maiores quos enim veniam voluptatum! A inventore vitae laboriosam fugit recusandae, eveniet excepturi rem ut, perferendis distinctio mollitia, atque voluptatem odit delectus.
           p.box Voluptate ex omnis provident sed praesentium fuga beatae odit cumque iure, maxime, quos laborum reiciendis eos. Labore aperiam quia, amet ab necessitatibus sequi magni at, eius, consectetur odio temporibus sapiente similique quam, quidem vitae totam blanditiis! Deleniti, asperiores aut ducimus.

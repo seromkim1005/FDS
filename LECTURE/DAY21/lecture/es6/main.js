@@ -8,6 +8,10 @@
   let api_id = 'f0etn';
   let api_address = `https://api.myjson.com/bins/${api_id}`;
 
+  // jQuery Ready()를 붙잡자(hold)
+  console.log('jQuery Ready()를 붙잡자(hold: true)');
+  $.holdReady(true);
+
   // Ajax GET
   $.get(api_address).then(data => {
     console.groupCollapsed('jQuery Ajax 데이터 로드');
@@ -15,9 +19,11 @@
     console.log(data);
 
     console.groupEnd('jQuery Ajax 데이터 로드');
+    console.log('jQuery Ready()를 놓아주다(hold: false)');
+    $.holdReady(false); // Excute Ready Function
   });
 
-}) // (window, window.jQuery);
+})//(window, window.jQuery);
 
 ;(function(global, $){
   'use strict';
@@ -32,7 +38,7 @@
   console.groupEnd('jQuery 버전 출력');
 
 
-}) // (window, window.jQuery);
+})//(window, window.jQuery);
 
 ;(function(global, $){
   'use strict';
@@ -86,7 +92,7 @@
       $main.removeClass('is-fixed');
   });
 
-}) // (window, window.jQuery);
+})//(window, window.jQuery);
 
 ;(function(global, $){
   'use strict';
@@ -140,4 +146,83 @@
 
   $dim.data('original-dim-bg', $dim.css('background-color'));
 
-}) // (window, window.jQuery);
+}) //(window, window.jQuery);
+
+;(function(global, $){
+  'use strict';
+
+  // addClass() + function
+  // (index, currentClassName) => String
+
+    $('.app').addClass((index, name)=>{
+    let names = name.split(' ');
+    console.log(names); // ['app', 'container']
+    let convert_names = names.map(name=>{
+      return `*-${name}-*`;
+    });
+    console.log(convert_names); // ['*-app-*', '*-container-*']
+    convert_names = convert_names.join(' ');
+    console.log(convert_names); // '*-app-* *-container-*'
+    return convert_names;
+  })
+  .find('*').addClass(index=>'child-'+index);
+
+
+  let $box = $('.box');
+
+  // 이벤트 핸들링
+  function toggleBox() {
+    if ( $box.hasClass('hide') ) {
+      $box.removeClass('hide');
+    } else {
+      $box.addClass('hide');
+    }
+  };
+  // 초기화
+  $box.addClass('hide');
+
+  $('.toggle-box').on('click', toggleBox);
+
+
+}) //(window, window.jQuery);
+
+;(function(global, $){
+  'use strict';
+
+  let $component, $lists, $labels;
+
+  // 컴포넌트 아코디언 초기화 함수
+  function init(){
+    $component = $('.ui-accordion');
+    $lists = $component.find('.menu-list');
+    $labels = $('.menu-label a', $component);
+    // 리스트를 모두(필터링 할 경우, 필터링 대상만) 감춤
+    // $lists.filter((index, el)=>{
+    //   return index > 0;
+    // }).hide();
+    $lists.hide();
+    // 이벤트 바인딩
+    bind();
+    $labels.eq(0).trigger('click');
+  }
+  function bind() {
+    $('.menu-label a', $component).on('click', toggleList);
+  }
+  function toggleList(e) {
+    e.preventDefault();
+    // this.parentNode.classList.add('is-active');
+    let time = 300; // 300/1000 = 0.3s
+    let $this = $(e.target);
+    let $list = $this.parent().next();
+    if ( $list.css('display') === 'none' ) {
+      $list.show(time);
+      $this.addClass('is-active');
+    } else {
+      $list.hide(time);
+      $this.removeClass('is-active');
+    }
+  }
+  // 초기화 실행
+  init();
+
+})(window, window.jQuery);
