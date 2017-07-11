@@ -8,7 +8,7 @@
 
 ## 언어 레퍼런스(Reference)
 
-- [Node.js 템플릿 엔진: Pug](https://pugjs.org)
+- [Node.js Express 템플릿엔진: Pug](https://pugjs.org)
 - [CSS 프리프로세서: Sass](http://sass-lang.com)
 
 ## Sass 프레임워크

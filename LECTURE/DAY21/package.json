@@ -1,11 +1,12 @@
 {
   "name": "jquery-reference",
   "version": "0.0.1",
+  "description": "jQuery 학습을 위한 프로젝트",
   "scripts": {
     "dev": "node_modules/.bin/npm-run-all --parallel --continue-on-error pug sass serve",
-    "serve": "node_modules/.bin/live-server",
+    "serve": "node_modules/.bin/live-server --port=3001 --cors",
     "pug": "node_modules/.bin/pug jQuery__Reference/pug -w --out jQuery__Reference",
-    "sass": "node_modules/.bin/node-sass --watch --recursive --output-style compressed --output jQuery__Reference/css --source-map true --source-map-contents jQuery__Reference/sass"
+    "sass": "node_modules/.bin/node-sass -wr --output-style compressed -o lecture/css --source-map true --source-map-contents lecture/sass"
   },
   "dependencies": {
     "bulma": "^0.4.3",
