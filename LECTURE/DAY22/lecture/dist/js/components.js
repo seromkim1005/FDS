@@ -177,8 +177,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _this2 = this;
 
     this.css('position', 'relative').animate({
-      height: "toggle",
-      opacity: "toggle",
+      height: 'toggle',
+      opacity: 'toggle',
       x: 1000
     }, { step: function step(now, fx) {
         return _this2.css('transform', 'translateX(' + now + 'px)');

@@ -186,11 +186,11 @@
       .css('position', 'relative')
       .animate(
         {
-          height: "toggle",
-          opacity: "toggle",
+          height: 'toggle',
+          opacity: 'toggle',
           x: 1000
         },
-        { step: (now,fx) => this.css('transform','translateX('+now+'px)') }
+        { step: (now,fx) => this.css('transform',`translateX(${now}px)`) }
       );
   }
 

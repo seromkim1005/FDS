@@ -1,8 +1,10 @@
 /*! main.js @ 2017, yamoo9.net */
 
-// JSON //
-// https://api.myjson.com/bins/f0etn
 
+/**
+ * jQuery 함수 속성 확장
+ * 유틸리티 메서드
+ */
 (function($){
   'use strict';
 
@@ -12,6 +14,20 @@
 
   if ( !$.cache ) {
     $.cache = el => $.data(el, '$el') || $.data(el, '$el', $(el));
+  }
+
+  if ( !$.shake ) {
+    $.shake = ($el, time=2000, shake=10, distance=5) => {
+      let duration = time/shake/4;
+      $el.css('position', 'relative');
+      $.when(
+        $el
+          .stop()
+          .animate({left: -distance}, duration)
+          .animate({left: distance}, duration)
+          .animate({left: 0}, duration)
+      ).done(()=>$el.removeAttr('style'));
+    }
   }
 
 })(window.jQuery);
@@ -29,7 +45,7 @@
 
       // 사용자 정의 옵션
       time = 300,             // 트랜지션 시간(ms)
-      is_multi_toggle = true; // 멀티 토글 가능 여부
+      is_multi_toggle = !true; // 멀티 토글 가능 여부
 
   /** 초기화 함수 */
   function init(){
@@ -75,7 +91,8 @@
     // 사용자가 클릭한 레이블이 일치한다면
     // 함수를 종료하라.
     if ( $actived.is($this) ) {
-      $.wiggle($this);
+      // 흔들기
+      $.shake($this.parent());
       return;
     }
 
