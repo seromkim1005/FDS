@@ -1,0 +1,44 @@
+mixin noti()
+  .site-noti.notification
+    block
+    button(type="button" aria-label="close notification").delete
+
+<!DOCTYPE html>
+html(lang="en")
+
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    meta(http-equiv="X-UA-Compatible", content="ie=Edge")
+    title 컴포넌트 제작 - jQuery 학습
+    link(rel="stylesheet", href="/node_modules/bulma/css/bulma.css")
+    link(rel="stylesheet", href="./css/main.css")
+
+  body
+
+    .app.container
+      .columns
+        .column
+          +noti()
+            p
+              | Lorem ipsum dolor sit amet,
+              strong consectetur adipisicing elit.
+              a(href) Eum
+              | , quas facere numquam, aperiam illum ullam?
+              | Tempora doloremque recusandae quo! Nobis.
+          +noti()
+            blockquote
+              | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum architecto velit, officiis aliquid,
+              strong quae dolorem id exercitationem sunt
+              | non reprehenderit iste, voluptate recusandae labore modi in cumque similique unde iusto!
+          +noti()
+            ul
+              li
+                a(href="") Lorem ipsum dolor sit.
+              li
+                a(href="") Iure necessitatibus, mollitia adipisci!
+              li
+                a(href="") Et quibusdam, doloremque qui!
+
+    script(src="/node_modules/jquery/dist/jquery.min.js")
+    script(src="./js/components.js")
