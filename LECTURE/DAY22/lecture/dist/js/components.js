@@ -10,6 +10,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
   var Notification = function () {
     function Notification(selector) {
+      var _this = this;
+
       _classCallCheck(this, Notification);
 
       if ($.type(selector) !== 'string') {
@@ -21,14 +23,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       if (!this) {
         throw 'new Notification()으로 실행해주세요';
       }
-      this.$el = $(selector);
-      this.$el.find('.delete').on('click', this.close.bind(this));
+      this.$els = $(selector);
+      this.$els.each(function (i) {
+        var $el = _this.$els.eq(i);
+        $el.find('.delete').on('click', _this.close.bind($el));
+      });
     }
 
     _createClass(Notification, [{
       key: 'close',
       value: function close() {
-        this.$el.remove();
+        this.remove();
       }
     }]);
 
@@ -41,5 +46,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 (function (global, $, Notification) {
   'use strict';
 
-  new Notification('.site-noti');
+  // 객체 지향 코드를 사용한 예
+  // new Notification('.site-noti');
+
+  // jQuery 코드 스타일 예
+
+  $('.site-noti').find('.delete').on('click', function () {
+    $(this).parent().remove();
+  });
 })(window, window.jQuery, window.Notification);
