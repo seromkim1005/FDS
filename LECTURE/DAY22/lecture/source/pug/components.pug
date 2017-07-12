@@ -1,7 +1,10 @@
 mixin noti()
-  .site-noti.notification
+  .notification(class!=attributes.class)
     block
-    button(type="button" aria-label="close notification").delete
+    button(
+      type="button"
+      aria-label="close notification"
+    ).delete
 
 <!DOCTYPE html>
 html(lang="en")
@@ -18,20 +21,20 @@ html(lang="en")
 
     .app.container
       .columns
-        .column
-          +noti()
+        .column.is-6
+          +noti()(class="site-noti is-primary")
             p
               | Lorem ipsum dolor sit amet,
               strong consectetur adipisicing elit.
               a(href) Eum
               | , quas facere numquam, aperiam illum ullam?
               | Tempora doloremque recusandae quo! Nobis.
-          +noti()
+          +noti()(class="site-noti")
             blockquote
               | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum architecto velit, officiis aliquid,
               strong quae dolorem id exercitationem sunt
               | non reprehenderit iste, voluptate recusandae labore modi in cumque similique unde iusto!
-          +noti()
+          +noti()(class="site-noti is-danger")
             ul
               li
                 a(href="") Lorem ipsum dolor sit.
@@ -39,6 +42,31 @@ html(lang="en")
                 a(href="") Iure necessitatibus, mollitia adipisci!
               li
                 a(href="") Et quibusdam, doloremque qui!
+        .column.is-6
+
+          button(type="button").show-modal.button.is-warning Show Modal
+
+          .show-modal-target.modal
+            .modal-background
+            .modal-card
+              header.modal-card-head
+                h4.modal-card-title jQuery Modal Component
+                button(type="button" aria-label="close modal").delete
+              section.modal-card-body
+                p
+                  | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, fugit delectus voluptatum temporibus maiores hic. Praesentium.
+                  strong sapiente,
+                  | repellat! Et ipsum vel quam?
+                p
+                  a(href)  Ex consequatur,
+                  | dolor at illum minus dolorem facilis libero, soluta, fugiat ducimus iste similique quibusdam deleniti aliquid dicta!
+                p
+                  | Consectetur adipisicing elit. Itaque, fugit
+                  strong  Далеко-далеко за.
+                  |  repellat! Et ipsum vel quam?
+              footer.modal-card-foot
+                button(type="button").button.is-success Save Changes
+                button(type="button").button Cancel
 
     script(src="/node_modules/jquery/dist/jquery.min.js")
     script(src="./js/components.js")

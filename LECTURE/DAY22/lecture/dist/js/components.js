@@ -55,3 +55,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     $(this).parent().remove();
   });
 })(window, window.jQuery, window.Notification);
+
+(function (global, $) {
+  'use strict';
+
+  var $target = $('.show-modal-target');
+
+  // Show Modal 버튼 제어 (이벤트 핸들링)
+  $('.show-modal').on('click', function (e) {
+    $target.addClass('is-active');
+  });
+
+  $target.on('click', function (e) {
+    var $temp = $(e.target);
+    if ($temp.is('.delete') || $temp.is('.modal-background') || $temp.filter(':contains("Cancel")').length) {
+      $target.removeClass('is-active');
+    }
+  });
+
+  // Modal 요소 표시 상태 제어 함수
+
+})(window, window.jQuery);
