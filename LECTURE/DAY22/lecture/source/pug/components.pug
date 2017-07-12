@@ -6,6 +6,19 @@ mixin noti()
       aria-label="close notification"
     ).delete
 
+mixin modal(data)
+  .modal(class!=attributes.class)
+    .modal-background
+    .modal-card
+      header.modal-card-head
+        h4.modal-card-title= data.title
+        button(type="button" aria-label="close modal").delete
+      section.modal-card-body
+        block
+      footer.modal-card-foot
+        button(type="button").button.is-success= data.success
+        button(type="button").button.is-cancel= data.cancel
+
 <!DOCTYPE html>
 html(lang="en")
 
@@ -44,29 +57,31 @@ html(lang="en")
                 a(href="") Et quibusdam, doloremque qui!
         .column.is-6
 
-          button(type="button").show-modal.button.is-warning Show Modal
+          .field.has-addons.on-top
+            .control
+              button(type="button").show-modal.button.is-warning Show Modal
+            .control
+              button(type="button").hide-modal.button.is-info Hide Modal
 
-          .show-modal-target.modal
-            .modal-background
-            .modal-card
-              header.modal-card-head
-                h4.modal-card-title jQuery Modal Component
-                button(type="button" aria-label="close modal").delete
-              section.modal-card-body
-                p
-                  | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, fugit delectus voluptatum temporibus maiores hic. Praesentium.
-                  strong sapiente,
-                  | repellat! Et ipsum vel quam?
-                p
-                  a(href)  Ex consequatur,
-                  | dolor at illum minus dolorem facilis libero, soluta, fugiat ducimus iste similique quibusdam deleniti aliquid dicta!
-                p
-                  | Consectetur adipisicing elit. Itaque, fugit
-                  strong  Далеко-далеко за.
-                  |  repellat! Et ipsum vel quam?
-              footer.modal-card-foot
-                button(type="button").button.is-success Save Changes
-                button(type="button").button Cancel
+          -
+            var modal_data = {
+              title: 'jQuery Modal',
+              success: 'Save',
+              cancel: 'Cancel'
+            }
+
+          +modal(modal_data)(class="fds-modal")
+            p
+              | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, fugit delectus voluptatum temporibus maiores hic. Praesentium.
+              strong sapiente,
+              | repellat! Et ipsum vel quam?
+            p
+              a(href)  Ex consequatur,
+              | dolor at illum minus dolorem facilis libero, soluta, fugiat ducimus iste similique quibusdam deleniti aliquid dicta!
+            p
+              | Consectetur adipisicing elit. Itaque, fugit
+              strong  Далеко-далеко за.
+              |  repellat! Et ipsum vel quam?
 
     script(src="/node_modules/jquery/dist/jquery.min.js")
     script(src="./js/components.js")

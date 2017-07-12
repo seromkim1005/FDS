@@ -38,25 +38,77 @@
 (function(global, $){
   'use strict';
 
-  let $target = $('.show-modal-target');
+  let $modal = $('.show-modal-target');
 
   // Show Modal 버튼 제어 (이벤트 핸들링)
   $('.show-modal').on('click', function(e){
-    $target.addClass('is-active');
+    $modal.addClass('is-active');
   });
 
-  $target.on('click', function(e){
-    let $temp = $(e.target);
+  $modal.on('click', function(e){
+    let $e_target = $(e.target);
     if (
-      $temp.is('.delete') ||
-      $temp.is('.modal-background') ||
-      $temp.filter(':contains("Cancel")').length
+      $e_target.is('.delete') ||
+      $e_target.is('.modal-background') ||
+      $e_target.filter(':contains("Cancel")').length && $e_target[0].localName === 'button'
     ) {
-      $target.removeClass('is-active');
+      $modal.removeClass('is-active');
     }
   });
 
   // Modal 요소 표시 상태 제어 함수
 
+
+}) //(window, window.jQuery);
+
+;(function(global, $){
+  'use strict';
+
+  // 생성자 함수
+  function Modal(el){
+    // 검증 패스~
+    // $.type(el) !== 'nodelist'
+    this.$el = $(el);
+    // 이벤트 바인딩
+    this.$el
+      .find('.delete, .is-cancel, .modal-background')
+      .on('click', this.close.bind(this));
+      // .on('click', $.proxy(this.close, this));
+  }
+
+  // 프로토타입 객체
+  Modal.prototype.open = function(){
+    this.$el.addClass('is-active');
+  };
+  Modal.prototype.close = function(){
+    this.$el.removeClass('is-active');
+  };
+
+  // 외부에 공개
+  $.Modal = Modal;
+
+})(window, window.jQuery);
+
+
+(function(global, $){
+  'use strict';
+
+  // .fds-modal 요소들을 순환하여
+  // 각각 jQuery.Modal 객체를 생성
+  // jQuery.data() 를 사용해서 $modal 이름으로 기억해둔다.
+  // var $fds_modals = $('.fds-modal').each(function(index, el){
+  //   $.data(el, '$modal', new $.Modal(el));
+  // });
+
+  // 버튼 이벤트 핸들링
+  var modal = new $.Modal( document.querySelector('.fds-modal') );
+
+  $('.show-modal').on('click', function(){
+    modal.open();
+  });
+
+  $('.hide-modal').on('click', function(){
+    modal.close();
+  });
 
 })(window, window.jQuery);
