@@ -18,11 +18,12 @@ html(lang="en")
       .columns
         .column.is-4
 
-          .card
+          //- 카드 컴포넌트
+          .card.twitter-card
             header.card-header
               h4.card-header-title
                 | Card Component
-              a.card-header-icon(
+              a.card-header-icon.card-toggle-btn(
                 href=""
                 role="button"
                 aria-label="close content"
@@ -42,9 +43,9 @@ html(lang="en")
                 br
                 time(pubdate="2016-01-01") 11:09 PM - 1 Jan 2016
             footer.card-footer
-              a(href="" role="button").card-footer-item Save
-              a(href="" role="button").card-footer-item Edit
-              a(href="" role="button").card-footer-item Delete
+              a(href="" role="button").card-footer-item.card-save-btn Save
+              a(href="" role="button").card-footer-item.card-edit-btn Edit
+              a(href="" role="button").card-footer-item.card-delete-btn Delete
 
 
 
