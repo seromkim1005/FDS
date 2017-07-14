@@ -18,6 +18,7 @@
 
   // 기본 옵션
   var defaults = {
+    headline: 'UI Carousel Component',
     animation: {
       using: true,
       duration: 400,
