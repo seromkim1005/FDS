@@ -4,15 +4,6 @@
 
 // Card 컴포넌트 정의
 // Card Component using jQuery Library //
-
-// Card
-//   .openContent()
-//   .closeContent()
-//   .toggleContent()
-//   .save()
-//   .edit()
-//   .delete()
-
 (function (global, $) {
   'use strict';
 
@@ -22,18 +13,12 @@
     throw 'jQuery에 의존하는 컴포넌트입니다. jQuery를 로드해주세요.';
   }
 
-  // Card 컴포넌트 정의 구간에서만 사용 가능한 지역 변수, 함수 정의
-  var $card = void 0,
-      $toggle = void 0,
-      $save = void 0,
-      $edit = void 0,
-      $delete = void 0;
   // 비공개 지역 함수
   function bind(card) {
-    $toggle.on('click', onClickToggle.bind($toggle, card));
-    $save.on('click', onClickSave.bind($save, card));
-    $edit.on('click', onClickEdit.bind($edit, card));
-    $delete.on('click', onClickDelete.bind($delete, card));
+    card._$toggle.on('click', onClickToggle.bind(card._$toggle, card));
+    card._$save.on('click', onClickSave.bind(card._$save, card));
+    card._$edit.on('click', onClickEdit.bind(card._$edit, card));
+    card._$delete.on('click', onClickDelete.bind(card._$delete, card));
   }
   function onClickToggle(card, e) {
     e.preventDefault();
@@ -60,7 +45,7 @@
       throw 'new Card() 문법으로 사용해주세요.';
     }
     // 초기에 카드 컴포넌트로 사용할 DOM 요소를 jQuery화
-    $card = $(o);
+    this._$card = $(o);
     this.init();
   }
 
@@ -69,17 +54,33 @@
     constructor: Card,
     version: '1.0.0',
     init: function init() {
-      $toggle = $card.find('.card-toggle-btn');
-      $save = $card.find('.card-save-btn');
-      $edit = $card.find('.card-edit-btn');
-      $delete = $card.find('.card-delete-btn');
+      // card {} 내부 버튼 컴포넌트 참조
+      this._$toggle = this._$card.find('.card-toggle-btn');
+      this._$save = this._$card.find('.card-save-btn');
+      this._$edit = this._$card.find('.card-edit-btn');
+      this._$delete = this._$card.find('.card-delete-btn');
+      // 이벤트 바인딩
+      // card {} 전달
       bind(this);
     },
-    destory: function destory() {},
-    openContent: function openContent() {},
-    closeContent: function closeContent() {},
+    isOpenedContent: function isOpenedContent() {
+      return !this._$toggle.attr('aria-label').includes('open');
+    },
+    openContent: function openContent() {
+      var change_open_text = this._$toggle.attr('aria-label').replace('open', 'close');
+      this._$toggle.attr('aria-label', change_open_text);
+      this._$toggle.find('.fa-angle-up').addClass('fa-angle-down').removeClass('fa-angle-up');
+      this._$card.find('.card-content').slideDown(100);
+    },
+    closeContent: function closeContent() {
+      var $toggle = this._$toggle;
+      var change_open_text = $toggle.attr('aria-label').replace('close', 'open');
+      $toggle.attr('aria-label', change_open_text);
+      $toggle.find('.fa-angle-down').addClass('fa-angle-up').removeClass('fa-angle-down');
+      this._$card.find('.card-content').slideUp(100);
+    },
     toggleContent: function toggleContent() {
-      console.log('toggle');
+      this.isOpenedContent() ? this.closeContent() : this.openContent();
     },
     save: function save() {
       console.log('save');
@@ -88,7 +89,7 @@
       console.log('edit');
     },
     delete: function _delete() {
-      console.log('delete');
+      this._$card.remove();
     }
   };
 
@@ -100,14 +101,6 @@
 (function (global, $) {
   'use strict';
 
-  // var $card = $('.twitter-card');
-  // $card.on('click', function() {
-  //   $.shake( $card );
-  // });
-
   global.t_card = new $.Card('.twitter-card');
-
-  // console.log(t_card);
-
-  global.t_card.toggleContent();
+  global.f_card = new $.Card('.facebook-card');
 })(window, window.jQuery);
