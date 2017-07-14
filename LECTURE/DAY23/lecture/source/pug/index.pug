@@ -1,0 +1,53 @@
+//---------------------------------------------------------------------------------------------------------
+
+<!DOCTYPE html>
+html(lang="en")
+
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    meta(http-equiv="X-UA-Compatible", content="ie=Edge")
+    title jQuery 학습
+    link(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
+    link(rel="stylesheet", href="/node_modules/bulma/css/bulma.css")
+    link(rel="stylesheet", href="./css/main.css")
+
+  body
+
+    .app.container.wrapper
+      .columns
+        .column.is-4
+          .card
+            header.card-header
+              h4.card-header-title
+                | Card Component
+              a.card-header-icon(
+                href=""
+                role="button"
+                aria-label="close content"
+              )
+                span.icon
+                  i.fa.fa-angle-down(aria-hidden="true")
+            .card-content
+              .content
+                p
+                  | Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  | Phasellus nec iaculis mauris.
+                a(href="https://twitter.com/bulmaio/") @bulmaio
+                |  |
+                a  #css
+                |,
+                a  #responsive
+                br
+                time(pubdate="2016-01-01") 11:09 PM - 1 Jan 2016
+            footer.card-footer
+              a(href="" role="button").card-footer-item Save
+              a(href="" role="button").card-footer-item Edit
+              a(href="" role="button").card-footer-item Delete
+
+
+
+
+
+    script(src="/node_modules/jquery/dist/jquery.min.js")
+    script(src="./js/main.js")
