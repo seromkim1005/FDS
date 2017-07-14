@@ -44,7 +44,7 @@
   </div>
 
 <script src="https://unpkg.com/jquery"></script>
-<script src="./jquery.swipe.js"></script>
+<script src="./jquery.swipe.study.js"></script>
 <script>
   /**
    * 사용 방법:
@@ -58,12 +58,25 @@
    *
    * this      - jQuery 객체 (이벤트 대상을 감싼)
    */
+  // $('.touchzone').swipe(function(o, e){
+  //   this.find('.type').text(o.type);
+  //   this.find('.direction').text(o.direction);
+  //   this.find('.x').text(o.x);
+  //   this.find('.y').text(o.y);
+  // });
+
   $('.touchzone').swipe(function(o, e){
-    this.find('.type').text(o.type);
-    this.find('.direction').text(o.direction);
-    this.find('.x').text(o.x);
-    this.find('.y').text(o.y);
+    console.log(o);
   });
+
+  // $('.touchzone').swipe({
+  //   start: function(o, e) {
+  //     // this
+  //   },
+  //   move: function(o, e) {},
+  //   end: function(o, e) {}
+  // });
+
 </script>
 </body>
 </html>
