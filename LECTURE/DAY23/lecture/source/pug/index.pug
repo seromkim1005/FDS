@@ -35,7 +35,7 @@ html(lang="en")
 
     .app.container.wrapper
       .columns
-        .column.is-4
+        .column.is-6
 
           +card('twitter')(class="twitter-card")
             p
@@ -62,6 +62,34 @@ html(lang="en")
             a  #responsive
             br
             time(pubdate="2016-01-01") 11:09 PM - 1 Jan 2016
+
+
+          // 탭 컴포넌트
+          .demo-radio.tabs.is-boxed
+            ul(rol="tablist")
+              li.is-active
+                a(role="tab")
+                  span.icon.is-small
+                    i.fa.fa-image
+                  span Pictures
+              li
+                a(role="tab")
+                  span.icon.is-small
+                    i.fa.fa-music
+                  span Music
+              li
+                a(role="tab")
+                  span.icon.is-small
+                    i.fa.fa-film
+                  span Videos
+              li
+                a(role="tab")
+                  span.icon.is-small
+                    i.fa.fa-file-text-o
+                  span Documents
+
+
+
 
 
 

@@ -7,12 +7,14 @@
 (function (global, $) {
   'use strict';
 
+  // ----------------------------------------------------------------------
   // jQuery 로드 여부 검증
 
   if (!$) {
     throw 'jQuery에 의존하는 컴포넌트입니다. jQuery를 로드해주세요.';
   }
 
+  // ----------------------------------------------------------------------
   // 비공개 지역 함수
   function bind(card) {
     card._$toggle.on('click', onClickToggle.bind(card._$toggle, card));
@@ -46,9 +48,11 @@
     }
     // 초기에 카드 컴포넌트로 사용할 DOM 요소를 jQuery화
     this._$card = $(o);
+    // 카드 컴포넌트 초기화
     this.init();
   }
 
+  // ----------------------------------------------------------------------
   // Prototype
   Card.fn = Card.prototype = {
     constructor: Card,
@@ -83,16 +87,18 @@
       this.isOpenedContent() ? this.closeContent() : this.openContent();
     },
     save: function save() {
-      console.log('save');
+      this._$card.find('.content *:not(br,hr)').removeAttr('contenteditable');
+      // Ajax Communication -> data transfer
     },
     edit: function edit() {
-      console.log('edit');
+      this._$card.find('.content *:not(br,hr)').attr('contenteditable', true).eq(0).focus();
     },
     delete: function _delete() {
       this._$card.remove();
     }
   };
 
+  // ----------------------------------------------------------------------
   // Export
   $.Card = Card;
 })(window, window.jQuery);
@@ -103,4 +109,11 @@
 
   global.t_card = new $.Card('.twitter-card');
   global.f_card = new $.Card('.facebook-card');
+
+  global.t_card.toggleContent();
+  global.f_card.toggleContent();
+
+  $('.demo-radio').find('[role="tab"]').on('click', function () {
+    $(this).parent().radioClass('is-active');
+  });
 })(window, window.jQuery);
