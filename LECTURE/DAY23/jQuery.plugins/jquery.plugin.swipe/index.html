@@ -20,7 +20,7 @@
       padding-top: 1.5em;
       padding-left: 1.5em;
       border-radius: 10px;
-      background: #2f2f2f;
+      background: rgba(0,0,0,0.78);
       color: #fff;
       font-size: 22px;
       font-weight: 100;
@@ -29,6 +29,12 @@
       margin: 0;
       padding-left: 0;
       list-style: none;
+    }
+    .no-touchzone p {
+      padding: 1em;
+      line-height: 1.5;
+      font-size: 1.2rem;
+      color:tan;
     }
   </style>
 </head>
@@ -43,8 +49,32 @@
     </ul>
   </div>
 
+  <div class="no-touchzone">
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure reiciendis, voluptatum adipisci deserunt, numquam quisquam, praesentium quis maiores assumenda labore tempora omnis. Amet sed blanditiis rem provident ab, reiciendis, voluptates?</p>
+    <p>Repellendus tempora quo et, blanditiis fugit saepe unde excepturi quos iure delectus tempore repellat quibusdam cumque earum ullam dolorem laboriosam voluptate consectetur adipisci facere voluptatum est vel error aliquam. Nulla.</p>
+    <p>Suscipit quas, laborum adipisci temporibus in nisi et quos voluptates libero minima amet quod non dolorum ipsam hic, nemo, cupiditate, eaque omnis. Fuga atque debitis, perspiciatis ipsum est dolorem enim!</p>
+    <p>A qui iure aspernatur, reprehenderit ab error eos! Dolore mollitia eos unde in, saepe repudiandae, doloremque, maiores nobis laboriosam iste totam tempore laborum eius quis vel nisi ea voluptatibus sed!</p>
+    <p>Tempora iusto et natus dolore soluta fugit quod illum, cupiditate tenetur inventore quis provident recusandae laudantium hic, eum asperiores, laborum quas blanditiis architecto! Amet, vitae, dignissimos. Assumenda culpa, quos molestiae.</p>
+    <p>Ipsam cumque amet, cum animi aspernatur reiciendis, natus perferendis, sequi aliquid illum sit nulla officiis necessitatibus voluptate commodi harum. Esse adipisci quod nemo eaque, nam pariatur, temporibus beatae at accusamus!</p>
+    <p>Asperiores maiores nostrum, saepe obcaecati nihil, vel suscipit deserunt minus, omnis magni esse. Sequi, harum amet minus iure excepturi ipsa eum labore eius dignissimos consectetur eveniet pariatur aperiam aut, reprehenderit.</p>
+    <p>Numquam molestias ut neque necessitatibus blanditiis totam deserunt placeat quos libero dolor quam voluptatem omnis id dicta illo recusandae velit tempore ratione quod, beatae fuga sint eius iste! Ad, laboriosam.</p>
+    <p>Est mollitia veniam, explicabo eum quos ea quaerat, voluptatibus, unde earum asperiores sunt eius quis ducimus voluptates reiciendis, odit libero ipsum ex excepturi tempore delectus! Ad, impedit ipsa omnis necessitatibus!</p>
+    <p>Sunt quod in sit repellendus voluptate quis praesentium tenetur atque corporis consequatur earum eius excepturi harum, animi odit reiciendis velit commodi? Error quasi ex sapiente molestias tempore voluptatem, incidunt odio.</p>
+    <p>Quod, laudantium praesentium ullam sed! Voluptates ex laudantium, amet nisi at vel maiores, magnam dolore labore debitis iusto neque suscipit quae nostrum hic consequuntur. Ratione odio, eaque nam corrupti expedita!</p>
+    <p>Repudiandae blanditiis fugit architecto in ipsum quibusdam explicabo adipisci deleniti harum enim temporibus aspernatur eius cum nisi, vitae odit, culpa tempora. Rerum accusamus similique labore reprehenderit officiis at, corporis repellat!</p>
+    <p>Aliquid, ipsam voluptas explicabo eligendi ut odio nobis recusandae ad inventore ex dolores beatae, quasi possimus enim rem nisi necessitatibus iste amet sunt maiores. Incidunt porro quibusdam assumenda inventore, quasi.</p>
+    <p>Doloribus atque laborum cumque quia nobis accusantium at fugiat excepturi veniam sapiente sed, id, delectus necessitatibus repudiandae exercitationem error in provident dolor quasi ea animi ducimus. Amet, adipisci quis laborum.</p>
+    <p>Asperiores omnis reiciendis sequi repellat expedita vitae facere possimus. Atque, voluptas impedit quia quae quod voluptate fugit maiores numquam laboriosam adipisci modi qui sit tempore aperiam, magnam ab nesciunt doloribus.</p>
+    <p>Dolor eos enim asperiores culpa quam, molestias assumenda, sed placeat provident non, possimus ut? Aliquid optio ad beatae inventore numquam vero veritatis non consequuntur quod iusto, repellat commodi aut obcaecati!</p>
+    <p>Repellat optio quaerat, repudiandae cumque cupiditate inventore beatae nihil ullam aspernatur dolores nisi pariatur nulla reprehenderit et veritatis explicabo omnis non quibusdam, placeat quod ad sit nam. Deserunt, error, eaque!</p>
+    <p>Animi pariatur praesentium dolore labore ullam laudantium hic magni nobis, aut iure, autem! Modi aperiam quos fugit, magni illo ipsam non odio totam blanditiis numquam distinctio maiores minus veritatis optio.</p>
+    <p>Fugit tenetur officia nesciunt magnam ad illo earum porro consectetur. Fugiat odit, reiciendis quae nesciunt reprehenderit deleniti eius quibusdam! Dolorum excepturi, ea odio officia aut vero ipsum minima eveniet. Corporis.</p>
+    <p>Perferendis, necessitatibus. Ut voluptatem soluta iure laborum, sequi quis vel perspiciatis repellat iusto repellendus quae pariatur inventore possimus animi non eligendi sed accusamus libero consectetur, illo adipisci. Fugit, in, doloribus.</p>
+  </div>
+
 <script src="https://unpkg.com/jquery"></script>
-<script src="./jquery.swipe.study.js"></script>
+<script src="./jquery.swipe.js"></script>
+<!-- <script src="./jquery.swipe.study.js"></script> -->
 <script>
   /**
    * 사용 방법:
@@ -58,16 +88,20 @@
    *
    * this      - jQuery 객체 (이벤트 대상을 감싼)
    */
-  // $('.touchzone').swipe(function(o, e){
-  //   this.find('.type').text(o.type);
-  //   this.find('.direction').text(o.direction);
-  //   this.find('.x').text(o.x);
-  //   this.find('.y').text(o.y);
-  // });
-
   $('.touchzone').swipe(function(o, e){
-    console.log(o);
+    this.find('.type').text(o.type);
+    this.find('.direction').text(o.direction);
+    this.find('.x').text(o.x);
+    this.find('.y').text(o.y);
   });
+
+
+
+
+
+  // $('.touchzone').swipe(function(o, e){
+  //   console.log(o);
+  // });
 
   // $('.touchzone').swipe({
   //   start: function(o, e) {
