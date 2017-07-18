@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+html(lang="ko-KR")
+
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible" content="ie=edge")
+    title 주제 - Vue.js 프레임워크
+
+    link(rel="shortcut icon" type="image/x-icon" href="assets/favicon.png")
+    link(rel="stylesheet" href="css/main.css")
+
+  body
+
+    .app.container
+      .columns
+        .column.is-6
+          h1.title.is-1 {{ title }} | {{ count }}
+          button(type="button" v-on:click="increaseCount") Count +
+
+    //- script(src="lib/jquery.min.js")
+    //- CDN: Load Vue File
+    script(src="//unpkg.com/vue@2.4.1/dist/vue.js")
+    script(src="js/vue-study.js")
