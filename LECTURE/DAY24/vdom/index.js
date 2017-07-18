@@ -31,8 +31,10 @@ const patch         = require('virtual-dom/patch');
 // 데이터
 let count = 0;
 
+let frameworks = 'vue react angular riot polymer'.split(' ');
+
 // 가상 DOM 트리 생성
-let vtree = render(count);
+let vtree = render(frameworks);
 
 // 가상 DOM 트리를 실제 DOM으로 생성
 let rootTree = createElement(vtree);
@@ -43,26 +45,59 @@ mount_v_el.appendChild(rootTree);
 
 // render 함수는 가상 DOM 트리를 반환
 function render(data) {
-  return h('div.v-hello', [
-    h('p.message', `가상 문서객체모델 Tree ${data}`)
+  let lists = data.map((item, index) => h('li', [
+    item,
+    h('button',{
+      type: 'button',
+      onclick: e => {
+        data.splice(index, 1);
+        update();
+      }
+    }, 'Delete')
+  ]));
+
+  let ul = h('ul', lists);
+
+  let input = h('input.user-input',{
+    type: "text",
+    placeholder: 'Add Content'
+  });
+
+  let add_btn = h('button',{
+    type: 'button',
+    onclick: e => {
+      let input = document.querySelector('.user-input');
+      data.unshift(input.value);
+      input.value = '';
+      update();
+    }
+  }, 'Add');
+
+  let container = h('.container', [
+    input,
+    add_btn,
+    ul
   ]);
+
+  return container;
+
 }
 
 // 데이터 변경에 따른 가상 DOM 업데이트
 function update() {
 
   // 데이터 변경에 따른 가상 DOM 생성
-  let ctree = render(count);
+  let ctree = render(frameworks);
 
   // 가상 DOM 비교(diff)
   // vtree    VS    ctree
   let patches = diff(vtree, ctree);
-  console.log('patches:', patches);
+  // console.log('patches:', patches);
 
   // 변경이 있다면, 패치(patch)
   // newRootTree = rootTree <- patches {}
   rootTree = patch(rootTree, patches);
-  console.log(rootTree);
+  // console.log(rootTree);
 
   // ctree는 현재 DOM의 위치에서 과거의 DOM으로 변경
   vtree = ctree;
@@ -70,7 +105,7 @@ function update() {
 
 // window.update = update;
 
-window.setInterval(()=>{
-  count++;
-  update();
-}, 1000);
+// window.setInterval(()=>{
+//   count++;
+//   update();
+// }, 1000);
