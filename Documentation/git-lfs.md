@@ -46,8 +46,6 @@ $ git lfs track "*.psd"
 $ git push
 ```
 
-![](../../Assets/Git-LFS.jpg)
-
 ## 5. BFG Repo-Cleaner 적용
 
 기존 Commit에서 50MB 보다 큰 대용량 파일의 로그가 있다면 이를 제거해야 합니다. [BFG Repo-Cleaner](https://rtyley.github.io/bfg-repo-cleaner/)를 이용하면 손쉽게 제거할 수 있습니다. 공식 사이트에서 `bfq-x.x.x.jar`(버전: x.x.x)를 다운로드 받은 후, 대상이 되는 Repository에서 다음과 같은 명령을 수행합니다.
