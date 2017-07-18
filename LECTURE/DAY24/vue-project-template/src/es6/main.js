@@ -157,16 +157,13 @@
   let document = global.document;
 
   // Create Vue {} Instance
-  global.vm = new Vue({
+  new Vue({
     // Mount DOM Element
     el: '.vue-demo',
     // Vue Data
     data: {
-      name: 'Vue',
-      type: 'Framework'
+      message: 'Hello Vue :-)'
     }
   });
-
-  global.vm.doing = 'Do'; // Vue {}
 
 })(window, window.user, window.Vue);
