@@ -22,6 +22,7 @@ html(lang="ko-KR")
       ).delete Destory
 
       .columns
+
         .column.is-10-mobile.is-offset-1-mobile.is-6-tablet
           .message.is-info(v-show="!is_login")
             .message-header
@@ -42,6 +43,7 @@ html(lang="ko-KR")
               )
             .message-body
               p 영어 낱말에서 로그 인(log in)은 동사를, 로그인(login)은 명사를 뜻하며, 로그 아웃(log out)과 로그아웃(logout)도 이와 마찬가지로 적용을 받는다. 또, 사인인(signin)과 사인아웃(signout), 로그온(logon)과 로그오프(logoff)라는 낱말은 로그인과 로그아웃의 다른 형태의 낱말이다.
+
         .column.is-10-mobile.is-offset-1-mobile.is-4-tablet
           div.card-wrapper(v-for="(user, index) in users")
             .card
@@ -65,6 +67,7 @@ html(lang="ko-KR")
                   br
                   small 11:09 PM - 1 Jan 2016
             hr(v-if="index < (users.length - 1)")
+
         .column.column.is-10-mobile.is-offset-1-mobile.is-2-tablet
 
           div.numbers
@@ -80,6 +83,7 @@ html(lang="ko-KR")
             value="나는 HTML에서 작성한 value이다."
           ).add-content-input.input
           button(type="button").add-content-btn.is-primary.button Add
+
           ul.metopo
             li(v-for="(value, key, index) in metopo")
               strong Index: {{ index }}
