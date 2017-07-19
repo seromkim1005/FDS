@@ -22,7 +22,8 @@
   // .$mount() 메서드  : 마운트할 요소를 설정(lazy setting)
   let app = global.app = new Vue({
     el: '#app',
-    template: '#app-template',
+    // template: '#app-template',
+    // template: `<div></div><div></div>`,
     data: {
       info: {
         author: 'yamoo9',
@@ -34,7 +35,15 @@
         'carousel',
         'accordian',
         'global navigation bar'
-      ]
+      ],
+      raw_html: `
+        <h1 class="tit_daum #logosearch">
+          <span>{{ info.org }}</span>
+          <a rel="home" href="http://www.daum.net/" class="link_daum #logo">
+            <img src="https://t1.daumcdn.net/daumtop_chanel/op/20170315064553027.png" width="180" height="94" id="daum" class="img_thumb" alt="Daum">
+          </a>
+        </h1>
+      `
     }
   });
 
