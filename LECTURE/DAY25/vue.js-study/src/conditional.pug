@@ -68,6 +68,8 @@ html(lang="ko-KR")
 
           hr
 
+          input(type="text").add-content-input.input
+          button(type=button).add-content-btn.is-primary.button Add
           ul.metopo
             li(v-for="(value, key, index) in metopo")
               strong Index: {{ index }}
@@ -77,6 +79,17 @@ html(lang="ko-KR")
                 code {{ value }}
               hr(v-if="index < 1")
 
+          hr
+
+          ul.template-demo
+            template(v-for="n of numbers/10*3")
+              li one
+              li two
+              li three
+              li
+                hr(v-if="n !== 3")
+
+    script(src="lib/jquery.min.js")
     script(src="js/conditional.js")
 
 
