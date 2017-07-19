@@ -5,7 +5,7 @@ html(lang="ko-KR")
     meta(charset="UTF-8")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     meta(http-equiv="X-UA-Compatible" content="ie=edge")
-    title 조건부 렌더링 - Vue.js 프레임워크
+    title Vue.js 프레임워크
 
     link(rel="shortcut icon" type="image/x-icon" href="assets/favicon.png")
     link(rel="stylesheet" href="css/main.css")
@@ -73,7 +73,12 @@ html(lang="ko-KR")
 
           hr
 
-          input(type="text").add-content-input.input
+          input(
+            @keyup="addNewContent"
+            :value="new_content"
+            type="search"
+            value="나는 HTML에서 작성한 value이다."
+          ).add-content-input.input
           button(type="button").add-content-btn.is-primary.button Add
           ul.metopo
             li(v-for="(value, key, index) in metopo")

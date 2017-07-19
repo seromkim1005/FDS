@@ -1,4 +1,22 @@
 /*! main.js @ 2017, yamoo9.net */
+
+// 오늘 배운 것
+// 인스턴스
+// 라이프사이클훅
+// 메서드
+// 조건부 렌더링
+// v-if, v-else, v-esle-if, v-show
+// 리스트 렌더링
+// v-for 객체, 배열, 숫자, 문자
+// v-for="alias in(of) data"
+// v-for="(alias,index) in(of) array"
+// v-for="(value,key,index) in(of) object"
+// 디렉티브
+// v-text, v-html, v-once, v-cloak
+// v-on, v-bind, v-model
+
+
+
 ((global, $)=>{
   'use strict';
 
@@ -32,7 +50,8 @@
     metopo: {
       concept: '막춤',
       who: '막장 드라마 주인공'
-    }
+    },
+    new_content: ''
   };
 
   let methods = {
@@ -41,6 +60,9 @@
     },
     destroyVueInstance() {
       this.$destroy();
+    },
+    addNewContent(e) {
+      this.new_content = e.target.value;
     }
   };
 
