@@ -1,6 +1,8 @@
 ### USER ###
 dist/
 node_modules/
+src/lib/
+
 
 ### Adobe ###
 # Adobe Source Files
