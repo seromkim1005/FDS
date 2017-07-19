@@ -38,6 +38,9 @@
   let methods = {
     changeMode() {
       this.is_login = !this.is_login;
+    },
+    destroyVueInstance() {
+      this.$destroy();
     }
   };
 
@@ -45,7 +48,13 @@
     el: '#app',
     data,
     methods,
-    // Life Cycle Hook
+
+    // Life Cycle Hook //
+    // beforeCreate, created
+    // beforeMount, mounted
+    // beforeUpdate, updated
+    // beforeDestroy, destroyed
+
     // created () {
     // console.log('Created');
     // },
@@ -54,6 +63,7 @@
     //   console.log(this.users);
     // },
     mounted () {
+      // Vue + DOM 스크립팅, jQuery 스크립팅
       console.log('Mounted');
       $('.add-content-btn').on('click', function(){
         console.log('click');
@@ -92,3 +102,28 @@
   });
 
 }); //(window, window.jQuery, window.Vue);
+
+
+// ——————————————————————————————————————
+// Vue 반응성(Reactivity) 시스템의 비밀
+// ES5 `Object.defineProperty()` 사용
+// IE 9+ 지원 (Vue가 IE 8-를 지원 안하는 이유)
+// ——————————————————————————————————————
+
+const fds = {};
+
+{
+  let name = '';
+  let notify = msg => console.log(msg);
+  Object.defineProperty(fds, 'name', {
+    // enumerable: true,
+    // configurable: true,
+    get() {
+      return name;
+    },
+    set(v) {
+      notify('update: ' + v);
+      name = v;
+    }
+  });
+}

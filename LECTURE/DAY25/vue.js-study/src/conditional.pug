@@ -16,6 +16,11 @@ html(lang="ko-KR")
 
     #app.container(v-cloak)
 
+      button(
+        type="button"
+        v-on:click="destroyVueInstance"
+      ).delete Destory
+
       .columns
         .column.is-10-mobile.is-offset-1-mobile.is-6-tablet
           .message.is-info(v-show="!is_login")
