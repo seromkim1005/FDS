@@ -53,13 +53,15 @@
   'use strict';
 
   $('.add-content-btn').on('click', function(){
+    var $prev = $(this).prev();
     var o = global.app.metopo;
     var key = 'user_input';
-    var value = $(this).prev().val();
+    var value = $prev.val();
     // Vue 생성자 함수의 메서드인 set()을 사용하는 방법
     Vue.set(o, key, value);
     // Vue{} 인스턴스(객체) 메서드를 사용하는 방법
     // Vue{} 등록된 methods 안의 this.$set()
+    $prev.val('');
   });
 
-})(window, window.jQuery, window.Vue);
+}); //(window, window.jQuery, window.Vue);
