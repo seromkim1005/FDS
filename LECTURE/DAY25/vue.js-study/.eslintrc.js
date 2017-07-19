@@ -8,7 +8,7 @@ module.exports = {
         "jquery": true
     },
     "globals": {
-
+        "Vue": true
     },
     "extends": "eslint:recommended",
     "rules": {
