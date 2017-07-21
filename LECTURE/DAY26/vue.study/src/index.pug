@@ -14,7 +14,7 @@ html(lang="ko-KR")
 
     .project-team.container(v-cloak)
       .columns
-        .column.is-6.is-offset-3
+        .column.is-6
           h1.title.is-3 {{ team.name }}
           ul.team
             li.message.is-danger.group(v-for="(group, i) in team.group")
@@ -27,10 +27,38 @@ html(lang="ko-KR")
                   li.member(v-for="(member, n) in group")
                     strong.tag.is-danger {{ member }}
                       button.is-small.delete(
-                        type="button"
+                        role="button"
                         aria-label="제거"
-                        v-on:click="excludeMember(i,n)"
+                        @click="excludeMember(i,n)"
+                        @keyup.shift.f2="excludeMember(i,n)"
                       )
+        .column.is-6
+          h2.title.is-3 Plan 리스트
+          .plan-wrapper.columns
+            .column.is-10
+              .control
+                label(for="plan_it")
+                input.input(
+                  id="plan_it"
+                  type="input"
+                  v-model="plan_it"
+                  placeholder="Plan을 입력해주세요"
+                )
+            .column.is-2
+              button.button.is-info(
+                type="button"
+                @click="addPlanIt"
+              ) 등록
+          .columns
+            ul.plan-list.column.is-10
+              li.box.plan(v-for="content of plan")
+                label
+                  input(
+                    type="checkbox"
+                    v-model="content.done"
+                  )
+                  |  {{ content.it }}
+
 
     script(src="lib/jquery.min.js")
     script(src="//unpkg.com/vue@2.4.1/dist/vue.js")
