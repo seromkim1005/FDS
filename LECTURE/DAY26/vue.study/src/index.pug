@@ -32,7 +32,7 @@ html(lang="ko-KR")
                         @click="excludeMember(i,n)"
                         @keyup.shift.f2="excludeMember(i,n)"
                       )
-        .column.is-10-mobile.is-offset-1-mobile
+        .hide.column.is-10-mobile.is-offset-1-mobile
           h2.title.is-3 Plan 리스트
           .plan-wrapper.columns
             .column
@@ -45,7 +45,7 @@ html(lang="ko-KR")
                     id="plan_it"
                     type="input"
                     @input="updatePlanIt"
-                    v-bind:value="plan_it"
+                    :value="plan_it"
                     placeholder="Plan을 입력해주세요"
                   )
 
@@ -53,7 +53,7 @@ html(lang="ko-KR")
               button.button.is-info(
                 type="button"
                 @click="addPlanIt"
-                v-bind:disabled="is_blank"
+                :disabled="is_blank"
               ) 등록
           .columns
             ul.plan-list.column.is-10
@@ -64,7 +64,43 @@ html(lang="ko-KR")
                     v-model="content.done"
                   )
                   |  {{ content.it }}
+        .hide.column
+          ul.link-list
+            li(v-for="link in links")
+              a(
+                :href="link.href"
+                :target="link.external ? '_blank' : false"
+                :class="['yo-man',link.content,{'is-external': link.external}]"
+                v-text="link.content"
+                @click.prevent="toggleClass(link.content, $event)"
+              )
 
+          p {{ reverse_team_name }}
+          p {{ reverse_team_name }}
+        .column
+          //- h4.title.is-5 모든 숫자 데이터 출력
+          //- ul.original_numbers
+          //-   li(v-for="n in numbers")
+          //-     strong {{n}}
+          //- hr
+          //- h4.title.is-5 홀수만 필터링하여 출력
+          //- ul.filtered_numbers
+          //-   li(v-for="n in oddNumbers")
+          //-     strong {{n}}
+
+          h4.title.is-5 해야할 모든 일
+          ul.todos
+            li(v-for="doit in todos" v-show="!doit.finished")
+              label
+                input(type="checkbox" v-model="doit.finished")
+                | {{doit.what}}
+          hr
+          h4.title.is-5 수행한 일
+          ul.finished_todos
+            li(v-for="doit in finished_todos")
+              label
+                input(type="checkbox" v-model="doit.finished")
+                | {{doit.what}}
 
     script(src="lib/jquery.min.js")
     script(src="//unpkg.com/vue@2.4.1/dist/vue.js")
