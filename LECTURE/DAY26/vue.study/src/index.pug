@@ -14,7 +14,7 @@ html(lang="ko-KR")
 
     .project-team.container(v-cloak)
       .columns
-        .column.is-6
+        .hide.column.is-6
           h1.title.is-3 {{ team.name }}
           ul.team
             li.message.is-danger.group(v-for="(group, i) in team.group")
@@ -32,22 +32,28 @@ html(lang="ko-KR")
                         @click="excludeMember(i,n)"
                         @keyup.shift.f2="excludeMember(i,n)"
                       )
-        .column.is-6
+        .column.is-10-mobile.is-offset-1-mobile
           h2.title.is-3 Plan 리스트
           .plan-wrapper.columns
-            .column.is-10
-              .control
-                label(for="plan_it")
-                input.input(
-                  id="plan_it"
-                  type="input"
-                  v-model="plan_it"
-                  placeholder="Plan을 입력해주세요"
+            .column
+              .field
+                .control.is-medium(
+                  :class="{'is-loading': is_transfer}"
                 )
-            .column.is-2
-              button.button.is-info(
+                  label(for="plan_it").a11y-hidden 플랜
+                  input.input.is-medium(
+                    id="plan_it"
+                    type="input"
+                    @input="updatePlanIt"
+                    v-bind:value="plan_it"
+                    placeholder="Plan을 입력해주세요"
+                  )
+
+            .column
+              button.button.is-info.is-disabled(
                 type="button"
                 @click="addPlanIt"
+                v-bind:disabled="is_transfer"
               ) 등록
           .columns
             ul.plan-list.column.is-10
