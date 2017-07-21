@@ -34,20 +34,36 @@
         ]
       },
       is_transfer: false,
+      is_blank: true,
       plan_it: '',
-      plan: []
+      plan: [],
+      plan_keys: []
     },
     methods: {
       getFirebasePlanData(){
         $.get(firebase_db).then(data=>{
+          this.plan_keys = Object.keys(data);
           this.plan = Object.values(data);
         });
+      },
+      postFirebasePlanData(item){
+        $.post(firebase_db, JSON.stringify(item))
+          .then(data => {
+            this.getFirebasePlanData();
+            this.is_transfer = false;
+            this.is_blank = true;
+          });
       },
       excludeMember(i,n){
         this.team.group[i].splice(n, 1);
       },
       updatePlanIt(e){
-        this.plan_it = e.target.value;
+        this.plan_it = e.target.value.trim();
+        if ( this.plan_it.length > 0 ) {
+          this.is_blank = false;
+        } else {
+          this.is_blank = true;
+        }
       },
       addPlanIt(){
         let _this = this;
@@ -55,17 +71,9 @@
           it: _this.plan_it,
           done: false
         };
-        // _this.plan.push(new_plan_it);
         this.is_transfer = true;
-        this.new_plan_it = '';
-
-        // Firebase DB 통신으로 새로운 플랜 추가하기
-        $.post(firebase_db, JSON.stringify(new_plan_it)).then(data => {
-          // POST 통신이 성공하게 되면,
-          // 다시 GET 통신
-          this.getFirebasePlanData();
-          this.is_transfer = false;
-        });
+        this.plan_it = '';
+        this.postFirebasePlanData(new_plan_it);
       }
     }
   });

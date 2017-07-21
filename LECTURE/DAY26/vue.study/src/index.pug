@@ -50,14 +50,14 @@ html(lang="ko-KR")
                   )
 
             .column
-              button.button.is-info.is-disabled(
+              button.button.is-info(
                 type="button"
                 @click="addPlanIt"
-                v-bind:disabled="is_transfer"
+                v-bind:disabled="is_blank"
               ) 등록
           .columns
             ul.plan-list.column.is-10
-              li.box.plan(v-for="content of plan")
+              li.box.plan(v-for="(content,index) of plan")
                 label
                   input(
                     type="checkbox"
