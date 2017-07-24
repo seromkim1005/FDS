@@ -45,7 +45,17 @@ html(lang="ko-KR")
             caption.a11y-hidden 원피스 해적단
             thead
               tr
-                th(scope="col" v-for="key in one_piece_keys") {{ readableContent(key) }}
+                th(scope="col" v-for="key in one_piece_keys")
+                  button.table-heading-btn(
+                    :aria-label="toggleLabel(key)"
+                    @click="sortBy(key)"
+                  )
+                    span.icon.is-small
+                      i.fa(
+                        aria-hidden="true"
+                        :class="toggleClass(key)"
+                      )
+                  | {{ readableContent(key) }}
             tbody
               tr(v-for="member in filtered_one_piece")
                 td(v-for="(value,key) in member")

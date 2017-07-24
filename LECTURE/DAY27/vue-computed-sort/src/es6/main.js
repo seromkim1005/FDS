@@ -7,14 +7,19 @@
     created () {
       this.one_piece = global.one_piece;
       this.one_piece_keys = Object.keys(this.one_piece[0]);
+      this.one_piece_keys.forEach(key=>{
+        // 반응성 속성 설정
+        this.$set(this.sort_states, key, 1);
+      });
     },
     data: {
       search: '',
+      sort_by: '',
+      sort_states: {},
       one_piece_keys: [],
       one_piece: []
     },
     computed: {
-      // 사용자가 입력한 정보와 일치하는 내용을 포함한 집합을 반환하는 계산된 속성
       filtered_one_piece(){
         let onepiece = this.one_piece;
         let search   = this.search.trim();
@@ -35,6 +40,20 @@
     methods: {
       inputChangeSearch(event){
         this.search = event.target.value;
+      },
+      sortBy(key){
+        this.sort_by = key;
+        this.sort_states[key] = this.sort_states[key] * -1;
+      },
+      toggleLabel(key){
+        return this.sort_states[key] > 0 ?
+          '오름차순 정렬' :
+          '내림차순 정렬';
+      },
+      toggleClass(key){
+        return this.sort_states[key] > 0 ?
+          'fa-sort-up' :
+          'fa-sort-down';
       },
       readableContent(content){
         switch(content){
