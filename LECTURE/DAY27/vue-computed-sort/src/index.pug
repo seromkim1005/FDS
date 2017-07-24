@@ -12,6 +12,8 @@ html(lang="ko-KR")
 
   body
 
+    img.full-img(src="./assets/one-piece-alabasta.png", alt="원피스")
+
     .app.container(v-cloak)
       .columns
         .column
@@ -22,7 +24,7 @@ html(lang="ko-KR")
                 input.input(
                   id="search"
                   type="text"
-                  placeholder="검색어를 입력해주세요"
+                  placeholder="밀짚모자 해적단 정보를 입력해주세요"
                   @input="inputChangeSearch"
                   :value="search"
                 )
@@ -31,27 +33,30 @@ html(lang="ko-KR")
 
           hr
           table.table.one-piece
+            col(width="10%")
+            col(width="7%")
+            col(width="8%")
+            col(width="10%")
+            col(width="11%")
+            col(width="10%")
+            col(width="10%")
+            col(width="12%")
+            col(width="40%")
             caption.a11y-hidden 원피스 해적단
             thead
               tr
-                th(scope="col" v-for="key in one_piece_keys") {{ key }}
+                th(scope="col" v-for="key in one_piece_keys") {{ readableContent(key) }}
             tbody
-              tr(v-for="member in one_piece")
+              tr(v-for="member in filtered_one_piece")
                 td(v-for="(value,key) in member")
-                  div(v-if="key !== 'image'") {{ value }}
-                  div(v-else)
+                  div.member-info(v-if="key !== 'image' && key !== 'bio'") {{ value }}
+                  div.member-info(v-else-if="key === 'bio'" :title="value") {{ ellipseContent(value,92) }}
+                  div.member-info(v-else)
                     img(
                       :src="`./assets/${value}_tm.jpg`"
                       :alt="member.name"
                       :title="member.shortname"
                     )
-
-
-
-
-
-
-
 
     script(src="lib/jquery.min.js")
     script(src="lib/vue.js")
