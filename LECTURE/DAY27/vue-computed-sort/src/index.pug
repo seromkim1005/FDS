@@ -12,7 +12,7 @@ html(lang="ko-KR")
 
   body
 
-    .app.container
+    .app.container(v-cloak)
       .columns
         .column
           form.form
@@ -30,6 +30,24 @@ html(lang="ko-KR")
                   i.fa.fa-search
 
           hr
+          table.table.one-piece
+            caption.a11y-hidden 원피스 해적단
+            thead
+              tr
+                th(scope="col" v-for="key in one_piece_keys") {{ key }}
+            tbody
+              tr(v-for="member in one_piece")
+                td(v-for="(value,key) in member")
+                  div(v-if="key !== 'image'") {{ value }}
+                  div(v-else)
+                    img(
+                      :src="`./assets/${value}_tm.jpg`"
+                      :alt="member.name"
+                      :title="member.shortname"
+                    )
+
+
+
 
 
 
