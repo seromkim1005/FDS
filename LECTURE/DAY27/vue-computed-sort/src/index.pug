@@ -67,6 +67,11 @@ html(lang="ko-KR")
                       :alt="member.name"
                       :title="member.shortname"
                     )
+              tr(v-if="filtered_one_piece.length === 0")
+                td(:colspan="one_piece_keys.length")
+                  p.box.has-text-centered 입력한
+                    strong "{{ search }}"
+                    | 정보를 찾을 수 없습니다.
 
     script(src="lib/jquery.min.js")
     script(src="lib/vue.js")

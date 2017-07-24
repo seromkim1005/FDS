@@ -21,19 +21,26 @@
     },
     computed: {
       filtered_one_piece(){
-        let onepiece = this.one_piece;
-        let search   = this.search.trim();
+        let onepiece   = this.one_piece;
+        let search     = this.search.trim();
+        let sort       = this.sort_by;
+        let sort_state = this.sort_states[sort];
         // 조건 1. 사용자가 정보를 입력한 경우
         if ( search ) {
-          return onepiece.filter(member=>{
-            let values = Object.values( member );
-            return values.some(value=>{
-              return value.includes(search);
-            });
-          });
+          onepiece = onepiece.filter(member => Object.values(member).some(value => value.includes(search)));
         }
         // 조건 2. 사용자가 정렬 버튼을 누른 경우
-
+        if ( sort ) {
+          // 배열 onepiece를 복사한 후,
+          onepiece = onepiece.slice().sort((a,b)=>{
+            a = a[sort];
+            b = b[sort];
+            // console.log('a: %s, b: %s', a, b);
+            return (a > b ? 1 : a < b ? -1 : 0) * sort_state;
+          });
+          // 복사된 데이터(배열)을 순환 처리 비교 정렬(sort)
+          // 결과 반환
+        }
         return onepiece;
       }
     },
@@ -47,13 +54,13 @@
       },
       toggleLabel(key){
         return this.sort_states[key] > 0 ?
-          '오름차순 정렬' :
-          '내림차순 정렬';
+          '내림차순 정렬' :
+          '오름차순 정렬';
       },
       toggleClass(key){
         return this.sort_states[key] > 0 ?
-          'fa-sort-up' :
-          'fa-sort-down';
+          'fa-sort-down' :
+          'fa-sort-up';
       },
       readableContent(content){
         switch(content){
