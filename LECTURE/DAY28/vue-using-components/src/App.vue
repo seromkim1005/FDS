@@ -3,21 +3,44 @@
     .columns
       .column.is-6.is-offset-3
 
-        select(v-model="choice_component")
-          option(
-            v-for="comp in components"
-            :disabled="!comp.value"
-            :value="comp.value"
-          ) {{ comp.text }}
+        div.content
+          strong hi,
+          //- span(is="icon-github")
+          strong  vue.js
 
-        div(:is="choice_component")
-        //- div
+        span.select.is-small
+          select(v-model="choice_component")
+            option(
+              v-for="comp in components"
+              :disabled="!comp.value"
+              :value="comp.value"
+            ) {{ comp.text }}
 
-        div
-          | hi,
-          //- div(is="icon-github")
-            strong 깃헙
-          span vue js
+        hr
+
+        .box
+          div(v-if="!choice_component") 다이내믹 컴포넌트 로케이션
+          div(v-else :is="choice_component")
+
+        hr
+
+        table.table.is-bordered
+          //- caption(is="table-caption")
+          table-caption
+          thead
+            tr
+              th 부모 컴포넌트
+              th 데이터
+              th 메서드
+          tbody
+            tr
+              td no
+              td headline, subheadline
+              td getHeadline, getSubheadline
+
+        hr
+
+        app-tasks
 
 </template>
 
@@ -32,12 +55,16 @@ import Vue from 'vue';
 // Vue 파일 로드 예시
 import AppHeadline from './components/AppHeadline.vue';
 import IconGithub from './components/icon/GitHub.vue';
+import TableCaption from './components/table/TableCaption.vue';
+import AppTasks from './components/ui/AppTasks.vue';
 
 export default {
   name: 'app',
   components: {
+    AppTasks,
     AppHeadline,
-    IconGithub
+    IconGithub,
+    TableCaption
   },
   mounted () {
     // 글로벌 Vue 컴포넌트가 등록되어 있는지 검증
@@ -72,4 +99,11 @@ body
   margin: 0
 #app
   margin-top: 50px
+.a11y-hidden
+  position: absolute
+  overflow: hidden
+  width: 1px
+  height: 1px
+  margin: -1px
+  left: -9999em
 </style>
