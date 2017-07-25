@@ -33,7 +33,7 @@
           <label for="user_email" class="label">이메일</label>
           <p class="control has-icon has-icon-right">
             <!-- is-danger -->
-            <input id="user_email" class="input" type="text" placeholder="user@host.io">
+            <input v-model="user.email" id="user_email" class="input" type="text" placeholder="user@host.io">
             <!--<span class="icon is-small" aria-label="양식 오류">
               <i class="fa fa-warning" aria-hidden="true"></i>
             </span>-->
@@ -46,24 +46,25 @@
           <label class="label" for="user_career">경력 여부</label>
           <p class="control">
             <label class="radio">
-              <input id="user_career" type="radio" name="role" value="junior" checked>
+              <input v-model="user.role" id="user_career" type="radio" name="role" value="junior" checked>
               신입
             </label>
             <label class="radio">
-              <input type="radio" name="role" value="senior">
+              <input v-model="user.role" type="radio" name="role" value="senior">
               경력자
             </label>
           </p>
         </div>
 
         <!-- ///// 넘버(숫자) 인풋 예시 ///// -->
-        <div class="field">
+        <div v-if="user.role === 'senior'" class="field">
           <label for="user_senior_career" class="label">경력 연차</label>
           <p class="control">
             <input
               type="number"
+              v-model.number="user.career"
               min="1"
-              max="30"
+              max="100"
               id="user_senior_career"
               class="input"
             >
@@ -71,45 +72,50 @@
         </div>
 
         <!-- ///// 체크박스 예시 ///// -->
+        <!-- <div class="field">
+          <label for="user_field" class="label">지원 분야</label>
+          <p class="control">
+            <label class="checkbox">
+              <input v-model="user.field" id="user_field" value="plan" type="checkbox"> 웹 기획
+            </label>
+          </p>
+          <p class="control">
+            <label class="checkbox">
+              <input v-model="user.field" value="design" type="checkbox"> 웹 디자인
+            </label>
+          </p>
+          <p class="control">
+            <label class="checkbox">
+              <input v-model="user.field" value="frontend" type="checkbox"> 프론트엔드 개발
+            </label>
+          </p>
+          <p class="control">
+            <label class="checkbox">
+              <input v-model="user.field" value="backend" type="checkbox"> 백엔드 개발
+            </label>
+          </p>
+        </div> -->
+
+        <!-- ///// 셀렉트 메뉴 예시 ///// -->
         <div class="field">
           <label for="user_field" class="label">지원 분야</label>
           <p class="control">
-            <label class="checkbox">
-              <input id="user_field" value="plan" type="checkbox"> 웹 기획
-            </label>
-          </p>
-          <p class="control">
-            <label class="checkbox">
-              <input value="design" type="checkbox"> 웹 디자인
-            </label>
-          </p>
-          <p class="control">
-            <label class="checkbox">
-              <input value="frontend" type="checkbox"> 프론트엔드 개발
-            </label>
-          </p>
-          <p class="control">
-            <label class="checkbox">
-              <input value="backend" type="checkbox"> 백엔드 개발
-            </label>
-          </p>
-        </div>
-
-        <!-- ///// 셀렉트 메뉴 예시 ///// -->
-        <!--<div class="field">
-          <label for="user_field" class="label">지원 분야</label>
-          <p class="control">
             <span class="select">
-              <select id="user_field">
-                <option>지원 분야를 선택해주세요.</option>
+              <select id="user_field" v-model="user.field">
+                <option
+                  v-for="(content,index) in field_contents"
+                  :disabled="!content.value"
+                  :value="content.value"
+                  :key="'user_field-'+index">{{ content.label }}</option>
+                <!-- <option value="" disabled>지원 분야를 선택해주세요.</option>
                 <option value="plan">웹 기획</option>
                 <option value="design">웹 디자인</option>
                 <option value="frontend">프론트엔드 개발</option>
-                <option value="backend">백엔드 개발</option>
+                <option value="backend">백엔드 개발</option> -->
               </select>
             </span>
           </p>
-        </div>-->
+        </div>
 
         <!-- ///// 텍스트 영역 예시 ///// -->
         <div class="field">
@@ -128,7 +134,7 @@
         <div class="field">
           <p class="control">
             <label for="user_remember" class="checkbox">
-              <input type="checkbox" id="user_remember">
+              <input v-model="user.remember" type="checkbox" id="user_remember">
               입력한 사용자 정보를 기억합니다.
             </label>
           </p>
@@ -154,8 +160,22 @@ export default {
     return {
       user: {
         name: '',
-        message: ''
-      }
+        email: '',
+        career: 1,
+        message: '',
+        role: 'junior',
+        // field: [], // e.g) checkbox
+        field: '', // e.g) select menu
+        remember: false
+      },
+      field_contents: [
+        { value: '', label: '지원 분야를 선택해주세요.' },
+        { value: 'plan', label: '웹 기획' },
+        { value: 'design', label: '웹 디자인' },
+        { value: 'frontend', label: '프론트엔드 개발' },
+        { value: 'backend', label: '백엔드 개발' },
+        { value: 'fullstack', label: '풀스택 개발' }
+      ]
     }
   },
   methods: {
@@ -167,7 +187,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-// https://github.com/shakacode/sass-resources-loader
 html
   font-size: 100%
   background: #fff
