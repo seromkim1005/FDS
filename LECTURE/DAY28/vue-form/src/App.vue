@@ -1,95 +1,156 @@
 <template>
-  <div id="app">
-    <div class="field">
-    <label class="label">Name</label>
-    <p class="control">
-      <input class="input" type="text" placeholder="Text input">
-    </p>
-  </div>
+  <div id="app" class="container">
+    <div class="columns">
+      <div class="column is-8 is-offset-2">
+        <!-- ///// 텍스트 인풋 예시 ///// -->
+        <div class="field">
+          <label class="label" for="user_name">이름</label>
+          <p class="control">
+            <input id="user_name" class="input" type="text" placeholder="이민기">
+          </p>
+        </div>
 
-  <div class="field">
-    <label class="label">Username</label>
-    <p class="control has-icon has-icon-right">
-      <input class="input is-success" type="text" placeholder="Text input" value="bulma">
-      <span class="icon is-small">
-        <i class="fa fa-check"></i>
-      </span>
-    </p>
-    <p class="help is-success">This username is available</p>
-  </div>
+        <div class="field">
+          <label for="user_id" class="label">아이디</label>
+          <p class="control has-icon has-icon-right">
+            <!-- is-success -->
+            <input id="user_id" class="input" type="text" placeholder="lee-MK">
+            <!--<span class="icon is-small" aria-label="사용 가능">
+              <i class="fa fa-check" aria-hidden="true"></i>
+            </span>-->
+          </p>
+          <!--<p class="help is-success">입력한 아이디는 사용 가능합니다.</p>-->
+        </div>
 
-  <div class="field">
-    <label class="label">Email</label>
-    <p class="control has-icon has-icon-right">
-      <input class="input is-danger" type="text" placeholder="Email input" value="hello@">
-      <span class="icon is-small">
-        <i class="fa fa-warning"></i>
-      </span>
-    </p>
-    <p class="help is-danger">This email is invalid</p>
-  </div>
+        <!-- ///// 이메일 예시 ///// -->
+        <div class="field">
+          <label for="user_email" class="label">이메일</label>
+          <p class="control has-icon has-icon-right">
+            <!-- is-danger -->
+            <input id="user_email" class="input" type="text" placeholder="user@host.io">
+            <!--<span class="icon is-small" aria-label="양식 오류">
+              <i class="fa fa-warning" aria-hidden="true"></i>
+            </span>-->
+          </p>
+          <!--<p class="help is-danger">입력된 이메일 양식이 잘못되었습니다.</p>-->
+        </div>
 
-  <div class="field">
-    <label class="label">Subject</label>
-    <p class="control">
-      <span class="select">
-        <select>
-          <option>Select dropdown</option>
-          <option>With options</option>
-        </select>
-      </span>
-    </p>
-  </div>
+        <!-- ///// 라디오버튼 예시 ///// -->
+        <div class="field">
+          <label class="label" for="user_career">경력 여부</label>
+          <p class="control">
+            <label class="radio">
+              <input id="user_career" type="radio" name="role" value="junior" checked>
+              신입
+            </label>
+            <label class="radio">
+              <input type="radio" name="role" value="senior">
+              경력자
+            </label>
+          </p>
+        </div>
 
-  <div class="field">
-    <label class="label">Message</label>
-    <p class="control">
-      <textarea class="textarea" placeholder="Textarea"></textarea>
-    </p>
-  </div>
+        <!-- ///// 넘버(숫자) 인풋 예시 ///// -->
+        <div class="field">
+          <label for="user_senior_career" class="label">경력 연차</label>
+          <p class="control">
+            <input
+              type="number"
+              min="1"
+              max="30"
+              id="user_senior_career"
+              class="input"
+            >
+          </p>
+        </div>
 
-  <div class="field">
-    <p class="control">
-      <label class="checkbox">
-        <input type="checkbox">
-        Remember me
-      </label>
-    </p>
-  </div>
+        <!-- ///// 체크박스 예시 ///// -->
+        <div class="field">
+          <label for="user_field" class="label">지원 분야</label>
+          <p class="control">
+            <label class="checkbox">
+              <input id="user_field" value="plan" type="checkbox"> 웹 기획
+            </label>
+          </p>
+          <p class="control">
+            <label class="checkbox">
+              <input value="design" type="checkbox"> 웹 디자인
+            </label>
+          </p>
+          <p class="control">
+            <label class="checkbox">
+              <input value="frontend" type="checkbox"> 프론트엔드 개발
+            </label>
+          </p>
+          <p class="control">
+            <label class="checkbox">
+              <input value="backend" type="checkbox"> 백엔드 개발
+            </label>
+          </p>
+        </div>
 
-  <div class="field">
-    <p class="control">
-      <label class="radio">
-        <input type="radio" name="question">
-        Yes
-      </label>
-      <label class="radio">
-        <input type="radio" name="question">
-        No
-      </label>
-    </p>
-  </div>
+        <!-- ///// 셀렉트 메뉴 예시 ///// -->
+        <!--<div class="field">
+          <label for="user_field" class="label">지원 분야</label>
+          <p class="control">
+            <span class="select">
+              <select id="user_field">
+                <option>지원 분야를 선택해주세요.</option>
+                <option value="plan">웹 기획</option>
+                <option value="design">웹 디자인</option>
+                <option value="frontend">프론트엔드 개발</option>
+                <option value="backend">백엔드 개발</option>
+              </select>
+            </span>
+          </p>
+        </div>-->
 
-  <div class="field is-grouped">
-    <p class="control">
-      <button class="button is-primary">Submit</button>
-    </p>
-    <p class="control">
-      <button class="button is-link">Cancel</button>
-    </p>
-  </div>
+        <!-- ///// 텍스트 영역 예시 ///// -->
+        <div class="field">
+          <label for="user_message" class="label">내용</label>
+          <p class="control">
+            <textarea id="user_message" class="textarea" placeholder="주제와 관련 내용을 입력해주세요."></textarea>
+          </p>
+        </div>
+
+        <!-- ///// 체크박스 예시 ///// -->
+        <div class="field">
+          <p class="control">
+            <label for="user_remember" class="checkbox">
+              <input type="checkbox" id="user_remember">
+              입력한 사용자 정보를 기억합니다.
+            </label>
+          </p>
+        </div>
+
+        <div class="field is-grouped">
+          <p class="control">
+            <button type="submit" class="button is-primary">전송</button>
+          </p>
+          <p class="control">
+            <button type="reset" class="button is-link">취소</button>
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'app',
-  data () {
+  data(){
     return {
-
+      user: {
+        name: '',
+        message: ''
+      }
     }
+  },
+  methods: {
+
   }
-}
+};
 </script>
 
 <style lang="sass" scoped>
@@ -99,4 +160,7 @@ html
   background: #fff
 body
   margin: 0
+
+#app
+  padding: 2em
 </style>
