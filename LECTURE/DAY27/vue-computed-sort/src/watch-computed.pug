@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+html(lang="ko-KR")
+
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible" content="ie=edge")
+    title 계산된(Computed) VS 감시자(watch) - Vue.js 프레임워크
+
+    link(rel="shortcut icon" type="image/x-icon" href="assets/favicon.png")
+    link(rel="stylesheet" href="css/main.css")
+
+  body
+
+    #watch-example.container
+      .columns
+        .column.is-8.is-offset-2
+          p yes/no 질문을 물어보세요:
+            input(v-model="question")
+          p {{ answer }}
+          hr
+          p computed_question:
+            code {{ computed_question }}
+
+
+    script(src="//unpkg.com/axios@0.12.0/dist/axios.min.js")
+    script(src="//unpkg.com/lodash@4.13.1/lodash.min.js")
+    script(src="lib/vue.js")
+    script(src="js/watch-computed.js")
