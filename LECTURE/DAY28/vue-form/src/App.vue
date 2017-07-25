@@ -6,7 +6,13 @@
         <div class="field">
           <label class="label" for="user_name">이름</label>
           <p class="control">
-            <input id="user_name" class="input" type="text" placeholder="이민기">
+            <input
+              @input="detectEventBinding('name', $event)"
+              :value="user.name"
+              id="user_name"
+              class="input"
+              type="text"
+              placeholder="이민기">
           </p>
         </div>
 
@@ -109,7 +115,12 @@
         <div class="field">
           <label for="user_message" class="label">내용</label>
           <p class="control">
-            <textarea id="user_message" class="textarea" placeholder="주제와 관련 내용을 입력해주세요."></textarea>
+            <textarea
+              @input="detectEventBinding('message', $event)"
+              :value="user.message"
+              id="user_message"
+              class="textarea"
+              placeholder="주제와 관련 내용을 입력해주세요."></textarea>
           </p>
         </div>
 
@@ -148,7 +159,9 @@ export default {
     }
   },
   methods: {
-
+    detectEventBinding(target, e){
+      this.user[target] = e.target.value;
+    }
   }
 };
 </script>
