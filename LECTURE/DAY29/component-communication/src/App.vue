@@ -1,6 +1,9 @@
 <template lang="pug">
   #app
-    total-counter(:counters="[2, 4, 6, 10, 21]")
+    total-counter(:counters="[12, 9, -3]")
+    total-counter(:counters="[102, 1]")
+    total-counter(:counters="[0]")
+    total-counter(:counters="[12, 9, 2, 4, 7, -3]")
 
 </template>
 
@@ -10,7 +13,7 @@ import TotalCounter from './components/TotalCounter';
 export default {
   name: 'app',
   components: {
-    ParentComp, TotalCounter
+    TotalCounter
   },
   data () {
     return {

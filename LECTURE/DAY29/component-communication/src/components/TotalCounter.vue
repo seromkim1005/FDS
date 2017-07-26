@@ -2,9 +2,10 @@
   div.total-counter
     div.total-count {{ total_count }}
     counter(
-      v-for="(counter,index) in total_counters"
+      v-for="(counter,index) in mine_counters"
       :key="index"
       :init-value="counter"
+      :index="index"
       @increase="recieveInc"
       @decrease="recieveDec"
     )
@@ -22,16 +23,22 @@ export default {
   },
   data () {
     return {
-      total_count: 0,
-      total_counters: this.counters
+      // 부모로부터 전달받은 초기 데이터를 복사해서
+      // 컴포넌트 자신의 로컬 데이터로 사용한다.
+      mine_counters: this.counters.slice()
+    }
+  },
+  computed: {
+    total_count(){
+      return this.mine_counters.reduce((prev,next)=>prev+next);
     }
   },
   methods: {
-    recieveInc(){
-      console.log('recieveInc');
+    recieveInc(index, count){
+      this.mine_counters.splice(index, 1, count);
     },
-    recieveDec(){
-      console.log('recieveDec');
+    recieveDec(index, count){
+      this.mine_counters.splice(index, 1, count);
     }
   }
 }
