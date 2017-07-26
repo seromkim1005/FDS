@@ -6,8 +6,7 @@
       :key="index"
       :init-value="counter"
       :index="index"
-      @increase="recieveInc"
-      @decrease="recieveDec"
+      @changeCount="recieveCount"
     )
 </template>
 
@@ -34,10 +33,7 @@ export default {
     }
   },
   methods: {
-    recieveInc(index, count){
-      this.mine_counters.splice(index, 1, count);
-    },
-    recieveDec(index, count){
+    recieveCount(index, count){
       this.mine_counters.splice(index, 1, count);
     }
   }
@@ -45,22 +41,22 @@ export default {
 </script>
 
 <style lang="sass">
-.total-counter
-  margin: 20px
-  border: 4px solid #cacaca
-  border-radius: 9px
-  padding: 20px
+  .total-counter
+    margin: 20px
+    border: 4px solid #cacaca
+    border-radius: 9px
+    padding: 20px
 
-.total-count
-  text-align: center
-  margin:
-    left: -20px
-    right: -20px
-  padding-bottom: 10px
-  font-size: 30px
-  color: #acacac
-  background: linear-gradient(180deg, transparent 40%, rgba(#afafaf, 0.1))
-  border-bottom: 2px solid #eee
-  margin-bottom: 20px
+  .total-count
+    text-align: center
+    margin:
+      left: -20px
+      right: -20px
+    padding-bottom: 10px
+    font-size: 30px
+    color: #acacac
+    background: linear-gradient(180deg, transparent 40%, rgba(#afafaf, 0.1))
+    border-bottom: 2px solid #eee
+    margin-bottom: 20px
 </style>
 

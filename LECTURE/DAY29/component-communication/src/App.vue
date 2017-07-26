@@ -1,19 +1,22 @@
 <template lang="pug">
   #app
     total-counter(:counters="[12, 9, -3]")
-    total-counter(:counters="[102, 1]")
-    total-counter(:counters="[0]")
-    total-counter(:counters="[12, 9, 2, 4, 7, -3]")
+    //- total-counter(:counters="[102, 1]")
+    //- total-counter(:counters="[0]")
+    //- total-counter(:counters="[12, 9, 2, 4, 7, -3]")
+
+    counter
 
 </template>
 
 <script>
 import TotalCounter from './components/TotalCounter';
+import Counter from './components/Counter';
 
 export default {
   name: 'app',
   components: {
-    TotalCounter
+    TotalCounter, Counter
   },
   data () {
     return {

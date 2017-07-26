@@ -15,17 +15,20 @@ export default {
       type: Number,
       default: 0
     },
-    index: Number
+    index: {
+      type: Number,
+      default: 0
+    }
   },
   methods: {
     increaseCount(){
       this.count++;
       // 부모 컴포넌트에 이벤트를 방출
-      this.$emit('increase', this.index, this.count);
+      this.$emit('changeCount', this.index, this.count);
     },
     decreaseCount(){
       this.count--;
-      this.$emit('decrease', this.index, this.count);
+      this.$emit('changeCount', this.index, this.count);
     },
     resetCount(){ this.count = this.initValue; }
   }
