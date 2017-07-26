@@ -2,10 +2,10 @@
   #app
     total-counter(:counters="[12, 9, -3]")
     //- total-counter(:counters="[102, 1]")
-    //- total-counter(:counters="[0]")
+    total-counter(:counters="[0]")
     //- total-counter(:counters="[12, 9, 2, 4, 7, -3]")
 
-    counter
+    counter(:init-value="10")
 
 </template>
 

@@ -42,6 +42,7 @@ export default {
 
 <style lang="sass">
   .total-counter
+    min-width: 320px
     margin: 20px
     border: 4px solid #cacaca
     border-radius: 9px

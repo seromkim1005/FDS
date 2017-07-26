@@ -20,13 +20,20 @@ export default {
       default: 0
     }
   },
+  watch: {
+    count(new_value, old_value) {
+      // console.log('new: %s, old: %s', new_value, old_value);
+      // new_value > old_value ? '증가' : '감소'
+      this.$emit('changeCount', this.index, new_value);
+    }
+  },
   methods: {
-    increaseCount(){
+    increaseCount(n){
       this.count++;
       // 부모 컴포넌트에 이벤트를 방출
       this.$emit('changeCount', this.index, this.count);
     },
-    decreaseCount(){
+    decreaseCount(n){
       this.count--;
       this.$emit('changeCount', this.index, this.count);
     },
@@ -40,6 +47,7 @@ export default {
     display: flex
     justify-content: center
     align-items: center
+    min-width: 320px
     padding-bottom: 20px
     border-bottom: 4px solid #ededed
     margin-bottom: 20px
