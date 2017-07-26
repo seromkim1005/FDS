@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import EventBus from '../EventBus';
 export default {
   data () {
     return { count: this.initValue }
@@ -18,24 +19,31 @@ export default {
     index: {
       type: Number,
       default: 0
-    }
+    },
+    appMood: String
   },
   watch: {
     count(new_value, old_value) {
       // console.log('new: %s, old: %s', new_value, old_value);
       // new_value > old_value ? '증가' : '감소'
-      this.$emit('changeCount', this.index, new_value);
+      this.dispatchCount();
     }
   },
   methods: {
     increaseCount(n){
       this.count++;
       // 부모 컴포넌트에 이벤트를 방출
-      this.$emit('changeCount', this.index, this.count);
+      this.dispatchCount();
     },
     decreaseCount(n){
       this.count--;
+      this.dispatchCount();
+    },
+    dispatchCount(){
+      // 부모 컴포넌트에 이벤트 발신
       this.$emit('changeCount', this.index, this.count);
+      // 글로벌 이벤트 버스 객체에 이벤트 발신
+      EventBus.$emit('to-evb', this.index, this.count);
     },
     resetCount(){ this.count = this.initValue; }
   }

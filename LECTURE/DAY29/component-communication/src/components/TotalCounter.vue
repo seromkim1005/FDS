@@ -6,6 +6,7 @@
       :key="index"
       :init-value="counter"
       :index="index"
+      :app-mood="appMood"
       @changeCount="recieveCount"
     )
 </template>
@@ -18,7 +19,8 @@ export default {
     counters: {
       type: Array,
       required: true
-    }
+    },
+    appMood: String
   },
   data () {
     return {
