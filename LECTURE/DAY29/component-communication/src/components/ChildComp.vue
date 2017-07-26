@@ -63,19 +63,8 @@ export default {
 
 <style lang="sass" scoped>
 .component
-  display: flex
-  flex-direction: column
-  justify-content: center
-  align-items: flex-start
   margin: 1em 0 0 0
-  padding: 1.4em
-  border: 3px solid currentColor
   color: #957f65
-  h1
-    font-weight: 100
-  ul
-    list-style: none
-    padding-left: 0
 </style>
 
 

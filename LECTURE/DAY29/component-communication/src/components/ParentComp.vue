@@ -35,7 +35,7 @@ export default {
       // 수정하면 안된다.
       // 방법 1. 복사해서 사용해야 한다
       // 방법 2. 부모에게 수정 요청을 한다. (이벤트 발신)
-      message: [],
+      message: ['오늘도', '내일도', '행복하길'],
       mine: 'Parent Component'
     }
   }
@@ -44,16 +44,8 @@ export default {
 
 <style lang="sass" scoped>
 .component
-  display: flex
-  flex-direction: column
-  justify-content: center
-  align-items: flex-start
   margin: 1em
-  padding: 1.4em
-  border: 3px solid currentColor
   color: #c5af95
-  h1
-    font-weight: 100
 </style>
 
 
