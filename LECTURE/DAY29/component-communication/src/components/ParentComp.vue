@@ -15,8 +15,9 @@
       | 불행하길
     child(
       class="child-component"
-      parent-name=""
+      parent-name="ParentComponent"
       :temp="1990"
+      :prop-message="message"
     )
 </template>
 

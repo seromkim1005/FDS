@@ -20,9 +20,9 @@ export default {
 
   // props: ['parentName', 'temp', 'prop-message'],
   // 부모로부터 전달받은 속성 유형 검증 시스템
-  // 유형(Type) 검증,
-  // 필수(Required) 검증,
-  // 기본 값(Default Value) 설정
+  // 유형(type) 검증,
+  // 필수(required) 검증,
+  // 기본 값(default) 설정
   // 사용자 정의 유효성검사(validator) 설정
     // 결과가 거짓이면 Vue에서 오류 메시지 보여줌
   props: {
@@ -34,7 +34,7 @@ export default {
     },
     temp: {
       type: Number,
-      required: true
+      required: true,
     },
     propMessage: {
       type: Array,
