@@ -1,13 +1,38 @@
 <template lang="pug">
   div.total-counter
     div.total-count {{ total_count }}
-    slot
+    counter(
+      v-for="(counter,index) in total_counters"
+      :key="index"
+      :init-value="counter"
+      @increase="recieveInc"
+      @decrease="recieveDec"
+    )
 </template>
 
 <script>
+import Counter from './Counter';
 export default {
+  components: { Counter },
+  props: {
+    counters: {
+      type: Array,
+      required: true
+    }
+  },
   data () {
-    return { total_count: 0 }
+    return {
+      total_count: 0,
+      total_counters: this.counters
+    }
+  },
+  methods: {
+    recieveInc(){
+      console.log('recieveInc');
+    },
+    recieveDec(){
+      console.log('recieveDec');
+    }
   }
 }
 </script>

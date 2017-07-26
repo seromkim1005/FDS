@@ -8,14 +8,28 @@
 <script>
 export default {
   data () {
-    return { count: 0 }
+    return { count: this.initValue }
+  },
+  props: {
+    initValue: {
+      type: Number,
+      default: 0
+    }
   },
   // computed: {
   //   print_count(){ return 'Count Value is ' + this.count; }
   // },
   methods: {
-    increaseCount(){ this.count++; },
-    decreaseCount(){ this.count--; }
+    increaseCount(){
+      this.count++;
+      // 부모 컴포넌트에 이벤트를 방출
+      this.$emit('increase');
+    },
+    decreaseCount(){
+      this.count--;
+      this.$emit('decrease');
+    },
+    resetCount(){ this.count = this.initValue; }
   }
 }
 </script>

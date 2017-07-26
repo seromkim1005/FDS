@@ -2,28 +2,32 @@
   #app
     //- parent-comp(class="my-class")
     //- child-comp
-    total-counter
-      counter
-      counter
-      counter
+    total-counter(:counters="[2, 4, 6, 10, 21]")
 
 </template>
 
 <script>
 import ParentComp   from './components/ParentComp';
 import TotalCounter from './components/TotalCounter';
-import Counter      from './components/Counter';
 
 export default {
   name: 'app',
   components: {
-    ParentComp, TotalCounter, Counter
+    ParentComp, TotalCounter
   },
   data () {
     return {
 
     }
-  }
+  },
+  // methods: {
+  //   recieveInc(){
+  //     console.log('recieveInc');
+  //   },
+  //   recieveDec(){
+  //     console.log('recieveDec');
+  //   }
+  // }
 }
 </script>
 
