@@ -16,9 +16,6 @@ export default {
       default: 0
     }
   },
-  // computed: {
-  //   print_count(){ return 'Count Value is ' + this.count; }
-  // },
   methods: {
     increaseCount(){
       this.count++;
@@ -35,20 +32,20 @@ export default {
 </script>
 
 <style lang="sass">
-.counter
-  padding-bottom: 20px
-  border-bottom: 4px solid #ededed
-  margin-bottom: 20px
-  &:last-child
-    padding-bottom: 0
-    border-bottom: none
-    margin-bottom: 0
-  input
-    margin:
-      left: 10px
-      right: 10px
-    border: 4px solid #ededed
-    padding: 0.5em
+  .counter
+    padding-bottom: 20px
+    border-bottom: 4px solid #ededed
+    margin-bottom: 20px
+    &:last-child
+      padding-bottom: 0
+      border-bottom: none
+      margin-bottom: 0
+    input
+      margin:
+        left: 10px
+        right: 10px
+      border: 4px solid #ededed
+      padding: 0.5em
 </style>
 
 
