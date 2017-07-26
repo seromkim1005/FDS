@@ -15,9 +15,8 @@
       | 불행하길
     child(
       class="child-component"
-      parent-name="ParentComponent"
+      parent-name=""
       :temp="1990"
-      :prop-message="message"
     )
 </template>
 
@@ -27,6 +26,7 @@ export default {
   components: {
     'child': ChildComp
   },
+  props: ['name'],
   data () {
     return {
       // 부모에서 전달된 속성 유형이 참조형이라면
@@ -41,7 +41,7 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 .component
   display: flex
   flex-direction: column
